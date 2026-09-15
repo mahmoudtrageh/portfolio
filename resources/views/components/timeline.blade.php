@@ -40,7 +40,7 @@
                     @if (! empty($item['product_url']))
                         <a href="{{ $item['product_url'] }}" target="_blank" rel="noopener noreferrer"
                            class="underline underline-offset-2">
-                            {{ $item['product'] }} <span aria-hidden="true">↗</span>
+                            {{ $item['product'] }} <x-external-arrow />
                         </a>
                     @else
                         {{ $item['product'] }}

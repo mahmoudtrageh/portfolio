@@ -150,69 +150,19 @@
             </div>
 
             @if (count($otherProjects) > 0)
-                {{-- No case study behind these, so the card carries the name and
-                     what it was — lighter than a project card, but still a card. --}}
+                {{-- The same card as the projects above. These entries carry no
+                     metric and no case study, and the component omits both. --}}
                 <div class="mt-10">
                     <p class="eyebrow mb-5">{{ __('Also worked on') }}</p>
 
-                    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {{-- The same two columns as the projects above: a card is
+                         the same width in both sections, so they read as one
+                         family rather than two designs. --}}
+                    <div class="grid md:grid-cols-2 gap-5">
                         @foreach ($otherProjects as $other)
-                            @php
-                                $summary = trim((string) ($other['summary'] ?? ''));
-                                $stack = $other['stack'] ?? [];
-                                $year = trim((string) ($other['year'] ?? ''));
-                                $hasDetails = $summary !== '' || count($stack) > 0;
-                            @endphp
-
-                            <li data-reveal>
-                                <article class="card p-5 h-full">
-                                    <h3 class="font-display text-base leading-snug">
-                                        {{ $other['name'] }}
-                                    </h3>
-
-                                    <p class="mt-1.5 text-sm leading-relaxed"
-                                       style="color: var(--text-muted);">
-                                        {{ $other['note'] }}
-                                    </p>
-
-                                    @if ($hasDetails)
-                                        {{-- <details> rather than Alpine: it opens without JS
-                                             and is keyboard-operable on its own. --}}
-                                        <details class="group mt-3">
-                                            <summary class="inline-flex items-center gap-1.5 text-sm font-semibold cursor-pointer list-none"
-                                                     style="color: var(--accent);">
-                                                {{ __('Details') }}
-                                                <span aria-hidden="true"
-                                                      class="text-xs transition-transform group-open:rotate-180">▾</span>
-                                            </summary>
-
-                                            <div class="mt-3 pt-3 border-t" style="border-color: var(--border);">
-                                                @if ($year !== '')
-                                                    <p class="text-xs" style="color: var(--text-faint);">{{ $year }}</p>
-                                                @endif
-
-                                                @if ($summary !== '')
-                                                    <p class="mt-1 text-sm leading-relaxed"
-                                                       style="color: var(--text-muted);">
-                                                        {{ $summary }}
-                                                    </p>
-                                                @endif
-
-                                                @if (count($stack) > 0)
-                                                    <ul class="mt-3 flex flex-wrap gap-1.5"
-                                                        aria-label="{{ __('Built with') }}">
-                                                        @foreach ($stack as $tech)
-                                                            <li class="chip">{{ $tech }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                            </div>
-                                        </details>
-                                    @endif
-                                </article>
-                            </li>
+                            <x-project-card :project="$other" />
                         @endforeach
-                    </ul>
+                    </div>
                 </div>
             @endif
 
@@ -234,7 +184,7 @@
                                                 <a href="{{ $sideUrl }}" target="_blank" rel="noopener noreferrer"
                                                    class="hover:opacity-70 transition-opacity">
                                                     {{ $side['name'] }}
-                                                    <span aria-hidden="true" class="text-xs">↗</span>
+                                                    <x-external-arrow size="w-3 h-3" />
                                                 </a>
                                             @else
                                                 {{ $side['name'] }}
@@ -559,8 +509,8 @@
                             @endif
                         </span>
 
-                        <span class="shrink-0 text-xs" style="color: var(--text-faint);"
-                              aria-hidden="true">↗</span>
+                        <x-external-arrow size="w-3 h-3" class="shrink-0"
+                                          style="color: var(--text-faint);" />
                     </a>
 
                     @if (count($videos) > 0)
@@ -616,7 +566,7 @@
                                     </span>
                                     <span aria-hidden="true">·</span>
                                     <span>{{ $article['date'] }}</span>
-                                    <span class="ms-auto" aria-hidden="true">↗</span>
+                                    <x-external-arrow size="w-3 h-3" class="ms-auto" />
                                 </p>
                             </a>
                         </li>

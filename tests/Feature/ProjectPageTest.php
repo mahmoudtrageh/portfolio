@@ -32,6 +32,11 @@ function fillCaseStudy(string $slug = 'boxesvdr'): ContentSection
 
 beforeEach(function (): void {
     $this->admin = User::factory()->create();
+
+    // Case-study pages ship switched off (Settings → Enable case-study pages).
+    // Every test here is about those pages existing, so they turn it on;
+    // CaseStudySwitchTest covers the off state.
+    setSetting('case_studies_enabled', true);
 });
 
 it('serves a project page in each locale', function (string $locale): void {

@@ -111,9 +111,29 @@
                 @php
                     $onBlog = request()->routeIs('admin.posts*');
                     $onSettings = request()->routeIs('admin.settings');
+                    $onMessages = request()->routeIs('admin.messages*');
+                    $unreadMessages = App\Models\ContactMessage::query()->unread()->count();
                 @endphp
 
                 <div class="mb-4 space-y-0.5">
+                    {{-- Messages sit at the top: they are the one thing here
+                         that arrives on its own and may need answering. --}}
+                    <a href="{{ route('admin.messages') }}"
+                       class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
+                       style="{{ $onMessages
+                           ? 'background: var(--accent-soft); color: var(--accent); font-weight: 600;'
+                           : 'color: var(--text-muted);' }}"
+                       @if ($onMessages) aria-current="page" @endif>
+                        {{ __('Messages') }}
+
+                        @if ($unreadMessages > 0)
+                            <span class="shrink-0 px-2 py-0.5 rounded-full text-[0.7rem] font-semibold"
+                                  style="background: var(--accent-fill); color: var(--accent-text);">
+                                {{ $unreadMessages }}
+                            </span>
+                        @endif
+                    </a>
+
                     @if (Content::blogEnabled() || $onBlog)
                         <a href="{{ route('admin.posts') }}"
                            class="block px-3 py-2 rounded-lg text-sm transition-colors"
@@ -168,7 +188,7 @@
                        target="_blank" rel="noopener"
                        class="block transition-colors"
                        style="color: var(--text-muted);">
-                        {{ __('View site') }} <span aria-hidden="true">↗</span>
+                        {{ __('View site') }} <x-external-arrow />
                     </a>
 
                     <form method="POST" action="{{ route('admin.logout') }}">

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactMessage;
+use App\Mail\ContactMessage as ContactMessageMail;
+use App\Models\ContactMessage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 final class ContactController extends Controller
@@ -21,12 +23,33 @@ final class ContactController extends Controller
             'website' => ['nullable', 'prohibited'],
         ]);
 
-        Mail::to(config('portfolio.identity.email'))
-            ->send(new ContactMessage(
-                senderName: $data['name'],
-                senderEmail: $data['email'],
-                body: $data['message'],
-            ));
+        // Stored first: the message survives even when mail is misconfigured
+        // or the provider is down, and the dashboard is the record of it.
+        $message = ContactMessage::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'body' => $data['message'],
+            'ip' => $request->ip(),
+            'locale' => app()->getLocale(),
+        ]);
+
+        // The email is a notification on top of that, so a failure here must
+        // not lose the message or show the sender an error.
+        try {
+            Mail::to(config('portfolio.identity.email'))
+                ->send(new ContactMessageMail(
+                    senderName: $data['name'],
+                    senderEmail: $data['email'],
+                    body: $data['message'],
+                ));
+
+            $message->forceFill(['mailed' => true])->save();
+        } catch (\Throwable $e) {
+            Log::warning('Contact notification email failed.', [
+                'message_id' => $message->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return back()->with('contact.sent', true);
     }

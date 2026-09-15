@@ -60,6 +60,11 @@ return [
         // removes the toggle.
         'theme_toggle' => true,
         'theme' => 'light',
+
+        // Case-study pages. Off hides every "Read the case study" link and
+        // 404s the project pages, so half-written studies stay unpublished.
+        // The text you have written is kept either way.
+        'case_studies_enabled' => false,
     ],
 
     /*
@@ -74,8 +79,8 @@ return [
         'favicon' => '',
         'name' => ['ar' => 'محمود طه', 'en' => 'Mahmoud Taha'],
         'role' => [
-            'ar' => 'مهندس Backend — متخصص Laravel و PHP',
-            'en' => 'Backend Engineer — Laravel & PHP Specialist',
+            'ar' => 'مهندس Backend أول — Laravel و PHP',
+            'en' => 'Senior Backend Engineer — Laravel & PHP',
         ],
         'email' => 'geo.mahmoudtaha@gmail.com',
         'phone' => '+20 106 399 3558',
@@ -92,8 +97,8 @@ return [
     ],
 
     'socials' => [
-        ['label' => 'LinkedIn', 'url' => '«https://linkedin.com/in/YOUR-HANDLE»', 'icon' => 'linkedin'],
-        ['label' => 'GitHub', 'url' => '«https://github.com/YOUR-HANDLE»', 'icon' => 'github'],
+        ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/mahmoud-t-rageh/', 'icon' => 'linkedin'],
+        ['label' => 'GitHub', 'url' => 'https://github.com/mahmoudtrageh', 'icon' => 'github'],
     ],
 
     /*
@@ -138,14 +143,15 @@ return [
                 'en' => 'Multi-tenant SaaS infrastructure on Huawei Cloud.',
             ],
             'description' => [
-                'ar' => 'منصة SaaS متعددة المستأجرين بامتلك معماريتها الخلفية بالكامل: توجيه المستأجرين عبر subdomain مع بوابات وصول auth_request، إدارة SSL/TLS عبر شهادات Cloudflare Origin، واستراتيجية بيئات موزّعة على ثلاثة سيرفرات AlmaLinux/nginx (dev، staging، production).',
-                'en' => 'A multi-tenant SaaS platform whose backend architecture I own end to end: subdomain-based tenant routing with auth_request access gates, SSL/TLS management via Cloudflare Origin Certificates, and an environment strategy across three AlmaLinux/nginx servers (dev, staging, production).',
+                'ar' => 'بناء البنية متعددة المستأجرين التي تدير توجيه المستأجرين وشهادات SSL عبر سيرفرات dev و staging و production.',
+                'en' => 'Built the multi-tenant infrastructure powering tenant routing and SSL across dev, staging, and production servers.',
             ],
             'metric' => [
                 'ar' => 'هجرة دومين إنتاجية كاملة (withaqvdr.com ← boxesvdr.com) عبر ٣ سيرفرات حيّة، بتحويل nginx و DNS بدون أي توقف للخدمة.',
                 'en' => 'A full production domain migration (withaqvdr.com → boxesvdr.com) across 3 live servers, with a zero-downtime nginx and DNS cutover.',
             ],
             'stack' => ['Laravel', 'Nginx', 'Huawei Cloud', 'Cloudflare', 'AlmaLinux', 'GitHub Actions'],
+            'url' => 'https://boxesvdr.com',
             'highlights' => [
                 [
                     'ar' => 'توجيه المستأجرين عبر subdomain مع بوابات وصول auth_request على مستوى الـ nginx.',
@@ -177,18 +183,19 @@ return [
             'year' => ['ar' => '٢٠٢٥', 'en' => '2025'],
             'status' => ['ar' => 'مُسلّم', 'en' => 'Delivered'],
             'tagline' => [
-                'ar' => 'نظام إدارة مراكز غسيل، مبني على تغطية اختبارات جادة.',
-                'en' => 'A washing-centre management system built on serious test coverage.',
+                'ar' => 'نظام إدارة مراكز غسيل سيارات، بأكثر من ٥٠٠ ألف تحميل للتطبيق.',
+                'en' => 'A car wash management system with 500K+ app downloads.',
             ],
             'description' => [
-                'ar' => 'الواجهة الخلفية لنظام إدارة مراكز الغسيل، مع مجموعة اختبارات تتجاوز ٦٨٤ اختبارًا، وخطوط CI/CD مبنية بـ Jenkins و ArgoCD، ومراقبة أداء عبر Datadog APM.',
-                'en' => 'The backend for a washing-centre management system, with a suite of 684+ tests, CI/CD pipelines built on Jenkins and ArgoCD, and performance monitoring through Datadog APM.',
+                'ar' => 'بناء الواجهة الخلفية لنظام إدارة مراكز غسيل سيارات بأكثر من ٥٠٠ ألف تحميل للتطبيق، ضمن فريق هندسي يضم أكثر من ١٠٠ شخص، مع خطوط CI/CD عبر Jenkins و ArgoCD.',
+                'en' => 'Built the backend for a car wash management system with 500K+ app downloads, working as part of a 100+ person engineering team on select features, with CI/CD pipelines using Jenkins and ArgoCD.',
             ],
             'metric' => [
                 'ar' => 'مجموعة اختبارات من ٦٨٤+ اختبار تغطي منطق النظام، مع خط CI/CD كامل ومراقبة APM في الإنتاج.',
                 'en' => 'A 684+ test suite covering the system’s logic, backed by a full CI/CD pipeline and APM monitoring in production.',
             ],
             'stack' => ['Laravel', 'Jenkins', 'ArgoCD', 'Docker', 'Datadog'],
+            'url' => 'https://petroapp.com',
             'highlights' => [
                 [
                     'ar' => 'بناء الواجهة الخلفية لنظام إدارة مراكز الغسيل مع مجموعة اختبارات ٦٨٤+.',
@@ -212,18 +219,19 @@ return [
             'year' => ['ar' => '٢٠٢٥', 'en' => '2025'],
             'status' => ['ar' => 'على Production', 'en' => 'In production'],
             'tagline' => [
-                'ar' => 'بنية إنتاج متعددة المواقع، مصمّمة ومُدارة بالكامل.',
-                'en' => 'Multi-site production infrastructure, architected and operated.',
+                'ar' => 'بنية إنتاج متعددة المواقع، تخدم ٢٬٧٥٦ اشتراكًا نشطًا.',
+                'en' => 'Multi-site production infrastructure serving 2,756 active subscriptions.',
             ],
             'description' => [
-                'ar' => 'منصة متعددة المواقع صمّمت بنيتها الإنتاجية وبديرها بنفسي — إعداد Nginx و PHP-FPM و PM2، وإدارة شهادات SSL عبر عدة نطاقات فرعية.',
-                'en' => 'A multi-site platform whose production infrastructure I architected and still operate — Nginx, PHP-FPM and PM2 configuration, with SSL managed across multiple subdomains.',
+                'ar' => 'بناء وإدارة البنية الإنتاجية لمنصة متعددة المواقع، تخدم حاليًا ٢٬٧٥٦ اشتراكًا نشطًا.',
+                'en' => 'Built and manage the production infrastructure for a multi-site platform, currently serving 2,756 active subscriptions.',
             ],
             'metric' => [
                 'ar' => 'بنية إنتاجية واحدة بتخدم عدة مواقع، مع SSL مُدار عبر نطاقات فرعية متعددة.',
                 'en' => 'A single production stack serving multiple sites, with SSL managed across multiple subdomains.',
             ],
             'stack' => ['Laravel', 'Next.js', 'MySQL', 'Nginx', 'PM2'],
+            'url' => 'https://linkatik.com',
             'highlights' => [
                 [
                     'ar' => 'تصميم وإدارة البنية الإنتاجية لمنصة متعددة المواقع.',
@@ -238,7 +246,7 @@ return [
         [
             'slug' => 'matx',
             'featured' => true,
-            'name' => ['ar' => 'Matx', 'en' => 'Matx'],
+            'name' => ['ar' => 'MatX', 'en' => 'MatX'],
             'category' => ['ar' => 'تجارة إلكترونية', 'en' => 'E-commerce'],
             'year' => ['ar' => '٢٠٢٤', 'en' => '2024'],
             'status' => ['ar' => 'مُسلّم', 'en' => 'Delivered'],
@@ -247,14 +255,15 @@ return [
                 'en' => 'A multi-vendor e-commerce platform with a 3D product model pipeline.',
             ],
             'description' => [
-                'ar' => 'منصة تجارة إلكترونية متعددة البائعين بخصائص مدعومة بالذكاء الاصطناعي، من ضمنها خط معالجة لنماذج المنتجات ثلاثية الأبعاد. بنيت طبقة API الخلفية اللي بتستهلكها واجهة Next.js ولوحة تحكم البائعين.',
-                'en' => 'A multi-vendor e-commerce platform with AI-powered features, including a 3D product model pipeline. I built the backend API layer consumed by a Next.js storefront and vendor dashboard.',
+                'ar' => 'هندسة منصة تجارة إلكترونية متعددة البائعين بخصائص مدعومة بالذكاء الاصطناعي، منها خط معالجة لنماذج المنتجات ثلاثية الأبعاد، مع بناء طبقة الـ API التي تستهلكها واجهة Next.js ولوحة البائعين.',
+                'en' => 'Engineered a multi-vendor e-commerce platform with AI-powered features, including a 3D product model pipeline. Built the backend API layer consumed by a Next.js storefront and vendor dashboard.',
             ],
             'metric' => [
                 'ar' => 'طبقة API واحدة بتخدم واجهة المتجر ولوحة تحكم البائعين، مع خط نماذج ثلاثية الأبعاد للمنتجات.',
                 'en' => 'One API layer serving both the storefront and the vendor dashboard, plus a 3D product model pipeline.',
             ],
             'stack' => ['Laravel', 'Next.js', 'MySQL'],
+            'url' => 'https://matxapp.com',
             'highlights' => [
                 [
                     'ar' => 'هندسة منصة تجارة إلكترونية متعددة البائعين بخصائص مدعومة بالذكاء الاصطناعي.',
@@ -269,7 +278,7 @@ return [
         [
             'slug' => 'umrahbadl',
             'featured' => false,
-            'name' => ['ar' => 'UmrahBadl', 'en' => 'UmrahBadl'],
+            'name' => ['ar' => 'Umrah Badl', 'en' => 'Umrah Badl'],
             'category' => ['ar' => 'سفر', 'en' => 'Travel'],
             'year' => ['ar' => '٢٠٢٣', 'en' => '2023'],
             'status' => ['ar' => 'مُسلّم', 'en' => 'Delivered'],
@@ -278,8 +287,8 @@ return [
                 'en' => 'A Hajj/Umrah application with a Flutter client.',
             ],
             'description' => [
-                'ar' => 'قيادة تطوير الواجهة الخلفية لتطبيق سفر للحج والعمرة، بتكامل مباشر مع تطبيق جوال مبني بـ Flutter.',
-                'en' => 'Led backend development for a Hajj/Umrah travel application, integrating directly with a Flutter mobile client.',
+                'ar' => 'قيادة تطوير الواجهة الخلفية لتطبيق سفر للحج والعمرة، بالتكامل مع تطبيق Flutter للهواتف.',
+                'en' => 'Led backend development for a Hajj/Umrah travel application, integrating with a Flutter mobile client.',
             ],
             'metric' => [
                 'ar' => 'واجهة خلفية واحدة بتخدم عملاء الويب وتطبيق Flutter المحمول.',
@@ -291,7 +300,7 @@ return [
         [
             'slug' => 'asp-de-paris',
             'featured' => false,
-            'name' => ['ar' => 'ASP de Paris', 'en' => 'ASP de Paris'],
+            'name' => ['ar' => 'ASP Paris', 'en' => 'ASP Paris'],
             'category' => ['ar' => 'API', 'en' => 'API'],
             'year' => ['ar' => '٢٠٢٣', 'en' => '2023'],
             'status' => ['ar' => 'مُسلّم', 'en' => 'Delivered'],
@@ -300,7 +309,7 @@ return [
                 'en' => 'A Laravel API with automated deployment to cPanel.',
             ],
             'description' => [
-                'ar' => 'تطوير ونشر واجهة Laravel API مع خط CI/CD آلي عبر GitHub Actions لاستضافة cPanel.',
+                'ar' => 'تطوير ونشر واجهة برمجية على Laravel مع CI/CD مؤتمت عبر GitHub Actions إلى استضافة cPanel.',
                 'en' => 'Developed and deployed a Laravel API with automated CI/CD via GitHub Actions to cPanel hosting.',
             ],
             'metric' => [
@@ -308,6 +317,7 @@ return [
                 'en' => 'Fully automated deployment to cPanel through GitHub Actions.',
             ],
             'stack' => ['Laravel', 'cPanel', 'GitHub Actions'],
+            'url' => 'https://aspparis.com',
             'highlights' => [],
         ],
     ],
@@ -380,6 +390,30 @@ return [
                 [
                     'ar' => 'تصميم خطوط CI/CD عبر GitHub Actions لنشر قابل للتكرار عبر dev و staging و production.',
                     'en' => 'Designed CI/CD pipelines via GitHub Actions for repeatable deployments across dev, staging and production.',
+                ],
+            ],
+        ],
+        [
+            'org' => ['ar' => 'MatX — عن بُعد / عمل حر', 'en' => 'MatX, Remote / Freelance'],
+            'role' => ['ar' => 'مهندس Backend مستقل', 'en' => 'Freelance Backend Engineer'],
+            'period' => ['ar' => 'مايو ٢٠٢٥ — فبراير ٢٠٢٦', 'en' => 'May 2025 — Feb 2026'],
+            'current' => false,
+            'summary' => [
+                'ar' => 'هندسة المعمارية الخلفية لمنصة تجارة إلكترونية متعددة البائعين.',
+                'en' => 'Engineered the backend architecture for a multi-vendor e-commerce platform.',
+            ],
+            'points' => [
+                [
+                    'ar' => 'هندسة المعمارية الخلفية لمنصة تجارة إلكترونية متعددة البائعين باستخدام Laravel و MySQL.',
+                    'en' => 'Engineered backend architecture for a multi-vendor e-commerce platform using Laravel and MySQL.',
+                ],
+                [
+                    'ar' => 'بناء خدمات خلفية تدعم خصائص مدعومة بالذكاء الاصطناعي وخط معالجة لنماذج المنتجات ثلاثية الأبعاد.',
+                    'en' => 'Implemented backend services supporting AI-powered product features and a 3D product model pipeline.',
+                ],
+                [
+                    'ar' => 'العمل عبر التطوير الخلفي والتسليم الإنتاجي لبناء المنصة وإطلاقها.',
+                    'en' => 'Worked across backend development and production delivery to build and ship the platform.',
                 ],
             ],
         ],
@@ -576,7 +610,7 @@ return [
         // Also shown elsewhere on the site; listed here so the freelancing tab
         // is the complete picture of independent work.
         [
-            'name' => ['ar' => 'Matx', 'en' => 'Matx'],
+            'name' => ['ar' => 'MatX', 'en' => 'MatX'],
             'platform' => '',
             'period' => ['ar' => '٢٠٢٤', 'en' => '2024'],
             'summary' => [
@@ -589,31 +623,8 @@ return [
             'review' => ['ar' => '', 'en' => ''],
             'url' => '',
         ],
-        [
-            'name' => ['ar' => 'Dsyncsolutions', 'en' => 'Dsyncsolutions'],
-            'platform' => '',
-            'period' => ['ar' => '٢٠٢٣', 'en' => '2023'],
-            'summary' => ['ar' => 'نظام جرد للشركات.', 'en' => 'A corporate inventory system.'],
-            'stack' => ['Laravel', 'MySQL'],
-            'rating' => '',
-            'client' => '',
-            'review' => ['ar' => '', 'en' => ''],
-            'url' => '',
-        ],
-        [
-            'name' => ['ar' => 'Longimanus Liveaboard', 'en' => 'Longimanus Liveaboard'],
-            'platform' => '',
-            'period' => ['ar' => '٢٠٢٢', 'en' => '2022'],
-            'summary' => [
-                'ar' => 'واجهة خلفية لمركز غوص، لإدارة الرحلات والحجوزات.',
-                'en' => 'A diving-centre backend, managing trips and bookings.',
-            ],
-            'stack' => ['Laravel', 'MySQL'],
-            'rating' => '',
-            'client' => '',
-            'review' => ['ar' => '', 'en' => ''],
-            'url' => '',
-        ],
+        // Dsyncsolutions and Longimanus live in 'other_projects' instead, so
+        // they are listed once — matching the CV's "Additional projects".
     ],
 
     /*
@@ -896,27 +907,37 @@ return [
     'skills' => [
         [
             'group' => ['ar' => 'اللغات', 'en' => 'Languages'],
-            'items' => ['PHP', 'JavaScript'],
+            // Version numbers are omitted: skill chips render identically in
+            // both locales, and Latin digits are not allowed on the Arabic page.
+            'items' => ['PHP', 'JavaScript', 'SQL', 'Bash'],
         ],
         [
             'group' => ['ar' => 'الأطر', 'en' => 'Frameworks'],
-            'items' => ['Laravel', 'jQuery', 'Bootstrap', 'Tailwind CSS'],
+            'items' => ['Laravel', 'Livewire', 'jQuery', 'Bootstrap', 'Tailwind CSS'],
         ],
         [
             'group' => ['ar' => 'قواعد البيانات', 'en' => 'Databases'],
-            'items' => ['MySQL', 'PostgreSQL'],
+            'items' => ['MySQL', 'PostgreSQL', 'Redis', 'Query optimisation'],
         ],
         [
             'group' => ['ar' => 'واجهات برمجية', 'en' => 'APIs'],
-            'items' => ['RESTful API design', 'API integration'],
+            'items' => ['RESTful API design', 'API integration', 'Webhooks'],
+        ],
+        [
+            'group' => ['ar' => 'المعمارية', 'en' => 'Architecture'],
+            'items' => ['Multi-tenant SaaS', 'Microservices', 'Queues', 'Caching'],
         ],
         [
             'group' => ['ar' => 'البنية التحتية', 'en' => 'Infrastructure'],
-            'items' => ['Docker', 'CI/CD', 'AWS', 'Jenkins', 'Nginx'],
+            'items' => ['Docker', 'Nginx', 'Linux', 'AWS', 'Huawei Cloud', 'cPanel'],
         ],
         [
-            'group' => ['ar' => 'المراقبة', 'en' => 'Monitoring'],
-            'items' => ['Datadog'],
+            'group' => ['ar' => 'النشر والأتمتة', 'en' => 'CI/CD & DevOps'],
+            'items' => ['GitHub Actions', 'Jenkins', 'ArgoCD', 'Git'],
+        ],
+        [
+            'group' => ['ar' => 'الاختبار والمراقبة', 'en' => 'Testing & Monitoring'],
+            'items' => ['PHPUnit', 'Pest', 'Datadog', 'Debugging'],
         ],
         [
             'group' => ['ar' => 'أدوات الذكاء الاصطناعي', 'en' => 'AI tooling'],
@@ -924,7 +945,7 @@ return [
         ],
         [
             'group' => ['ar' => 'ممارسات', 'en' => 'Practices'],
-            'items' => ['Unit Testing', 'Debugging', 'Git'],
+            'items' => ['Agile', 'Scrum', 'Code review', 'Technical documentation'],
         ],
     ],
 

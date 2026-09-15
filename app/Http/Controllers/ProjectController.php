@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Support\Content;
 use App\Support\Markdown;
+use App\Support\Settings;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,6 +24,12 @@ final class ProjectController extends Controller
 
     public function __invoke(string $locale, string $slug): View
     {
+        // Switched off in the dashboard means the pages do not exist, not that
+        // they are merely unlinked — otherwise the URLs stay reachable.
+        if (! Settings::caseStudiesEnabled()) {
+            throw new NotFoundHttpException;
+        }
+
         $projects = Content::list('projects');
 
         $index = null;

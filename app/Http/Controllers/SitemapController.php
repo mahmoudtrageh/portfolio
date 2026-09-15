@@ -15,6 +15,7 @@ final class SitemapController extends Controller
     {
         $urls = [];
         $blog = Content::blogEnabled();
+        $caseStudies = Settings::caseStudiesEnabled();
 
         foreach (Settings::activeLocales() as $locale) {
             // The site itself is one page per locale; anchors are not entries.
@@ -36,7 +37,9 @@ final class SitemapController extends Controller
             app()->setLocale($locale);
 
             foreach (Content::list('projects') as $project) {
-                if (! ProjectController::hasCaseStudy($project)) {
+                // Never advertise a URL that 404s: with case studies switched
+                // off, the project pages are gone.
+                if (! $caseStudies || ! ProjectController::hasCaseStudy($project)) {
                     continue;
                 }
 

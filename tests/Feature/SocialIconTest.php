@@ -9,9 +9,12 @@ it('renders a brand mark for each known social icon', function (): void {
 });
 
 it('falls back to the arrow for an unknown icon', function (): void {
+    // The fallback is an SVG arrow rather than the "↗" character, which
+    // renders as a colour emoji and ignores the surrounding text colour.
     expect(Blade::render('<x-social-icon name="myspace" />'))
-        ->toContain('↗')
-        ->not->toContain('<svg');
+        ->toContain('<svg')
+        ->toContain('M7 17 17 7M9 7h8v8')
+        ->not->toContain('↗');
 });
 
 it('shows the icons on the live page', function (): void {

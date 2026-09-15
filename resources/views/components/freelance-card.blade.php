@@ -28,7 +28,7 @@
                 @if ($url !== '')
                     <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
                        class="hover:opacity-70 transition-opacity">
-                        {{ $job['name'] }} <span aria-hidden="true" class="text-xs">↗</span>
+                        {{ $job['name'] }} <x-external-arrow size="w-3 h-3" />
                     </a>
                 @else
                     {{ $job['name'] }}

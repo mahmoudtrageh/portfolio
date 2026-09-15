@@ -47,6 +47,12 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
 
         Route::get('/settings', [DashboardController::class, 'settings'])->name('settings');
 
+        // Contact form submissions. Declared before the {section} catch-all.
+        Route::get('/messages', [DashboardController::class, 'messages'])->name('messages');
+
+        Route::post('/messages/{message}', [DashboardController::class, 'message'])
+            ->name('messages.update');
+
         Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::get('/{section}', [DashboardController::class, 'section'])->name('section');

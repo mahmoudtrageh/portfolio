@@ -30,5 +30,5 @@
         <path d="{{ $path }}"/>
     </svg>
 @else
-    <span aria-hidden="true">↗</span>
+    <x-external-arrow />
 @endif

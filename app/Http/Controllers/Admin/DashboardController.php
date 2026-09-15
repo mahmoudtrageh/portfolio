@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
 use App\Models\ContentSection;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 final class DashboardController extends Controller
 {
@@ -30,6 +33,33 @@ final class DashboardController extends Controller
     public function settings(): View
     {
         return view('admin.settings');
+    }
+
+    /**
+     * Messages sent through the contact form, newest first.
+     */
+    public function messages(): View
+    {
+        return view('admin.messages', [
+            'messages' => ContactMessage::query()->newest()->paginate(20),
+            'unread' => ContactMessage::query()->unread()->count(),
+        ]);
+    }
+
+    /**
+     * Mark one message read, or delete it.
+     */
+    public function message(Request $request, ContactMessage $message): RedirectResponse
+    {
+        if ($request->boolean('delete')) {
+            $message->delete();
+
+            return back()->with('status', __('Message deleted.'));
+        }
+
+        $message->markRead();
+
+        return back();
     }
 
     /**

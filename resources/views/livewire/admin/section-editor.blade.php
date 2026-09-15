@@ -166,7 +166,7 @@
                                                rel="noopener noreferrer"
                                                class="mb-2 inline-block text-xs underline underline-offset-2"
                                                style="color: var(--accent);">
-                                                {{ __('View current file') }} ↗
+                                                {{ __('View current file') }} <x-external-arrow size="w-3 h-3" />
                                             </a>
                                         @else
                                             <p class="mb-2 text-xs" style="color: var(--text-faint);">

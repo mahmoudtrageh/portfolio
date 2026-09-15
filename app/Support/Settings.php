@@ -88,13 +88,25 @@ final class Settings
     }
 
     /**
+     * Whether project case-study pages are published.
+     *
+     * Off hides every "Read the case study" link and 404s the project pages,
+     * so a half-written study is never reachable. Defaults to off: a case
+     * study only exists once somebody has written it.
+     */
+    public static function caseStudiesEnabled(): bool
+    {
+        return self::bool('case_studies_enabled', false);
+    }
+
+    /**
      * A switch, defaulting to on when it has never been set.
      */
-    private static function bool(string $key): bool
+    private static function bool(string $key, bool $default = true): bool
     {
         $value = Content::get(self::SECTION.'.'.$key);
 
-        return $value === null ? true : (bool) $value;
+        return $value === null ? $default : (bool) $value;
     }
 
     /**

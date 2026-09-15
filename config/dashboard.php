@@ -117,6 +117,14 @@ return [
                     ],
                 ],
                 'spoken' => ['type' => 'text', 'label' => ['ar' => 'اللغات', 'en' => 'Languages spoken']],
+                'case_studies_enabled' => [
+                    'type' => 'bool',
+                    'label' => ['ar' => 'تفعيل صفحات دراسات الحالة', 'en' => 'Enable case-study pages'],
+                    'hint' => [
+                        'ar' => 'عند الإيقاف يختفي زر «اقرأ دراسة الحالة» من كل البطاقات، وصفحات المشاريع تُرجع 404. النصوص المكتوبة تبقى محفوظة وتظهر فور إعادة التفعيل.',
+                        'en' => 'Off removes the "Read the case study" link from every card, and the project pages 404. Anything you have written is kept, and appears again the moment you switch it back on.',
+                    ],
+                ],
                 'blog_enabled' => [
                     'type' => 'bool',
                     'label' => ['ar' => 'تفعيل المدوّنة', 'en' => 'Enable the blog'],
