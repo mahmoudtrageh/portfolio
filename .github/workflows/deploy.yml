@@ -79,7 +79,7 @@ jobs:
             exit 0
           fi
 
-          echo "::warning title=composer install needed::composer.lock changed. Run 'cd ~/public_html/mahmoudtaha.dev && composer install --no-dev --optimize-autoloader' in cPanel Terminal, or production keeps running the old packages."
+          echo "::warning title=composer install needed::composer.lock changed. Run 'cd ~/mahmoudtaha.dev && composer install --no-dev --optimize-autoloader' in cPanel Terminal, or production keeps running the old packages."
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
@@ -88,7 +88,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          server-dir: /public_html/mahmoudtaha.dev/
+          server-dir: /mahmoudtaha.dev/
           # Incremental sync state, so only changed files transfer.
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
