@@ -1,0 +1,512 @@
+@import 'tailwindcss';
+
+@source '../views';
+
+/* Dark mode is driven by a `dark` class on <html>, set before first paint. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Latin-first by default; the RTL override below puts Tajawal in front for
+       Arabic pages, so each locale gets the face it was chosen for rather than
+       whichever family happens to lead a shared stack. */
+    --font-sans: 'Inter', 'Tajawal', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji';
+    /* Display serif for Latin headings — the one typographic move the page
+       leans on. Bitter has no Arabic, so Tajawal sits behind it in the stack
+       and RTL headings are pushed to bold in the base layer below. */
+    --font-display: 'Bitter', 'Tajawal', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/*
+| Colour tokens
+|
+| A warm paper ground rather than white, thin ink-coloured hairlines instead of
+| shadows, and a single warm-orange accent sampled from the page's own
+| confetti. Dark mode is a tuned palette, not an inversion: the surface lifts
+| and the accent brightens to hold contrast.
+*/
+@layer base {
+    :root {
+        --bg: oklch(0.955 0.010 85);
+        --bg-elevated: oklch(0.972 0.008 85);
+        --bg-sunken: oklch(0.932 0.013 85);
+        /* Ink, not black. Near-black on near-white measures about 15:1, which
+           is where long-form reading starts to feel harsh; this lands at 12:1
+           — still past the 7:1 AAA bar, easier on the eye for a page this
+           text-heavy. */
+        --text: oklch(0.3 0.016 60);
+        --text-muted: oklch(0.45 0.016 60);
+        --text-faint: oklch(0.52 0.014 60);
+        --border: oklch(0.84 0.012 70);
+        --border-strong: oklch(0.72 0.016 70);
+        /* Sampled from the site's own orange diamond (#EF852E = oklch 0.72
+           0.16 55). That exact shade reaches only 2.35:1 on the cream ground,
+           so text and small marks use a darkened L=0.52 (4.7:1, AA), while
+           --accent-fill keeps the true colour for large filled areas. */
+        --accent: oklch(0.52 0.16 55);
+        --accent-hover: oklch(0.46 0.16 55);
+        --accent-fill: oklch(0.72 0.16 55);
+        --accent-fill-hover: oklch(0.66 0.17 55);
+        --accent-soft: oklch(0.94 0.04 55);
+        /* White on this orange is 2.6:1 and fails; near-black is 6.3:1. */
+        --accent-text: oklch(0.22 0.02 60);
+        --ring: oklch(0.52 0.16 55 / 0.45);
+
+        /* Dot-grid texture: an ink tint, faint enough to read as paper
+           grain rather than as content. */
+        --dot: oklch(0.24 0.014 60 / 0.13);
+
+        /* Decorative confetti — same hues in both themes, lifted in dark so
+           they hold their colour against the darker ground. */
+        --shape-blue: oklch(0.68 0.11 235);
+        --shape-orange: oklch(0.72 0.16 55);
+        --shape-green: oklch(0.66 0.15 150);
+        --shape-pink: oklch(0.74 0.11 5);
+    }
+
+    .dark {
+        /* Lifted off pure black and kept warm, so the ground reads as dark
+           paper rather than a void — the surface a bright accent and white
+           text would otherwise glare against. */
+        --bg: oklch(0.235 0.014 70);
+        --bg-elevated: oklch(0.275 0.016 70);
+        /* Only a step below --bg: dropping further pushed text on this surface
+           back to 13.4:1, undoing the softening everywhere else. */
+        --bg-sunken: oklch(0.218 0.013 70);
+        /* Softened the same way as the light theme: 12:1 rather than the
+           near-16:1 of white-on-black. */
+        --text: oklch(0.9 0.01 85);
+        --text-muted: oklch(0.7 0.014 85);
+        --text-faint: oklch(0.65 0.013 85);
+        --border: oklch(0.37 0.016 70);
+        --border-strong: oklch(0.47 0.018 70);
+        /* Against the dark ground the sampled orange already clears AA at
+           7:1, so it needs no darkening here. */
+        --accent: oklch(0.76 0.15 55);
+        --accent-hover: oklch(0.83 0.13 55);
+        --accent-fill: oklch(0.76 0.15 55);
+        --accent-fill-hover: oklch(0.83 0.13 55);
+        --accent-soft: oklch(0.32 0.06 55);
+        --accent-text: oklch(0.18 0.02 60);
+        --ring: oklch(0.76 0.15 55 / 0.5);
+
+        /* Lighter and slightly stronger, so the grain survives the darker
+           ground without glowing. */
+        --dot: oklch(0.95 0.008 85 / 0.11);
+
+        --shape-blue: oklch(0.74 0.12 235);
+        --shape-orange: oklch(0.78 0.16 55);
+        --shape-green: oklch(0.73 0.15 150);
+        --shape-pink: oklch(0.79 0.12 5);
+    }
+
+    html {
+        scroll-behavior: smooth;
+        /* Anchor targets clear the sticky header. */
+        scroll-padding-top: 5rem;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    /* Keeps Alpine-controlled elements hidden until Alpine initialises. */
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-feature-settings: 'kern', 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Arabic pages lead with Tajawal, so the Latin inside Arabic sentences
+       ("مهندس Backend") comes from the same family rather than jumping to
+       Inter mid-line. */
+    [dir='rtl'] body {
+        font-family: 'Tajawal', 'Inter', ui-sans-serif, system-ui, sans-serif,
+            'Apple Color Emoji', 'Segoe UI Emoji';
+        /* Arabic sits lower on the line and reads better with more leading. */
+        line-height: 1.85;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+
+    ::selection {
+        background: var(--accent);
+        color: var(--accent-text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    /* Shared surface: a hairline box on the paper ground, no shadow. */
+    .card {
+        background-color: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .card:hover {
+        border-color: var(--border-strong);
+    }
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        background-color: var(--bg);
+        color: var(--text-muted);
+        border-radius: 9999px;
+        padding: 0.2rem 0.65rem;
+        font-size: 0.78125rem;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
+
+    /* Dot-grid texture for panels that should read as a distinct surface.
+       Sits behind the content via a pseudo-element so it never tints the text,
+       and fades out at the edges so the dots stop short of the border rather
+       than colliding with it. */
+    .dotted {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .dotted::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+        background-size: 16px 16px;
+        /* Two stops, so the texture is densest in the middle of the panel. */
+        mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%);
+    }
+
+    /* Hero layout when a header image is set. Defined here rather than as
+       Tailwind utilities in the template: the classes would sit inside a PHP
+       conditional, where Tailwind's scanner cannot see them, and the CSS would
+       never be generated. */
+    .hero-split {
+        display: grid;
+        gap: 2.5rem;
+        align-items: center;
+    }
+
+    @media (width >= 64rem) {
+        .hero-split {
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3.5rem;
+        }
+    }
+
+    /* Theme-paired logos. Both are in the DOM and CSS shows one, so the swap
+       happens with the theme toggle and survives a cached page. These only
+       exist when a dark logo was uploaded; a lone logo carries no class and
+       shows in both themes. */
+    .logo-dark {
+        display: none;
+    }
+
+    .dark .logo-light {
+        display: none;
+    }
+
+    .dark .logo-dark {
+        display: block;
+    }
+
+    /* Availability pill.
+       Two halves inside one rounded outline: the status, which carries the
+       live dot and the full text colour, and the quieter location behind a
+       divider. Split this way the eye lands on "available" first. */
+    .status-pill {
+        display: inline-flex;
+        align-items: stretch;
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        background: var(--bg-elevated);
+        font-size: 0.875rem;
+        line-height: 1.4;
+        overflow: hidden;
+    }
+
+    .status-pill__state,
+    .status-pill__where {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.9rem;
+    }
+
+    .status-pill__state {
+        color: var(--text);
+        font-weight: 500;
+    }
+
+    .status-pill__where {
+        color: var(--text-muted);
+        /* A hairline rather than a bullet: it divides the two halves without
+           adding another glyph to read. Logical, so it flips in RTL. */
+        border-inline-start: 1px solid var(--border);
+        background: var(--bg-sunken);
+    }
+
+    /* The live dot: a solid centre with a soft halo, so "available" reads as a
+       status light instead of a plain circle. */
+    .status-dot {
+        position: relative;
+        width: 0.5rem;
+        height: 0.5rem;
+        flex-shrink: 0;
+        border-radius: 9999px;
+        background: var(--shape-green);
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--shape-green) 22%, transparent);
+    }
+
+    .status-dot::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--shape-green);
+        animation: status-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes status-ping {
+        0% {
+            transform: scale(1);
+            opacity: 0.6;
+        }
+        70%,
+        100% {
+            transform: scale(2.6);
+            opacity: 0;
+        }
+    }
+
+    /* Rendered Markdown from a blog post.
+       Styled here rather than with utility classes because the HTML is
+       generated at render time and cannot carry classes of its own. */
+    .prose {
+        color: var(--text-muted);
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .prose > * + * {
+        margin-block-start: 1.25rem;
+    }
+
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+        font-family: var(--font-display);
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.3;
+        margin-block-start: 2.5rem;
+        margin-block-end: 0.75rem;
+    }
+
+    [dir='rtl'] .prose h2,
+    [dir='rtl'] .prose h3,
+    [dir='rtl'] .prose h4 {
+        font-family: var(--font-sans);
+        font-weight: 700;
+    }
+
+    .prose h2 { font-size: 1.5rem; }
+    .prose h3 { font-size: 1.25rem; }
+    .prose h4 { font-size: 1.0625rem; }
+
+    .prose a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .prose strong {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .prose ul,
+    .prose ol {
+        padding-inline-start: 1.5rem;
+    }
+
+    .prose ul { list-style: disc; }
+    .prose ol { list-style: decimal; }
+
+    .prose li + li {
+        margin-block-start: 0.4rem;
+    }
+
+    .prose blockquote {
+        border-inline-start: 3px solid var(--accent);
+        padding-inline-start: 1rem;
+        color: var(--text);
+        font-style: italic;
+    }
+
+    .prose code {
+        font-family: var(--font-mono);
+        font-size: 0.875em;
+        background: var(--bg-sunken);
+        border: 1px solid var(--border);
+        border-radius: 0.25rem;
+        padding: 0.1em 0.35em;
+    }
+
+    .prose pre {
+        background: var(--bg-sunken);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 1rem 1.25rem;
+        overflow-x: auto;
+        /* Code is Latin and left-to-right even inside an Arabic article. */
+        direction: ltr;
+        text-align: left;
+    }
+
+    .prose pre code {
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: 0.875rem;
+        line-height: 1.7;
+    }
+
+    .prose img {
+        border-radius: 0.75rem;
+        border: 1px solid var(--border);
+    }
+
+    .prose hr {
+        border: 0;
+        border-block-start: 1px solid var(--border);
+        margin-block: 2.5rem;
+    }
+
+    /* Tables can exceed the measure, so they scroll rather than pushing the
+       page sideways. */
+    .prose table {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9375rem;
+    }
+
+    .prose th,
+    .prose td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.75rem;
+        text-align: start;
+    }
+
+    .prose th {
+        background: var(--bg-sunken);
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    /* Section label: small caps rule above each block. */
+    .eyebrow {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+    }
+
+    /* Placeholder metrics still awaiting real figures — visually obvious on
+       purpose so nothing unverified ships unnoticed. */
+    .placeholder {
+        background-image: repeating-linear-gradient(
+            45deg,
+            oklch(0.75 0.16 75 / 0.18) 0 6px,
+            transparent 6px 12px
+        );
+        border-bottom: 1px dashed oklch(0.7 0.16 75);
+        border-radius: 3px;
+        padding-inline: 0.15em;
+    }
+}
+
+@layer utilities {
+    /* Section rhythm, kept in one place so every block breathes identically. */
+    .section {
+        padding-block: clamp(3.5rem, 7vw, 5.5rem);
+    }
+
+    .shell {
+        width: 100%;
+        max-width: 68rem;
+        margin-inline: auto;
+        padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    }
+
+    .font-display {
+        font-family: var(--font-display);
+        font-weight: 500;
+        letter-spacing: -0.01em;
+    }
+
+    /* Bitter is Latin-only. Arabic has no serif/sans split to mirror, so RTL
+       headings stay in Tajawal and take their contrast from weight instead —
+       the conventional move in Arabic typography. Declared in this layer, not
+       `base`, so it actually outranks the rule directly above. */
+    [dir='rtl'] .font-display {
+        /* Named outright rather than via --font-sans, which is Inter-first for
+           the English pages; going through it let a stray space in an Arabic
+           heading resolve to Inter. */
+        font-family: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+        /* Tajawal needs no optical tightening; the Latin-tuned negative
+           tracking above would crowd the joins between Arabic letters. */
+        letter-spacing: 0;
+    }
+
+    /* Logical-property helper: flips automatically between LTR and RTL. */
+    .border-inline-start {
+        border-inline-start-width: 2px;
+        border-inline-start-style: solid;
+    }
+
+    .fade-up {
+        animation: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    }
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}

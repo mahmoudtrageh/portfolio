@@ -1,0 +1,61 @@
+[Thu Sep  3 15:17:04 2026] PHP 8.4.24 Development Server (http://127.0.0.1:8124) started
+[Thu Sep  3 15:17:07 2026] 127.0.0.1:59687 Accepted
+[Thu Sep  3 15:17:07 2026] 127.0.0.1:59687 Closing
+[Thu Sep  3 15:17:08 2026] 127.0.0.1:59689 Accepted
+[Thu Sep  3 15:17:08 2026] PHP Warning:  PHP Request Startup: Unable to create temporary file, Check permissions in temporary files directory. in Unknown on line 0
+[Thu Sep  3 15:17:08 2026] PHP Warning:  PHP Request Startup: POST data can't be buffered; all data discarded in Unknown on line 0
+[Thu Sep  3 15:17:08 2026] PHP Fatal error:  Uncaught ErrorException: Cannot modify header information - headers already sent in D:\dev\me\vendor\symfony\http-foundation\Response.php:328
+Stack trace:
+#0 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#2 D:\dev\me\vendor\symfony\http-foundation\Response.php(328): header('HTTP/1.1 500 In...', true, 500)
+#3 D:\dev\me\vendor\symfony\http-foundation\Response.php(407): Symfony\Component\HttpFoundation\Response->sendHeaders()
+#4 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(226): Symfony\Component\HttpFoundation\Response->send()
+#5 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(203): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#6 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(Object(ErrorException))
+#8 {main}
+  thrown in D:\dev\me\vendor\symfony\http-foundation\Response.php on line 328
+[Thu Sep  3 15:17:08 2026] PHP Fatal error:  Uncaught ErrorException: Cannot modify header information - headers already sent in D:\dev\me\vendor\symfony\http-foundation\Response.php:328
+Stack trace:
+#0 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#2 D:\dev\me\vendor\symfony\http-foundation\Response.php(328): header('HTTP/1.1 500 In...', true, 500)
+#3 D:\dev\me\vendor\symfony\http-foundation\Response.php(407): Symfony\Component\HttpFoundation\Response->sendHeaders()
+#4 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(226): Symfony\Component\HttpFoundation\Response->send()
+#5 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(203): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#6 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(239): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#7 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#8 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}()
+#9 {main}
+  thrown in D:\dev\me\vendor\symfony\http-foundation\Response.php on line 328
+[Thu Sep  3 15:17:08 2026] 127.0.0.1:59689 Closing
+[Thu Sep  3 15:17:09 2026] 127.0.0.1:59691 Accepted
+[Thu Sep  3 15:17:09 2026] PHP Warning:  PHP Request Startup: Unable to create temporary file, Check permissions in temporary files directory. in Unknown on line 0
+[Thu Sep  3 15:17:09 2026] PHP Warning:  PHP Request Startup: POST data can't be buffered; all data discarded in Unknown on line 0
+[Thu Sep  3 15:17:09 2026] PHP Fatal error:  Uncaught ErrorException: Cannot modify header information - headers already sent in D:\dev\me\vendor\symfony\http-foundation\Response.php:328
+Stack trace:
+#0 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#2 D:\dev\me\vendor\symfony\http-foundation\Response.php(328): header('HTTP/1.1 500 In...', true, 500)
+#3 D:\dev\me\vendor\symfony\http-foundation\Response.php(407): Symfony\Component\HttpFoundation\Response->sendHeaders()
+#4 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(226): Symfony\Component\HttpFoundation\Response->send()
+#5 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(203): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#6 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(Object(ErrorException))
+#8 {main}
+  thrown in D:\dev\me\vendor\symfony\http-foundation\Response.php on line 328
+[Thu Sep  3 15:17:09 2026] PHP Fatal error:  Uncaught ErrorException: Cannot modify header information - headers already sent in D:\dev\me\vendor\symfony\http-foundation\Response.php:328
+Stack trace:
+#0 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#1 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}(2, 'Cannot modify h...', 'D:\\dev\\me\\vendo...', 328)
+#2 D:\dev\me\vendor\symfony\http-foundation\Response.php(328): header('HTTP/1.1 500 In...', true, 500)
+#3 D:\dev\me\vendor\symfony\http-foundation\Response.php(407): Symfony\Component\HttpFoundation\Response->sendHeaders()
+#4 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(226): Symfony\Component\HttpFoundation\Response->send()
+#5 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(203): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#6 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(239): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\ErrorHandler\Error\FatalError))
+#7 D:\dev\me\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(263): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#8 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():262}()
+#9 {main}
+  thrown in D:\dev\me\vendor\symfony\http-foundation\Response.php on line 328
+[Thu Sep  3 15:17:09 2026] 127.0.0.1:59691 Closing
