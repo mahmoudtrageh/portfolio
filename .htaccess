@@ -1,6 +1,6 @@
 # Root .htaccess — only used in production.
 #
-# The app is deployed flat into /public_html/, so the Laravel root sits inside
+# The app is deployed flat into the domain's document root, so the Laravel root sits inside
 # the web root. Apache would otherwise serve .env, vendor/ and app/ directly.
 # This file routes every request into public/ and blocks the rest.
 #

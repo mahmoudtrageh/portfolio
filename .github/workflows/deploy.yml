@@ -62,7 +62,7 @@ jobs:
         run: |
           test -f vendor/autoload.php || { echo "vendor/ missing"; exit 1; }
           test -f public/build/manifest.json || { echo "public/build missing"; exit 1; }
-          # Deployed flat into /public_html/, so the root .htaccess is what
+          # Deployed flat into the domain's folder, so the root .htaccess is what
           # keeps .env and vendor/ from being served. Without it the app root
           # is publicly readable — refuse to deploy.
           test -f .htaccess || { echo "root .htaccess missing"; exit 1; }
@@ -79,7 +79,7 @@ jobs:
             exit 0
           fi
 
-          echo "::warning title=composer install needed::composer.lock changed. Run 'cd ~/public_html && composer install --no-dev --optimize-autoloader' in cPanel Terminal, or production keeps running the old packages."
+          echo "::warning title=composer install needed::composer.lock changed. Run 'cd ~/public_html/mahmoudtaha.dev && composer install --no-dev --optimize-autoloader' in cPanel Terminal, or production keeps running the old packages."
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
@@ -88,7 +88,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          server-dir: /public_html/
+          server-dir: /public_html/mahmoudtaha.dev/
           # Incremental sync state, so only changed files transfer.
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
