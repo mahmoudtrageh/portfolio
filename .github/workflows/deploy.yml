@@ -46,7 +46,9 @@ jobs:
           node-version: '22'
           cache: npm
 
-      - name: Install PHP dependencies
+      # vendor/ is not deployed — the server installs its own. This runs so a
+      # lock file that cannot be installed fails here rather than on the server.
+      - name: Verify PHP dependencies install
         run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Build assets
@@ -54,8 +56,8 @@ jobs:
           npm ci
           npm run build
 
-      # The server has no Composer or Node, so vendor/ and public/build are
-      # built here and MUST be uploaded — they are gitignored, not absent.
+      # public/build is gitignored, so it only exists if the build ran. vendor/
+      # is checked because the zip for manual upload is built from it.
       - name: Verify build output exists
         run: |
           test -f vendor/autoload.php || { echo "vendor/ missing"; exit 1; }
@@ -65,6 +67,19 @@ jobs:
           # is publicly readable — refuse to deploy.
           test -f .htaccess || { echo "root .htaccess missing"; exit 1; }
           echo "vendor/, public/build and .htaccess present."
+
+      # vendor/ is not uploaded; the server installs it from composer.lock via
+      # cPanel Terminal. Warn when the lock changes so that step is not missed.
+      - name: Check whether composer install is needed on the server
+        run: |
+          before=$(git rev-parse "${{ github.event.workflow_run.head_sha || github.sha }}^" 2>/dev/null || echo "")
+
+          if [ -z "$before" ] || git diff --quiet "$before" HEAD -- composer.lock 2>/dev/null; then
+            echo "composer.lock unchanged — the server's vendor/ is still current."
+            exit 0
+          fi
+
+          echo "::warning title=composer install needed::composer.lock changed. Run 'cd ~/public_html && composer install --no-dev --optimize-autoloader' in cPanel Terminal, or production keeps running the old packages."
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
@@ -77,8 +92,9 @@ jobs:
           # Incremental sync state, so only changed files transfer.
           state-name: .ftp-deploy-sync-state.json
           dry-run: false
-          # vendor/ is deliberately NOT excluded — the server cannot build it,
-          # so excluding it means dependency updates never ship.
+          # vendor/ is excluded: it is thousands of files and makes every FTP
+          # run slow. The server installs it itself from composer.lock, via
+          # cPanel Terminal — so composer.json and composer.lock DO upload.
           #
           # bootstrap/cache/*.php IS excluded: nothing runs artisan on this
           # server, so a cached config would never be rebuilt, and the local
@@ -91,6 +107,7 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/vendor/**
             **/tests/**
             .env
             .env.example
@@ -98,7 +115,6 @@ jobs:
             phpunit.xml
             phpstan.neon
             pint.json
-            composer.lock
             package-lock.json
             **/storage/app/**
             **/storage/logs/**
@@ -124,9 +140,11 @@ jobs:
       # matters: confirm Apache is actually refusing the sensitive paths.
       - name: Verify sensitive paths are not exposed
         run: |
+          # Every path here is a file the deploy actually uploads, so a non-200
+          # means .htaccess blocked it — not that the file is simply absent.
           failed=0
-          for path in /.env /composer.json /artisan /vendor/autoload.php \
-                      /storage/logs/laravel.log /app/Http/Kernel.php; do
+          for path in /.env /composer.json /composer.lock /artisan \
+                      /config/app.php /routes/web.php; do
             code=$(curl -sS -o /dev/null -w '%{http_code}' \
               --max-time 20 "$SITE_URL$path" || echo 000)
             if [ "$code" = "200" ]; then

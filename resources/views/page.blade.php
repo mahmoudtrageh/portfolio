@@ -150,12 +150,70 @@
             </div>
 
             @if (count($otherProjects) > 0)
-                <p class="mt-8 text-sm leading-relaxed" style="color: var(--text-muted);">
-                    <span class="font-semibold" style="color: var(--text);">{{ __('Also worked on') }}:</span>
-                    @foreach ($otherProjects as $other)
-                        {{ $other['name'] }} <span style="color: var(--text-faint);">({{ $other['note'] }})</span>{{ $loop->last ? '' : ' · ' }}
-                    @endforeach
-                </p>
+                {{-- No case study behind these, so the card carries the name and
+                     what it was — lighter than a project card, but still a card. --}}
+                <div class="mt-10">
+                    <p class="eyebrow mb-5">{{ __('Also worked on') }}</p>
+
+                    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach ($otherProjects as $other)
+                            @php
+                                $summary = trim((string) ($other['summary'] ?? ''));
+                                $stack = $other['stack'] ?? [];
+                                $year = trim((string) ($other['year'] ?? ''));
+                                $hasDetails = $summary !== '' || count($stack) > 0;
+                            @endphp
+
+                            <li data-reveal>
+                                <article class="card p-5 h-full">
+                                    <h3 class="font-display text-base leading-snug">
+                                        {{ $other['name'] }}
+                                    </h3>
+
+                                    <p class="mt-1.5 text-sm leading-relaxed"
+                                       style="color: var(--text-muted);">
+                                        {{ $other['note'] }}
+                                    </p>
+
+                                    @if ($hasDetails)
+                                        {{-- <details> rather than Alpine: it opens without JS
+                                             and is keyboard-operable on its own. --}}
+                                        <details class="group mt-3">
+                                            <summary class="inline-flex items-center gap-1.5 text-sm font-semibold cursor-pointer list-none"
+                                                     style="color: var(--accent);">
+                                                {{ __('Details') }}
+                                                <span aria-hidden="true"
+                                                      class="text-xs transition-transform group-open:rotate-180">▾</span>
+                                            </summary>
+
+                                            <div class="mt-3 pt-3 border-t" style="border-color: var(--border);">
+                                                @if ($year !== '')
+                                                    <p class="text-xs" style="color: var(--text-faint);">{{ $year }}</p>
+                                                @endif
+
+                                                @if ($summary !== '')
+                                                    <p class="mt-1 text-sm leading-relaxed"
+                                                       style="color: var(--text-muted);">
+                                                        {{ $summary }}
+                                                    </p>
+                                                @endif
+
+                                                @if (count($stack) > 0)
+                                                    <ul class="mt-3 flex flex-wrap gap-1.5"
+                                                        aria-label="{{ __('Built with') }}">
+                                                        @foreach ($stack as $tech)
+                                                            <li class="chip">{{ $tech }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </div>
+                                        </details>
+                                    @endif
+                                </article>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
             @if (count($sideProjects) > 0)

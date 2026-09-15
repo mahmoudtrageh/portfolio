@@ -322,14 +322,29 @@ return [
         [
             'name' => ['ar' => 'Dsyncsolutions', 'en' => 'Dsyncsolutions'],
             'note' => ['ar' => 'نظام جرد للشركات', 'en' => 'Corporate inventory system'],
+            'year' => ['ar' => '٢٠٢٣', 'en' => '2023'],
+            'summary' => ['ar' => 'نظام جرد للشركات.', 'en' => 'A corporate inventory system.'],
+            'stack' => ['Laravel', 'MySQL'],
         ],
         [
             'name' => ['ar' => 'Longimanus Liveaboard', 'en' => 'Longimanus Liveaboard'],
             'note' => ['ar' => 'واجهة خلفية لمركز غوص', 'en' => 'Diving centre backend'],
+            'year' => ['ar' => '٢٠٢٢', 'en' => '2022'],
+            'summary' => [
+                'ar' => 'واجهة خلفية لمركز غوص، لإدارة الرحلات والحجوزات.',
+                'en' => 'A diving-centre backend, managing trips and bookings.',
+            ],
+            'stack' => ['Laravel', 'MySQL'],
         ],
         [
             'name' => ['ar' => 'Larabuilder', 'en' => 'Larabuilder'],
             'note' => ['ar' => 'تحسين أداء أداة بناء مواقع', 'en' => 'Site builder performance work'],
+            // No year on the CV for this one; the card omits it rather than guess.
+            'summary' => [
+                'ar' => 'عمل على تحسين أداء أداة بناء مواقع.',
+                'en' => 'Performance work on a site builder.',
+            ],
+            'stack' => ['Laravel'],
         ],
     ],
 
