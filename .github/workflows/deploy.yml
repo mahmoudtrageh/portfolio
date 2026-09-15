@@ -1,0 +1,144 @@
+name: deploy
+
+on:
+  # Deploys run only after the tests workflow passes on main.
+  workflow_run:
+    workflows: [tests]
+    types: [completed]
+    branches: [main]
+  # Manual trigger, for redeploying without a new commit.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://mahmoudtaha.dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # workflow_run fires even when tests fail — gate on the conclusion.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # workflow_run checks out the default branch by default; be explicit.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
+      # The server has no Composer or Node, so vendor/ and public/build are
+      # built here and MUST be uploaded — they are gitignored, not absent.
+      - name: Verify build output exists
+        run: |
+          test -f vendor/autoload.php || { echo "vendor/ missing"; exit 1; }
+          test -f public/build/manifest.json || { echo "public/build missing"; exit 1; }
+          # Deployed flat into /public_html/, so the root .htaccess is what
+          # keeps .env and vendor/ from being served. Without it the app root
+          # is publicly readable — refuse to deploy.
+          test -f .htaccess || { echo "root .htaccess missing"; exit 1; }
+          echo "vendor/, public/build and .htaccess present."
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
+        with:
+          server: 66.29.141.240
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: /public_html/
+          # Incremental sync state, so only changed files transfer.
+          state-name: .ftp-deploy-sync-state.json
+          dry-run: false
+          # vendor/ is deliberately NOT excluded — the server cannot build it,
+          # so excluding it means dependency updates never ship.
+          #
+          # bootstrap/cache/*.php IS excluded: nothing runs artisan on this
+          # server, so a cached config would never be rebuilt, and the local
+          # copy is built from dev .env values. Uploading one would pin
+          # production to dev config permanently.
+          #
+          # (These comments live here because `exclude` takes globs only —
+          # a '#' line inside the block is treated as a literal pattern.)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            .env
+            .env.example
+            .editorconfig
+            phpunit.xml
+            phpstan.neon
+            pint.json
+            composer.lock
+            package-lock.json
+            **/storage/app/**
+            **/storage/logs/**
+            **/storage/framework/cache/**
+            **/storage/framework/sessions/**
+            **/storage/framework/views/**
+            **/public/storage/**
+            *.md
+            bootstrap/cache/*.php
+
+
+      - name: Verify site responds
+        run: |
+          code=$(curl -sS -o /dev/null -w '%{http_code}' \
+            --max-time 30 -L "$SITE_URL")
+          echo "GET $SITE_URL -> $code"
+          case "$code" in
+            2*|3*) ;;
+            *) echo "Site did not return a healthy status."; exit 1 ;;
+          esac
+
+      # The app root sits inside the web root, so this is the check that
+      # matters: confirm Apache is actually refusing the sensitive paths.
+      - name: Verify sensitive paths are not exposed
+        run: |
+          failed=0
+          for path in /.env /composer.json /artisan /vendor/autoload.php \
+                      /storage/logs/laravel.log /app/Http/Kernel.php; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' \
+              --max-time 20 "$SITE_URL$path" || echo 000)
+            if [ "$code" = "200" ]; then
+              echo "EXPOSED: $path returned 200"
+              failed=1
+            else
+              echo "ok: $path -> $code"
+            fi
+          done
+          [ "$failed" = "0" ] || {
+            echo
+            echo "Sensitive files are publicly readable. Check that the root"
+            echo ".htaccess uploaded and that mod_rewrite is enabled."
+            exit 1
+          }

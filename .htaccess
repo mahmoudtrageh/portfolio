@@ -1,0 +1,38 @@
+# Root .htaccess — only used in production.
+#
+# The app is deployed flat into /public_html/, so the Laravel root sits inside
+# the web root. Apache would otherwise serve .env, vendor/ and app/ directly.
+# This file routes every request into public/ and blocks the rest.
+#
+# Locally this file is inert: `php artisan serve` and Vite do not read it.
+
+<IfModule mod_rewrite.c>
+    Options -MultiViews -Indexes
+
+    RewriteEngine On
+
+    # Block dotfiles (.env, .git, .editorconfig) anywhere in the tree.
+    RewriteRule (^|/)\. - [F,L]
+
+    # Block the directories that must never be web-readable. public/ is the
+    # only part of a Laravel app meant to be served.
+    RewriteRule ^(app|bootstrap|config|database|lang|resources|routes|storage|tests|vendor)(/|$) - [F,L]
+
+    # Block root-level files that would leak versions or source.
+    RewriteRule ^(artisan|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|pint\.json|vite\.config\.js|.*\.md)$ - [F,L]
+
+    # public/ is served at the site root, so requesting it explicitly is a
+    # duplicate URL. Redirect to the canonical path instead of serving twice.
+    RewriteCond %{THE_REQUEST} \s/+public/(.*)\s [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # Send everything else into public/, where Laravel's own .htaccess and
+    # front controller take over.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Belt and braces: deny .env even if mod_rewrite is unavailable.
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
