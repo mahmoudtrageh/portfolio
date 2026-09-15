@@ -116,7 +116,6 @@ jobs:
             **/vendor/**
             **/tests/**
             .env
-            .env.example
             .editorconfig
             phpunit.xml
             phpstan.neon
@@ -153,7 +152,6 @@ jobs:
             **/vendor/**
             **/tests/**
             .env
-            .env.example
             .editorconfig
             phpunit.xml
             phpstan.neon

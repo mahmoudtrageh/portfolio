@@ -14,9 +14,14 @@
     # Block dotfiles (.env, .git, .editorconfig) anywhere in the tree.
     RewriteRule (^|/)\. - [F,L]
 
+    # /storage/... is where Laravel serves public uploads, via the
+    # public/storage symlink — it must stay reachable. Only the app's real
+    # storage tree (logs, sessions, private files) is blocked.
+    RewriteRule ^storage/(app|framework|logs|tmp)(/|$) - [F,L]
+
     # Block the directories that must never be web-readable. public/ is the
     # only part of a Laravel app meant to be served.
-    RewriteRule ^(app|bootstrap|config|database|lang|resources|routes|storage|tests|vendor)(/|$) - [F,L]
+    RewriteRule ^(app|bootstrap|config|database|lang|resources|routes|tests|vendor)(/|$) - [F,L]
 
     # Block root-level files that would leak versions or source.
     RewriteRule ^(artisan|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|phpstan\.neon|pint\.json|vite\.config\.js|.*\.md)$ - [F,L]
