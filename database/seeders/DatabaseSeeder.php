@@ -1,25 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * The exported site content when a snapshot exists, otherwise the built-in
+     * starting content. The admin account comes from `php artisan admin:create`.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(is_file(SiteContentSeeder::directory().'/content.json')
+            ? SiteContentSeeder::class
+            : ContentSeeder::class);
     }
 }

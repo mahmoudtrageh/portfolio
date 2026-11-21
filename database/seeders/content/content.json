@@ -1,0 +1,1746 @@
+[
+    {
+        "section": "about",
+        "position": 0,
+        "data": {
+            "intro": {
+                "ar": "مهندس Backend بخبرة ٦+ سنوات في بناء وتوسيع تطبيقات Laravel و PHP عبر التجارة الإلكترونية و SaaS والأنظمة متعددة المستأجرين. شغّلت أنظمة إنتاج لفرق في مصر والإمارات، ومرتاح إني أمتلك النظام من أوله لآخره — من تجهيز السيرفر لحد أتمتة النشر.",
+                "en": "A backend engineer with 6+ years building and scaling Laravel/PHP applications across e-commerce, SaaS and multi-tenant platforms. I have shipped production systems for teams in Egypt and the UAE, and I am comfortable owning a system end-to-end — from server provisioning through deployment automation."
+            },
+            "sections": [
+                {
+                    "body": {
+                        "ar": "درست جيوفيزياء في جامعة طنطا وتخرجت سنة ٢٠٢٠، لكن الانتقال لهندسة البرمجيات بدأ قبلها بسنتين — من ٢٠١٨، ذاتي التوجيه بالكامل ومدعوم بشهادات مهنية متواصلة. الجيوفيزياء علّمتني أقرا إشارة وسط ضوضاء وأفكّك مشكلة كبيرة لطبقات، وده بالظبط اللي بعمله وأنا بلاحق سبب بطء في الإنتاج أو بصمّم قاعدة بيانات.",
+                        "en": "I read geophysics at Tanta University, graduating in 2020 — but the move into software engineering had already started two years earlier, in 2018, entirely self-directed and backed by continuous professional certification. Geophysics taught me to read a signal through noise and break a large problem into layers, which is exactly what I do when tracing a slowdown in production or designing a schema."
+                    },
+                    "title": {
+                        "ar": "من الجيوفيزياء للـ Backend",
+                        "en": "From geophysics to backend"
+                    }
+                },
+                {
+                    "body": {
+                        "ar": "أغلب شغلي مش بيقف عند حدود الكود. في BoxesVDR بامتلك المعمارية الخلفية كاملة: توجيه المستأجرين، بوابات الوصول، شهادات SSL، وثلاث بيئات على سيرفرات AlmaLinux. قدت هجرة دومين إنتاجية عبر ٣ سيرفرات حيّة بدون توقف، وعملت مراجعة تكلفة سحابية طلّعت إنفاق شهري قدرت أخفّضه فعليًا. الجزء ده من الشغل — اللي بين آخر سطر كود وأول مستخدم — هو اللي بيفرق.",
+                        "en": "Most of my work does not stop at the edge of the codebase. On BoxesVDR I own the backend architecture outright: tenant routing, access gates, SSL certificates, and three environments across AlmaLinux servers. I led a production domain migration across 3 live servers with zero downtime, and ran a cloud cost audit that surfaced monthly spend I could actually reduce. That stretch of work — between the last line of code and the first user — is where the difference gets made."
+                    },
+                    "title": {
+                        "ar": "امتلاك النظام كامل",
+                        "en": "Owning the whole system"
+                    }
+                },
+                {
+                    "body": {
+                        "ar": "اشتغلت مع فرق في مصر والإمارات، وجزء كبير من الدور بيبقى ترجمة: أحوّل قيود البنية التحتية لصيغة يقدر أصحاب القرار غير التقنيين يتصرفوا على أساسها. ده بيقصّر الدورة بين الهندسة وقرارات المنتج، وبيمنع قرارات بتتاخد وهي ناقصة معلومة تقنية مهمة.",
+                        "en": "I have worked with teams in Egypt and the UAE, and a large part of the role is translation: turning infrastructure constraints into terms non-technical stakeholders can act on. That shortens the loop between engineering and product decisions, and stops calls being made without a technical fact that mattered."
+                    },
+                    "title": {
+                        "ar": "الشغل مع الفرق",
+                        "en": "Working with teams"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 0,
+        "data": {
+            "url": "https://ude.my/UC-013d57ac-2144-42d4-a733-60de3f21ff8e",
+            "date": {
+                "ar": "مايو ٢٠٢٥",
+                "en": "May 2025"
+            },
+            "name": {
+                "ar": "هياكل البيانات والخوارزميات",
+                "en": "Data Structures & Algorithms"
+            },
+            "image": "uploads/cert-dsa.jpg",
+            "issuer": {
+                "ar": "Udemy",
+                "en": "Udemy"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 1,
+        "data": {
+            "url": "",
+            "date": {
+                "ar": "أبريل ٢٠٢٢",
+                "en": "April 2022"
+            },
+            "name": {
+                "ar": "أساسيات البرمجة: الخوارزميات",
+                "en": "Programming Foundations: Algorithms"
+            },
+            "image": "",
+            "issuer": {
+                "ar": "LinkedIn Learning",
+                "en": "LinkedIn Learning"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 2,
+        "data": {
+            "url": "https://ude.my/UC-74a90330-486e-4d74-ad55-f216e96780d5",
+            "date": {
+                "ar": "أغسطس ٢٠٢٠",
+                "en": "August 2020"
+            },
+            "name": {
+                "ar": "PHP Full Stack Web Developer Bootcamp ٢٠٢٠",
+                "en": "The Complete 2020 PHP Full Stack Web Developer Bootcamp"
+            },
+            "image": "uploads/cert-php-bootcamp.jpg",
+            "issuer": {
+                "ar": "Udemy",
+                "en": "Udemy"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 3,
+        "data": {
+            "url": "",
+            "date": {
+                "ar": "مايو ٢٠١٨",
+                "en": "May 2018"
+            },
+            "name": {
+                "ar": "دبلومة تطوير الويب المتكامل",
+                "en": "Full Stack Web Development Diploma"
+            },
+            "image": "",
+            "issuer": {
+                "ar": "Route",
+                "en": "Route"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 4,
+        "data": {
+            "url": "https://coursera.org/verify/LAB4Z5QZ2BL2",
+            "date": {
+                "ar": "نوفمبر ٢٠١٦",
+                "en": "November 2016"
+            },
+            "name": {
+                "ar": "مقدمة في HTML5",
+                "en": "Introduction to HTML5"
+            },
+            "image": "uploads/cert-html5.png",
+            "issuer": {
+                "ar": "جامعة ميشيغان — Coursera",
+                "en": "University of Michigan — Coursera"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 5,
+        "data": {
+            "url": "https://coursera.org/verify/69YZEVH5C47J",
+            "date": {
+                "ar": "مارس ٢٠١٨",
+                "en": "March 2018"
+            },
+            "name": {
+                "ar": "مقدمة في CSS3",
+                "en": "Introduction to CSS3"
+            },
+            "image": "uploads/cert-css3.png",
+            "issuer": {
+                "ar": "جامعة ميشيغان — Coursera",
+                "en": "University of Michigan — Coursera"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 6,
+        "data": {
+            "url": "https://coursera.org/verify/QBBU9DVMVVRP",
+            "date": {
+                "ar": "أبريل ٢٠١٨",
+                "en": "April 2018"
+            },
+            "name": {
+                "ar": "التفاعلية باستخدام JavaScript",
+                "en": "Interactivity with JavaScript"
+            },
+            "image": "uploads/cert-javascript.png",
+            "issuer": {
+                "ar": "جامعة ميشيغان — Coursera",
+                "en": "University of Michigan — Coursera"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 7,
+        "data": {
+            "url": "https://coursera.org/verify/E9EM2ML4ADHE",
+            "date": {
+                "ar": "سبتمبر ٢٠١٦",
+                "en": "September 2016"
+            },
+            "name": {
+                "ar": "تعلَّم كيف تتعلم",
+                "en": "Learning How to Learn"
+            },
+            "image": "uploads/cert-learning-how-to-learn.png",
+            "issuer": {
+                "ar": "جامعة كاليفورنيا سان دييغو — Coursera",
+                "en": "UC San Diego — Coursera"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 8,
+        "data": {
+            "url": "",
+            "date": {
+                "ar": "يوليو ٢٠١٨",
+                "en": "July 2018"
+            },
+            "name": {
+                "ar": "برنامج M²GATE لريادة الأعمال",
+                "en": "M²GATE Entrepreneurship Programme"
+            },
+            "image": "uploads/cert-m2gate.png",
+            "issuer": {
+                "ar": "معهد ويليام ديفيدسون — جامعة ميشيغان",
+                "en": "William Davidson Institute — University of Michigan"
+            }
+        }
+    },
+    {
+        "section": "certificates",
+        "position": 9,
+        "data": {
+            "url": "",
+            "date": {
+                "ar": "أبريل ٢٠١٣",
+                "en": "April 2013"
+            },
+            "name": {
+                "ar": "شهادة تقدير — مسابقة المخترع الصغير",
+                "en": "Certificate of Appreciation — Young Inventor competition"
+            },
+            "image": "uploads/cert-young-inventor.jpg",
+            "issuer": {
+                "ar": "وزارة التربية والتعليم — إدارة الاتحادات الطلابية",
+                "en": "Ministry of Education — Student Unions Administration"
+            }
+        }
+    },
+    {
+        "section": "channel",
+        "position": 0,
+        "data": {
+            "url": "https://www.youtube.com/@MahmoudTahaRageh",
+            "name": {
+                "ar": "محمود طه",
+                "en": "Mahmoud Taha — محمود طه"
+            },
+            "blurb": {
+                "ar": "قناتي على يوتيوب.",
+                "en": "My YouTube channel."
+            },
+            "videos": [],
+            "channel_id": "UCrbK0o7GDaORfafFFdV83rw",
+            "video_limit": "6"
+        }
+    },
+    {
+        "section": "contact",
+        "position": 0,
+        "data": {
+            "pitch": {
+                "ar": "أخبرني عن مشروعك أو فرصتك — وسأرد في أقرب وقت.",
+                "en": "Tell me about your project or opportunity — I’ll get back to you shortly."
+            }
+        }
+    },
+    {
+        "section": "current_job",
+        "position": 0,
+        "data": {
+            "url": "https://boxes.sa/",
+            "company": "Boxes Intelligent Communications",
+            "products": [
+                {
+                    "url": "https://boxesvdr.com/en",
+                    "name": "Boxes VDR",
+                    "about": {
+                        "ar": "غرفة بيانات افتراضية آمنة",
+                        "en": "a secure virtual data room"
+                    }
+                },
+                {
+                    "url": "https://linkatik.com/",
+                    "name": "Linkatik",
+                    "about": {
+                        "ar": "منصة روابط شخصية",
+                        "en": "a bio-link platform"
+                    }
+                },
+                {
+                    "url": "https://aspparis.com/",
+                    "name": "ASP Paris",
+                    "about": {
+                        "ar": "جهة تدريب مهني",
+                        "en": "a professional training provider"
+                    }
+                }
+            ],
+            "short_name": "Boxes"
+        }
+    },
+    {
+        "section": "education",
+        "position": 0,
+        "data": {
+            "note": {
+                "ar": "انتقال ذاتي التوجيه لهندسة البرمجيات من سنة ٢٠١٨، مدعوم بشهادات مهنية متواصلة في تطوير الويب.",
+                "en": "A self-directed transition into software engineering since 2018, backed by continuous professional certification in web development."
+            },
+            "degree": {
+                "ar": "بكالوريوس جيوفيزياء",
+                "en": "B.S. Geophysics"
+            },
+            "period": {
+                "ar": "٢٠٢٠",
+                "en": "2020"
+            },
+            "school": {
+                "ar": "جامعة طنطا — مصر",
+                "en": "Tanta University, Egypt"
+            }
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 0,
+        "data": {
+            "url": "https://www.woosh-ksa.com/",
+            "name": {
+                "ar": "Woosh",
+                "en": "Woosh"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL"
+            ],
+            "client": "",
+            "period": {
+                "ar": "٢٠٢٥",
+                "en": "2025"
+            },
+            "rating": "",
+            "review": {
+                "ar": "",
+                "en": ""
+            },
+            "summary": {
+                "ar": "موقع مجموعة ترفيهية سعودية تضم عدة شركات فرعية — مراكز، فعاليات، وحلول أعمال — بواجهة ثنائية اللغة.",
+                "en": "The site for a Saudi entertainment group spanning several subsidiaries — centres, events and business solutions — with a bilingual front end."
+            },
+            "platform": ""
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 1,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "موقع للربط بين الموردين والمحلات",
+                "en": "Supplier-to-shop marketplace"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL",
+                "Bootstrap"
+            ],
+            "client": "عبدالله ا.",
+            "period": {
+                "ar": "فبراير ٢٠٢١",
+                "en": "February 2021"
+            },
+            "rating": "5",
+            "review": {
+                "ar": "تم استلام المشروع",
+                "en": "تم استلام المشروع"
+            },
+            "summary": {
+                "ar": "منصة تربط الموردين بالمحلات، بلوحة تحكم لإدارة الطلبات والحسابات.",
+                "en": "A platform connecting suppliers with retail shops, with a dashboard for orders and accounts."
+            },
+            "platform": "Mostaql"
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 2,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "موقع لتسجيل في بطولة كرة قدم",
+                "en": "Football tournament registration site"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL"
+            ],
+            "client": "حسين ا.",
+            "period": {
+                "ar": "أبريل ٢٠٢٠",
+                "en": "April 2020"
+            },
+            "rating": "5",
+            "review": {
+                "ar": "مبدع وسريع في التعامل والردود",
+                "en": "مبدع وسريع في التعامل والردود"
+            },
+            "summary": {
+                "ar": "موقع لتسجيل الفرق واللاعبين في بطولة كرة قدم، مع إدارة المشاركات.",
+                "en": "A site for registering teams and players in a football tournament, with entry management."
+            },
+            "platform": "Mostaql"
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 3,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "تجهيز صفحة خدمات وربط بوابة دفع",
+                "en": "Services page with payment gateway integration"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL",
+                "Payment gateway"
+            ],
+            "client": "Ibrahim A.",
+            "period": {
+                "ar": "فبراير ٢٠٢٠",
+                "en": "February 2020"
+            },
+            "rating": "5",
+            "review": {
+                "ar": "عمل رائع اخي محمود طه، سعدت بالعمل معك ونتطلع للعمل مرة خرى",
+                "en": "عمل رائع اخي محمود طه، سعدت بالعمل معك ونتطلع للعمل مرة خرى"
+            },
+            "summary": {
+                "ar": "صفحة خدمات مربوطة ببوابة دفع إلكتروني، من التصميم حتى تأكيد العملية.",
+                "en": "A services page wired to an online payment gateway, from layout through to transaction confirmation."
+            },
+            "platform": "Mostaql"
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 4,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "تسجيل دورات و دفع إلكتروني",
+                "en": "Course registration with online payment"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL",
+                "Payment gateway"
+            ],
+            "client": "Majd L.",
+            "period": {
+                "ar": "أغسطس ٢٠١٩",
+                "en": "August 2019"
+            },
+            "rating": "4.8",
+            "review": {
+                "ar": "سررت بالتعامل مع الاستاذ محمود جدا في التعامل، حصلت على المطلوب و في الوقت المحدد. كل الشكر له انصح بالتعامل معه.",
+                "en": "سررت بالتعامل مع الاستاذ محمود جدا في التعامل، حصلت على المطلوب و في الوقت المحدد. كل الشكر له انصح بالتعامل معه."
+            },
+            "summary": {
+                "ar": "نظام تسجيل في الدورات التدريبية مع دفع إلكتروني ومتابعة للمسجّلين.",
+                "en": "A course-registration system with online payment and enrolment tracking."
+            },
+            "platform": "Mostaql"
+        }
+    },
+    {
+        "section": "freelance",
+        "position": 5,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "MatX",
+                "en": "MatX"
+            },
+            "stack": [
+                "Laravel",
+                "Next.js",
+                "MySQL"
+            ],
+            "client": "",
+            "period": {
+                "ar": "٢٠٢٤",
+                "en": "2024"
+            },
+            "rating": "",
+            "review": {
+                "ar": "",
+                "en": ""
+            },
+            "summary": {
+                "ar": "منصة تجارة إلكترونية متعددة البائعين مع خصائص مدعومة بالذكاء الاصطناعي.",
+                "en": "A multi-vendor e-commerce platform with AI-powered features."
+            },
+            "platform": ""
+        }
+    },
+    {
+        "section": "freelance_projects",
+        "position": 0,
+        "data": {
+            "url": "https://matxapp.com",
+            "name": {
+                "ar": "MatX",
+                "en": "MatX"
+            },
+            "about": {
+                "ar": "سوق للأثاث ومواد التصميم",
+                "en": "A marketplace for furniture and design materials"
+            }
+        }
+    },
+    {
+        "section": "freelance_projects",
+        "position": 1,
+        "data": {
+            "url": "https://www.dsyncsolutions.com/en/",
+            "name": {
+                "ar": "DSync Solutions",
+                "en": "DSync Solutions"
+            },
+            "about": {
+                "ar": "منصة لتتبّع الأصول",
+                "en": "An asset tracking platform"
+            }
+        }
+    },
+    {
+        "section": "freelance_projects",
+        "position": 2,
+        "data": {
+            "url": "https://play.google.com/store/apps/details?id=com.umrahbadl.umrahbadl",
+            "name": {
+                "ar": "عمرة بدل",
+                "en": "Umrah Badl"
+            },
+            "about": {
+                "ar": "يربط من يريد أداء العمرة عن قريب له بمتطوعين",
+                "en": "Connects people who want Umrah performed for a relative with volunteers"
+            }
+        }
+    },
+    {
+        "section": "hero",
+        "position": 0,
+        "data": {
+            "eyebrow": {
+                "ar": "٦+ سنوات في بناء وتوسيع تطبيقات Laravel و PHP — تجارة إلكترونية، SaaS، وأنظمة متعددة المستأجرين، لفرق في مصر والإمارات.",
+                "en": "6+ years building and scaling Laravel/PHP applications — e-commerce, SaaS and multi-tenant platforms, for teams in Egypt and the UAE."
+            },
+            "summary": {
+                "ar": "متخصص في Laravel و PHP. شغّال على دورة حياة الـ Backend كاملة: تصميم APIs، معمارية قواعد البيانات، CI/CD، الحاويات، والبنية التحتية السحابية.",
+                "en": "Specialised in Laravel and PHP, across the full backend lifecycle: API design, database architecture, CI/CD, containerization and cloud infrastructure."
+            },
+            "headline": {
+                "ar": "مهندس Backend، بامتلك النظام من أول تجهيز السيرفر لحد أتمتة النشر.",
+                "en": "Backend engineer who owns the system end-to-end — from server provisioning through deployment automation."
+            },
+            "experience": {
+                "ar": "٦+",
+                "en": "6+"
+            }
+        }
+    },
+    {
+        "section": "identity",
+        "position": 0,
+        "data": {
+            "cv": "uploads/9M2suzar5i5E4AGhozz3Of2zxZ6WL0dwfHza04YH.pdf",
+            "logo": {
+                "ar": "محمود.",
+                "en": "Mahmoud."
+            },
+            "name": {
+                "ar": "محمود طه",
+                "en": "Mahmoud Taha"
+            },
+            "role": {
+                "ar": "مهندس برمجيات",
+                "en": "Software Engineer"
+            },
+            "email": "geo.mahmoudtaha@gmail.com",
+            "phone": "+20 106 399 3558",
+            "photo": "uploads/MeCFLMNE8nckEo69UHkyDOYpNPxjx5UfahEFtim4.jpg",
+            "spoken": {
+                "ar": "العربية (لغة أم) · الإنجليزية (إجادة عملية)",
+                "en": "Arabic (native) · English (professional working proficiency)"
+            },
+            "favicon": "uploads/dghrlPjh1v4gRD4TuBEZmYMVlPFuFHCIW5AG0VEt.jpg",
+            "location": {
+                "ar": "طنطا، مصر",
+                "en": "Tanta, Egypt"
+            },
+            "available": {
+                "ar": "متاح لفرص جديدة",
+                "en": "Available for new opportunities"
+            },
+            "logo_image": "uploads/x19wOyOFYM1mTzyrAItOeIDny99ETMXW5kixS6pB.png",
+            "description": {
+                "ar": "محمود طه، مهندس برمجيات في Boxes Intelligent Communications. أبني منتجات ويب آمنة وقابلة للتوسع.",
+                "en": "Mahmoud Taha, software engineer at Boxes Intelligent Communications, building secure, scalable web products."
+            },
+            "logo_image_dark": "uploads/b4pDFUfymdSJBwmF4KiNYCcQAnO82fs7c4OHzNF6.png"
+        }
+    },
+    {
+        "section": "job_projects",
+        "position": 0,
+        "data": {
+            "url": "https://petroapp.com/egypt/ar/companies-ar/",
+            "name": {
+                "ar": "PetroApp",
+                "en": "PetroApp"
+            },
+            "about": {
+                "ar": "تطبيق خدمات سيارات بأكثر من ٥٠٠ ألف تحميل",
+                "en": "A car services app with over 500K downloads"
+            }
+        }
+    },
+    {
+        "section": "job_projects",
+        "position": 1,
+        "data": {
+            "url": "https://www.vowalaa.com/",
+            "name": {
+                "ar": "Vowalaa",
+                "en": "Vowalaa"
+            },
+            "about": {
+                "ar": "نظام ERP سحابي للمخزون والمبيعات والمحاسبة",
+                "en": "A cloud ERP for inventory, sales and accounting"
+            }
+        }
+    },
+    {
+        "section": "job_projects",
+        "position": 2,
+        "data": {
+            "url": "https://play.google.com/store/apps/details?id=com.tazamun.estashirni&hl=en_US",
+            "name": {
+                "ar": "استشرني",
+                "en": "Consult Me (Estashirni)"
+            },
+            "about": {
+                "ar": "يربط الناس بمحامين للاستشارات القانونية",
+                "en": "Connects people with lawyers for legal advice"
+            }
+        }
+    },
+    {
+        "section": "job_projects",
+        "position": 3,
+        "data": {
+            "url": "",
+            "name": {
+                "ar": "Palmcodes",
+                "en": "Palmcodes"
+            },
+            "about": {
+                "ar": "متجر بطاقات عملات رقمية",
+                "en": "A cryptocurrency cards store"
+            }
+        }
+    },
+    {
+        "section": "other_projects",
+        "position": 0,
+        "data": {
+            "name": {
+                "ar": "Dsyncsolutions",
+                "en": "Dsyncsolutions"
+            },
+            "note": {
+                "ar": "نظام جرد للشركات",
+                "en": "Corporate inventory system"
+            },
+            "year": {
+                "ar": "٢٠٢٣",
+                "en": "2023"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL"
+            ],
+            "summary": {
+                "ar": "نظام جرد للشركات.",
+                "en": "A corporate inventory system."
+            }
+        }
+    },
+    {
+        "section": "other_projects",
+        "position": 1,
+        "data": {
+            "name": {
+                "ar": "Longimanus Liveaboard",
+                "en": "Longimanus Liveaboard"
+            },
+            "note": {
+                "ar": "واجهة خلفية لمركز غوص",
+                "en": "Diving centre backend"
+            },
+            "year": {
+                "ar": "٢٠٢٢",
+                "en": "2022"
+            },
+            "stack": [
+                "Laravel",
+                "MySQL"
+            ],
+            "summary": {
+                "ar": "واجهة خلفية لمركز غوص، لإدارة الرحلات والحجوزات.",
+                "en": "A diving-centre backend, managing trips and bookings."
+            }
+        }
+    },
+    {
+        "section": "other_projects",
+        "position": 2,
+        "data": {
+            "name": {
+                "ar": "Larabuilder",
+                "en": "Larabuilder"
+            },
+            "note": {
+                "ar": "تحسين أداء أداة بناء مواقع",
+                "en": "Site builder performance work"
+            },
+            "stack": [
+                "Laravel"
+            ],
+            "summary": {
+                "ar": "عمل على تحسين أداء أداة بناء مواقع.",
+                "en": "Performance work on a site builder."
+            }
+        }
+    },
+    {
+        "section": "previous_jobs",
+        "position": 0,
+        "data": {
+            "url": "",
+            "role": {
+                "ar": "مهندس Backend",
+                "en": "Backend Engineer"
+            },
+            "company": "Tazamun"
+        }
+    },
+    {
+        "section": "previous_jobs",
+        "position": 1,
+        "data": {
+            "url": "",
+            "role": {
+                "ar": "مطوّر Backend",
+                "en": "Backend Developer"
+            },
+            "company": "MAWAHEB LLC"
+        }
+    },
+    {
+        "section": "previous_jobs",
+        "position": 2,
+        "data": {
+            "url": "https://www.algoriza.com",
+            "role": {
+                "ar": "مطوّر Backend",
+                "en": "Backend Developer"
+            },
+            "company": "Algoriza"
+        }
+    },
+    {
+        "section": "previous_jobs",
+        "position": 3,
+        "data": {
+            "url": "",
+            "role": {
+                "ar": "متدرّب PHP Laravel",
+                "en": "PHP Laravel Intern"
+            },
+            "company": "SpectraApps"
+        }
+    },
+    {
+        "section": "projects",
+        "position": 0,
+        "data": {
+            "url": "https://boxesvdr.com",
+            "name": {
+                "ar": "BoxesVDR",
+                "en": "BoxesVDR"
+            },
+            "role": {
+                "ar": "مهندس برمجيات أول — مالك المعمارية الخلفية",
+                "en": "Senior Software Engineer — backend architecture owner"
+            },
+            "slug": "boxesvdr",
+            "team": {
+                "ar": "مع فرق الواجهة الأمامية وتجربة المستخدم",
+                "en": "With the frontend and UX/UI teams"
+            },
+            "year": {
+                "ar": "٢٠٢٦",
+                "en": "2026"
+            },
+            "stack": [
+                "Laravel",
+                "Nginx",
+                "Huawei Cloud",
+                "Cloudflare",
+                "AlmaLinux",
+                "GitHub Actions"
+            ],
+            "metric": {
+                "ar": "هجرة دومين إنتاجية كاملة (withaqvdr.com ← boxesvdr.com) عبر ٣ سيرفرات حيّة، بتحويل nginx و DNS بدون أي توقف للخدمة.",
+                "en": "A full production domain migration (withaqvdr.com → boxesvdr.com) across 3 live servers, with a zero-downtime nginx and DNS cutover."
+            },
+            "status": {
+                "ar": "على Production",
+                "en": "In production"
+            },
+            "context": {
+                "ar": "BoxesVDR غرفة بيانات افتراضية متعددة المستأجرين، مبنية لشركة Boxes Intelligent Communications. كل عميل يحتاج مساحة معزولة خاصة به، يصل إليها عبر نطاق فرعي مستقل، بمستندات لا يجوز أن تتسرب بين المستأجرين أبدًا.\n\nأمتلك المعمارية الخلفية بالكامل: توجيه المستأجرين، والتحكم في الوصول، وشهادات TLS، واستراتيجية البيئات عبر التطوير والتجريب والإنتاج.",
+                "en": "BoxesVDR is a multi-tenant virtual data room built for Boxes Intelligent Communications. Each client organisation needs its own isolated space, reached at its own subdomain, with documents that must never leak across tenant boundaries.\n\nI own the backend architecture end to end: tenant routing, access control, TLS, and the environment strategy across development, staging and production."
+            },
+            "lessons": {
+                "ar": "دفع التفويض إلى الحافة غيّر ملف التكلفة للنظام كله: أرخص طلب هو الذي لا يراه التطبيق أبدًا.\n\nمرّت الهجرة بهدوء لأنها جُرّبت على بيئة تطابق الإنتاج فعلًا. تطابق البيئات ليس ترتيبًا شكليًا — بل هو ما يجعل التدرّب قادرًا على التنبؤ.",
+                "en": "Pushing authorisation to the edge changed the cost profile of the whole system: the cheapest request to serve is the one the application never sees.\n\nThe migration went quietly because it was rehearsed on an environment that genuinely matched production. Environment parity is not tidiness — it is what makes a rehearsal predictive."
+            },
+            "results": {
+                "ar": "- هجرة دومين إنتاجية كاملة عبر **٣ سيرفرات حيّة** بدون أي توقف.\n- عزل المستأجرين مفروض عند الحافة، فالطلبات المرفوضة لا تكلّف وقت التطبيق.\n- مراجعة تكلفة سحابية على Huawei Cloud (ME-Riyadh) حدّدت إنفاق **~٣٢٤–٣٤٥$ شهريًا**، خُفّض بتحويل عناوين EIP للتطوير والتجريب من فوترة ثابتة إلى فوترة حسب الاستهلاك.\n- نشر قابل للتكرار عبر البيئات الثلاث.",
+                "en": "- A full production domain migration across **3 live servers** with zero downtime.\n- Tenant isolation enforced at the edge, so refused requests cost no application time.\n- A cloud cost audit across Huawei Cloud (ME-Riyadh) identified **~$324–345/month** in spend, cut by converting dev and staging EIPs from fixed to pay-per-traffic billing.\n- Repeatable deployments across all three environments."
+            },
+            "tagline": {
+                "ar": "بنية SaaS متعددة المستأجرين على Huawei Cloud.",
+                "en": "Multi-tenant SaaS infrastructure on Huawei Cloud."
+            },
+            "category": {
+                "ar": "SaaS متعدد المستأجرين",
+                "en": "Multi-tenant SaaS"
+            },
+            "featured": true,
+            "solution": {
+                "ar": "توجيه المستأجرين يُحلّ عبر النطاق الفرعي ويُفرض على مستوى nginx ببوابة `auth_request`، فيُرفض الطلب غير المصرّح به قبل استدعاء PHP أصلًا.\n\n```nginx\nlocation / {\n    auth_request /_tenant_gate;\n    proxy_pass http://app;\n}\n```\n\nتُدار شهادات TLS عبر Cloudflare Origin Certificates، ما يلغي تجديد الشهادات لكل نطاق فرعي كفئة كاملة من الأعطال.\n\nجرى التدرب على هجرة الدومين على بيئة staging أولًا، ثم نُفّذت كتحويل لـ nginx و DNS مع خدمة الاسمين بالتوازي حتى اكتمال الانتشار — فلم يُجب أي طلب من سيرفر لا يعرف الاسم الجديد بعد.\n\nتعمل عمليات النشر عبر خطوط GitHub Actions متطابقة في البيئات الثلاث على AlmaLinux/nginx، وهذا ما يجعل التدرّب على staging ذا معنى.",
+                "en": "Tenant routing is resolved by subdomain and enforced at the nginx layer using an `auth_request` gate, so an unauthorised request is refused before PHP is ever invoked.\n\n```nginx\nlocation / {\n    auth_request /_tenant_gate;\n    proxy_pass http://app;\n}\n```\n\nTLS is handled with Cloudflare Origin Certificates, which removes per-subdomain certificate renewal as a class of failure.\n\nThe domain migration was rehearsed on staging first, then executed as an nginx and DNS cutover with both hostnames served in parallel until propagation completed — so no request was ever answered by a server that did not yet know the new name.\n\nDeployments run through GitHub Actions pipelines that are identical across all three AlmaLinux/nginx environments, which is what makes a rehearsal on staging meaningful."
+            },
+            "timeline": {
+                "ar": "فبراير ٢٠٢٦ — حتى الآن",
+                "en": "Feb 2026 — present"
+            },
+            "challenges": {
+                "ar": "### عزل المستأجرين عند الحافة\n\nالتحقق من المستأجر داخل التطبيق يعني أن الطلب غير المصرّح به يصل إلى PHP، ويشغّل إطار العمل، ويلمس قاعدة البيانات قبل أن يُرفض. على نطاق واسع، هذا جهد مهدور على طلبات ما كان يجب أن تُخدَم أصلًا.\n\n### هجرة دومين حيّ\n\nكان على المنصة الانتقال من `withaqvdr.com` إلى `boxesvdr.com` عبر ثلاثة سيرفرات حيّة، دون فقدان جلسة واحدة أو ظهور خطأ في الشهادات أثناء التحويل.\n\n### إنفاق سحابي بلا مالك\n\nتكاليف البنية التحتية على Huawei Cloud كانت تنمو دون أن يتتبع أحد أي الموارد تستحق سعرها.",
+                "en": "### Isolating tenants at the edge\n\nChecking tenancy inside the application means an unauthorised request still reaches PHP, boots the framework, and touches the database before being refused. At scale that is wasted work on requests that should never have been served.\n\n### Migrating a live domain\n\nThe platform had to move from `withaqvdr.com` to `boxesvdr.com` across three live servers, without dropping a session or serving a certificate error during the cutover.\n\n### Cloud spend with no owner\n\nInfrastructure costs on Huawei Cloud had grown without anyone tracking which resources justified their price."
+            },
+            "highlights": [
+                {
+                    "ar": "توجيه المستأجرين عبر subdomain مع بوابات وصول auth_request على مستوى الـ nginx.",
+                    "en": "Subdomain-based tenant routing with auth_request access gates enforced at the nginx layer."
+                },
+                {
+                    "ar": "هجرة دومين إنتاجية عبر ٣ سيرفرات حيّة بتحويل nginx و DNS بدون downtime.",
+                    "en": "Led a production domain migration across 3 live servers with a zero-downtime nginx and DNS cutover."
+                },
+                {
+                    "ar": "مراجعة تكلفة سحابية على بنية Huawei Cloud (ME-Riyadh) حدّدت إنفاق ~٣٢٤–٣٤٥$ شهريًا، وخفّضت التكاليف المتكررة بتحويل عناوين EIP للـ dev/staging من فوترة ثابتة لفوترة حسب الاستهلاك.",
+                    "en": "Ran a cloud cost audit across Huawei Cloud (ME-Riyadh) identifying ~$324–345/month in spend, cutting recurring cost by converting dev/staging EIPs from fixed to pay-per-traffic billing."
+                },
+                {
+                    "ar": "تصميم خطوط CI/CD عبر GitHub Actions تدعم نشرًا قابلًا للتكرار عبر البيئات الثلاث.",
+                    "en": "Designed CI/CD pipelines via GitHub Actions supporting repeatable deployments across all three environments."
+                },
+                {
+                    "ar": "إدارة SSL/TLS عبر شهادات Cloudflare Origin.",
+                    "en": "SSL/TLS management via Cloudflare Origin Certificates."
+                }
+            ],
+            "description": {
+                "ar": "بناء البنية متعددة المستأجرين التي تدير توجيه المستأجرين وشهادات SSL عبر سيرفرات dev و staging و production.",
+                "en": "Built the multi-tenant infrastructure powering tenant routing and SSL across dev, staging, and production servers."
+            }
+        }
+    },
+    {
+        "section": "projects",
+        "position": 1,
+        "data": {
+            "url": "https://petroapp.com",
+            "name": {
+                "ar": "PetroApp",
+                "en": "PetroApp"
+            },
+            "slug": "petroapp",
+            "year": {
+                "ar": "٢٠٢٥",
+                "en": "2025"
+            },
+            "stack": [
+                "Laravel",
+                "Jenkins",
+                "ArgoCD",
+                "Docker",
+                "Datadog"
+            ],
+            "metric": {
+                "ar": "مجموعة اختبارات من ٦٨٤+ اختبار تغطي منطق النظام، مع خط CI/CD كامل ومراقبة APM في الإنتاج.",
+                "en": "A 684+ test suite covering the system’s logic, backed by a full CI/CD pipeline and APM monitoring in production."
+            },
+            "status": {
+                "ar": "مُسلّم",
+                "en": "Delivered"
+            },
+            "tagline": {
+                "ar": "نظام إدارة مراكز غسيل سيارات، بأكثر من ٥٠٠ ألف تحميل للتطبيق.",
+                "en": "A car wash management system with 500K+ app downloads."
+            },
+            "category": {
+                "ar": "نظام إدارة",
+                "en": "Management system"
+            },
+            "featured": true,
+            "highlights": [
+                {
+                    "ar": "بناء الواجهة الخلفية لنظام إدارة مراكز الغسيل مع مجموعة اختبارات ٦٨٤+.",
+                    "en": "Built the washing-centre management backend with a 684+ test suite."
+                },
+                {
+                    "ar": "تنفيذ خطوط CI/CD باستخدام Jenkins و ArgoCD و Docker.",
+                    "en": "Implemented CI/CD pipelines with Jenkins, ArgoCD and Docker."
+                },
+                {
+                    "ar": "تكامل Datadog APM لمراقبة الأداء في الإنتاج.",
+                    "en": "Integrated Datadog APM for production performance monitoring."
+                }
+            ],
+            "description": {
+                "ar": "بناء الواجهة الخلفية لنظام إدارة مراكز غسيل سيارات بأكثر من ٥٠٠ ألف تحميل للتطبيق، ضمن فريق هندسي يضم أكثر من ١٠٠ شخص، مع خطوط CI/CD عبر Jenkins و ArgoCD.",
+                "en": "Built the backend for a car wash management system with 500K+ app downloads, working as part of a 100+ person engineering team on select features, with CI/CD pipelines using Jenkins and ArgoCD."
+            }
+        }
+    },
+    {
+        "section": "projects",
+        "position": 2,
+        "data": {
+            "url": "https://linkatik.com",
+            "name": {
+                "ar": "Linkatik",
+                "en": "Linkatik"
+            },
+            "slug": "linkatik",
+            "year": {
+                "ar": "٢٠٢٥",
+                "en": "2025"
+            },
+            "stack": [
+                "Laravel",
+                "Next.js",
+                "MySQL",
+                "Nginx",
+                "PM2"
+            ],
+            "metric": {
+                "ar": "بنية إنتاجية واحدة بتخدم عدة مواقع، مع SSL مُدار عبر نطاقات فرعية متعددة.",
+                "en": "A single production stack serving multiple sites, with SSL managed across multiple subdomains."
+            },
+            "status": {
+                "ar": "على Production",
+                "en": "In production"
+            },
+            "tagline": {
+                "ar": "بنية إنتاج متعددة المواقع، تخدم ٢٬٧٥٦ اشتراكًا نشطًا.",
+                "en": "Multi-site production infrastructure serving 2,756 active subscriptions."
+            },
+            "category": {
+                "ar": "منصة متعددة المواقع",
+                "en": "Multi-site platform"
+            },
+            "featured": true,
+            "highlights": [
+                {
+                    "ar": "تصميم وإدارة البنية الإنتاجية لمنصة متعددة المواقع.",
+                    "en": "Architected and manage the production infrastructure for a multi-site platform."
+                },
+                {
+                    "ar": "إعداد Nginx و PHP-FPM و PM2، وإدارة SSL عبر عدة نطاقات فرعية.",
+                    "en": "Nginx / PHP-FPM / PM2 configuration and SSL across multiple subdomains."
+                }
+            ],
+            "description": {
+                "ar": "بناء وإدارة البنية الإنتاجية لمنصة متعددة المواقع، تخدم حاليًا ٢٬٧٥٦ اشتراكًا نشطًا.",
+                "en": "Built and manage the production infrastructure for a multi-site platform, currently serving 2,756 active subscriptions."
+            }
+        }
+    },
+    {
+        "section": "projects",
+        "position": 3,
+        "data": {
+            "url": "https://matxapp.com",
+            "name": {
+                "ar": "MatX",
+                "en": "MatX"
+            },
+            "slug": "matx",
+            "year": {
+                "ar": "٢٠٢٤",
+                "en": "2024"
+            },
+            "stack": [
+                "Laravel",
+                "Next.js",
+                "MySQL"
+            ],
+            "metric": {
+                "ar": "طبقة API واحدة بتخدم واجهة المتجر ولوحة تحكم البائعين، مع خط نماذج ثلاثية الأبعاد للمنتجات.",
+                "en": "One API layer serving both the storefront and the vendor dashboard, plus a 3D product model pipeline."
+            },
+            "status": {
+                "ar": "مُسلّم",
+                "en": "Delivered"
+            },
+            "tagline": {
+                "ar": "منصة تجارة إلكترونية متعددة البائعين، بخط معالجة نماذج ثلاثية الأبعاد.",
+                "en": "A multi-vendor e-commerce platform with a 3D product model pipeline."
+            },
+            "category": {
+                "ar": "تجارة إلكترونية",
+                "en": "E-commerce"
+            },
+            "featured": true,
+            "highlights": [
+                {
+                    "ar": "هندسة منصة تجارة إلكترونية متعددة البائعين بخصائص مدعومة بالذكاء الاصطناعي.",
+                    "en": "Engineered a multi-vendor e-commerce platform with AI-powered features."
+                },
+                {
+                    "ar": "بناء طبقة API الخلفية اللي بتستهلكها واجهة Next.js ولوحة تحكم البائعين.",
+                    "en": "Built the backend API layer consumed by a Next.js storefront and vendor dashboard."
+                }
+            ],
+            "description": {
+                "ar": "هندسة منصة تجارة إلكترونية متعددة البائعين بخصائص مدعومة بالذكاء الاصطناعي، منها خط معالجة لنماذج المنتجات ثلاثية الأبعاد، مع بناء طبقة الـ API التي تستهلكها واجهة Next.js ولوحة البائعين.",
+                "en": "Engineered a multi-vendor e-commerce platform with AI-powered features, including a 3D product model pipeline. Built the backend API layer consumed by a Next.js storefront and vendor dashboard."
+            }
+        }
+    },
+    {
+        "section": "projects",
+        "position": 4,
+        "data": {
+            "name": {
+                "ar": "Umrah Badl",
+                "en": "Umrah Badl"
+            },
+            "slug": "umrahbadl",
+            "year": {
+                "ar": "٢٠٢٣",
+                "en": "2023"
+            },
+            "stack": [
+                "Laravel",
+                "Bootstrap",
+                "MySQL",
+                "Flutter"
+            ],
+            "metric": {
+                "ar": "واجهة خلفية واحدة بتخدم عملاء الويب وتطبيق Flutter المحمول.",
+                "en": "A single backend serving both web and the Flutter mobile client."
+            },
+            "status": {
+                "ar": "مُسلّم",
+                "en": "Delivered"
+            },
+            "tagline": {
+                "ar": "تطبيق حج وعمرة بواجهة Flutter.",
+                "en": "A Hajj/Umrah application with a Flutter client."
+            },
+            "category": {
+                "ar": "سفر",
+                "en": "Travel"
+            },
+            "featured": false,
+            "highlights": [],
+            "description": {
+                "ar": "قيادة تطوير الواجهة الخلفية لتطبيق سفر للحج والعمرة، بالتكامل مع تطبيق Flutter للهواتف.",
+                "en": "Led backend development for a Hajj/Umrah travel application, integrating with a Flutter mobile client."
+            }
+        }
+    },
+    {
+        "section": "projects",
+        "position": 5,
+        "data": {
+            "url": "https://aspparis.com",
+            "name": {
+                "ar": "ASP Paris",
+                "en": "ASP Paris"
+            },
+            "slug": "asp-de-paris",
+            "year": {
+                "ar": "٢٠٢٣",
+                "en": "2023"
+            },
+            "stack": [
+                "Laravel",
+                "cPanel",
+                "GitHub Actions"
+            ],
+            "metric": {
+                "ar": "نشر آلي بالكامل عبر GitHub Actions لبيئة cPanel.",
+                "en": "Fully automated deployment to cPanel through GitHub Actions."
+            },
+            "status": {
+                "ar": "مُسلّم",
+                "en": "Delivered"
+            },
+            "tagline": {
+                "ar": "واجهة Laravel API بنشر آلي على cPanel.",
+                "en": "A Laravel API with automated deployment to cPanel."
+            },
+            "category": {
+                "ar": "API",
+                "en": "API"
+            },
+            "featured": false,
+            "highlights": [],
+            "description": {
+                "ar": "تطوير ونشر واجهة برمجية على Laravel مع CI/CD مؤتمت عبر GitHub Actions إلى استضافة cPanel.",
+                "en": "Developed and deployed a Laravel API with automated CI/CD via GitHub Actions to cPanel hosting."
+            }
+        }
+    },
+    {
+        "section": "settings",
+        "position": 0,
+        "data": {
+            "theme": "light",
+            "blog_enabled": false,
+            "multilingual": false,
+            "theme_toggle": false,
+            "primary_locale": "en",
+            "case_studies_enabled": false
+        }
+    },
+    {
+        "section": "skills",
+        "position": 0,
+        "data": {
+            "group": {
+                "ar": "اللغات",
+                "en": "Languages"
+            },
+            "items": [
+                "PHP",
+                "JavaScript",
+                "SQL",
+                "Bash"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 1,
+        "data": {
+            "group": {
+                "ar": "الأطر",
+                "en": "Frameworks"
+            },
+            "items": [
+                "Laravel",
+                "Livewire",
+                "jQuery",
+                "Bootstrap",
+                "Tailwind CSS"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 2,
+        "data": {
+            "group": {
+                "ar": "قواعد البيانات",
+                "en": "Databases"
+            },
+            "items": [
+                "MySQL",
+                "PostgreSQL",
+                "Redis",
+                "Query optimisation"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 3,
+        "data": {
+            "group": {
+                "ar": "واجهات برمجية",
+                "en": "APIs"
+            },
+            "items": [
+                "RESTful API design",
+                "API integration",
+                "Webhooks"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 4,
+        "data": {
+            "group": {
+                "ar": "المعمارية",
+                "en": "Architecture"
+            },
+            "items": [
+                "Multi-tenant SaaS",
+                "Microservices",
+                "Queues",
+                "Caching"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 5,
+        "data": {
+            "group": {
+                "ar": "البنية التحتية",
+                "en": "Infrastructure"
+            },
+            "items": [
+                "Docker",
+                "Nginx",
+                "Linux",
+                "AWS",
+                "Huawei Cloud",
+                "cPanel"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 6,
+        "data": {
+            "group": {
+                "ar": "النشر والأتمتة",
+                "en": "CI/CD & DevOps"
+            },
+            "items": [
+                "GitHub Actions",
+                "Jenkins",
+                "ArgoCD",
+                "Git"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 7,
+        "data": {
+            "group": {
+                "ar": "الاختبار والمراقبة",
+                "en": "Testing & Monitoring"
+            },
+            "items": [
+                "PHPUnit",
+                "Pest",
+                "Datadog",
+                "Debugging"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 8,
+        "data": {
+            "group": {
+                "ar": "أدوات الذكاء الاصطناعي",
+                "en": "AI tooling"
+            },
+            "items": [
+                "Cursor",
+                "Claude Code",
+                "ChatGPT"
+            ]
+        }
+    },
+    {
+        "section": "skills",
+        "position": 9,
+        "data": {
+            "group": {
+                "ar": "ممارسات",
+                "en": "Practices"
+            },
+            "items": [
+                "Agile",
+                "Scrum",
+                "Code review",
+                "Technical documentation"
+            ]
+        }
+    },
+    {
+        "section": "socials",
+        "position": 0,
+        "data": {
+            "url": "https://www.linkedin.com/in/mahmoud-t-rageh/",
+            "icon": "linkedin",
+            "label": "LinkedIn"
+        }
+    },
+    {
+        "section": "socials",
+        "position": 1,
+        "data": {
+            "url": "https://github.com/mahmoudtrageh",
+            "icon": "github",
+            "label": "GitHub"
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 0,
+        "data": {
+            "org": {
+                "ar": "Boxes Intelligent Communications — مصر",
+                "en": "Boxes Intelligent Communications, Egypt"
+            },
+            "role": {
+                "ar": "مهندس برمجيات أول",
+                "en": "Senior Software Engineer"
+            },
+            "period": {
+                "ar": "فبراير ٢٠٢٦ — حتى الآن",
+                "en": "Feb 2026 — Present"
+            },
+            "points": [
+                {
+                    "ar": "امتلاك المعمارية الخلفية لـ BoxesVDR: توجيه مستأجرين عبر subdomain مع بوابات auth_request، إدارة SSL/TLS عبر Cloudflare Origin، واستراتيجية بيئات عبر ٣ سيرفرات AlmaLinux/nginx.",
+                    "en": "Own the backend architecture for BoxesVDR: subdomain tenant routing with auth_request gates, SSL/TLS via Cloudflare Origin Certificates, and an environment strategy across 3 AlmaLinux/nginx servers."
+                },
+                {
+                    "ar": "قيادة هجرة دومين إنتاجية كاملة (withaqvdr.com ← boxesvdr.com) عبر ٣ سيرفرات حيّة بدون توقف.",
+                    "en": "Led a full production domain migration (withaqvdr.com → boxesvdr.com) across 3 live servers with zero downtime."
+                },
+                {
+                    "ar": "مراجعة تكلفة Huawei Cloud (ME-Riyadh) حدّدت ~٣٢٤–٣٤٥$ شهريًا وخفّضت التكاليف المتكررة بتحويل EIPs من فوترة ثابتة لفوترة بالاستهلاك.",
+                    "en": "Ran a Huawei Cloud (ME-Riyadh) cost audit identifying ~$324–345/month, cutting recurring costs by moving EIPs from fixed to pay-per-traffic billing."
+                },
+                {
+                    "ar": "تصميم خطوط CI/CD عبر GitHub Actions لنشر قابل للتكرار عبر dev و staging و production.",
+                    "en": "Designed CI/CD pipelines via GitHub Actions for repeatable deployments across dev, staging and production."
+                }
+            ],
+            "current": true,
+            "summary": {
+                "ar": "امتلاك المعمارية الخلفية لمنصة SaaS متعددة المستأجرين (BoxesVDR)، من تجهيز السيرفر لأتمتة النشر.",
+                "en": "Owning the backend architecture of a multi-tenant SaaS platform (BoxesVDR), from server provisioning to deployment automation."
+            }
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 1,
+        "data": {
+            "org": {
+                "ar": "MatX — عن بُعد / عمل حر",
+                "en": "MatX, Remote / Freelance"
+            },
+            "role": {
+                "ar": "مهندس Backend مستقل",
+                "en": "Freelance Backend Engineer"
+            },
+            "period": {
+                "ar": "مايو ٢٠٢٥ — فبراير ٢٠٢٦",
+                "en": "May 2025 — Feb 2026"
+            },
+            "points": [
+                {
+                    "ar": "هندسة المعمارية الخلفية لمنصة تجارة إلكترونية متعددة البائعين باستخدام Laravel و MySQL.",
+                    "en": "Engineered backend architecture for a multi-vendor e-commerce platform using Laravel and MySQL."
+                },
+                {
+                    "ar": "بناء خدمات خلفية تدعم خصائص مدعومة بالذكاء الاصطناعي وخط معالجة لنماذج المنتجات ثلاثية الأبعاد.",
+                    "en": "Implemented backend services supporting AI-powered product features and a 3D product model pipeline."
+                },
+                {
+                    "ar": "العمل عبر التطوير الخلفي والتسليم الإنتاجي لبناء المنصة وإطلاقها.",
+                    "en": "Worked across backend development and production delivery to build and ship the platform."
+                }
+            ],
+            "current": false,
+            "summary": {
+                "ar": "هندسة المعمارية الخلفية لمنصة تجارة إلكترونية متعددة البائعين.",
+                "en": "Engineered the backend architecture for a multi-vendor e-commerce platform."
+            }
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 2,
+        "data": {
+            "org": {
+                "ar": "Tazamun — الإمارات",
+                "en": "Tazamun, UAE"
+            },
+            "role": {
+                "ar": "مهندس Backend",
+                "en": "Backend Engineer"
+            },
+            "period": {
+                "ar": "سبتمبر ٢٠٢٣ — مايو ٢٠٢٥",
+                "en": "Sept 2023 — May 2025"
+            },
+            "points": [
+                {
+                    "ar": "بناء وصيانة RESTful APIs وخدمات بتدعم منطق العمل الأساسي للمنصة.",
+                    "en": "Built and maintained RESTful APIs and services supporting the platform’s core business logic."
+                },
+                {
+                    "ar": "العمل المباشر مع مهندسي الواجهة والمصممين لتسليم خصائص كاملة من المواصفات للإنتاج.",
+                    "en": "Worked directly with frontend engineers and designers to ship end-to-end functionality from spec to production."
+                },
+                {
+                    "ar": "ترجمة قيود البنية التحتية لصيغة يقدر أصحاب القرار غير التقنيين يتصرفوا على أساسها، وده قصّر الدورة بين الهندسة وقرارات المنتج.",
+                    "en": "Translated infrastructure constraints into terms non-technical stakeholders could act on, shortening the loop between engineering and product decisions."
+                }
+            ],
+            "current": false,
+            "summary": {
+                "ar": "قيادة تطوير الواجهة الخلفية لخصائص المنتج الأساسية.",
+                "en": "Led backend development for the platform’s core product features."
+            }
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 3,
+        "data": {
+            "org": {
+                "ar": "MAWAHEB LLC — الإمارات",
+                "en": "MAWAHEB LLC, UAE"
+            },
+            "role": {
+                "ar": "مطوّر Backend",
+                "en": "Backend Developer"
+            },
+            "period": {
+                "ar": "مارس ٢٠٢٣ — سبتمبر ٢٠٢٣",
+                "en": "March 2023 — Sept 2023"
+            },
+            "points": [
+                {
+                    "ar": "تطوير الواجهة الخلفية لتطبيق حجز خدمات تنظيف، وتبسيط سير عمل الجدولة وإلغاء خطوات الحجز اليدوية.",
+                    "en": "Developed the backend for a cleaning booking services application, streamlining the scheduling workflow and eliminating manual booking steps."
+                },
+                {
+                    "ar": "تنفيذ هجرات بيانات ودمج أدوات خارجية، بتوحيد خدمات مدفوعة منفصلة في حل داخلي واحد.",
+                    "en": "Executed data migrations and integrated third-party tools, consolidating previously separate paid services into a single in-house solution."
+                },
+                {
+                    "ar": "حل المشكلات التقنية المُبلّغ عنها من العملاء مباشرة.",
+                    "en": "Resolved customer-reported technical issues directly."
+                }
+            ],
+            "current": false,
+            "product": "Tekram — Home Cleaning Service",
+            "summary": {
+                "ar": "الواجهة الخلفية لتطبيق حجز خدمات تنظيف.",
+                "en": "The backend for a cleaning booking services application."
+            },
+            "product_url": "https://apps.apple.com/us/app/tekram-home-cleaning-service/id1642682373"
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 4,
+        "data": {
+            "org": {
+                "ar": "Algoriza — مصر",
+                "en": "Algoriza, Egypt"
+            },
+            "role": {
+                "ar": "مطوّر Backend",
+                "en": "Backend Developer"
+            },
+            "period": {
+                "ar": "أغسطس ٢٠٢٠ — مارس ٢٠٢٣",
+                "en": "August 2020 — March 2023"
+            },
+            "points": [
+                {
+                    "ar": "تصميم وتنفيذ حلول خلفية لمنصات تجارة إلكترونية وشحن بتخدم عملاء ويب وموبايل.",
+                    "en": "Designed and implemented backend solutions for e-commerce and shipping platforms serving both web and mobile clients."
+                },
+                {
+                    "ar": "بناء وصيانة لوحة تحكم إدارية و RESTful APIs بتستهلكها تطبيقات Android و iOS.",
+                    "en": "Built and maintained an admin dashboard and RESTful APIs consumed by both Android and iOS applications."
+                },
+                {
+                    "ar": "نقطة الحل الأساسية للمشكلات التقنية المُبلّغ عنها، مع الحفاظ على جودة خدمة ثابتة عبر حجم كبير من طلبات الدعم.",
+                    "en": "Served as a primary point of resolution for customer-reported technical issues, maintaining consistent service quality across a high volume of support requests."
+                }
+            ],
+            "current": false,
+            "summary": {
+                "ar": "حلول خلفية لمنصات تجارة إلكترونية وشحن بتخدم عملاء ويب وموبايل.",
+                "en": "Backend solutions for e-commerce and shipping platforms serving web and mobile clients."
+            }
+        }
+    },
+    {
+        "section": "timeline",
+        "position": 5,
+        "data": {
+            "org": {
+                "ar": "SpectraApps — مصر",
+                "en": "SpectraApps, Egypt"
+            },
+            "role": {
+                "ar": "متدرّب PHP / Laravel",
+                "en": "PHP Laravel Intern"
+            },
+            "period": {
+                "ar": "ديسمبر ٢٠١٨ — أبريل ٢٠١٩",
+                "en": "December 2018 — April 2019"
+            },
+            "points": [
+                {
+                    "ar": "المساهمة في تطوير تطبيقات Laravel، وبناء الأساس في هندسة الـ Backend والعمل ضمن فريق.",
+                    "en": "Contributed to Laravel application development, building foundational skills in backend engineering and team-based delivery."
+                }
+            ],
+            "current": false,
+            "summary": {
+                "ar": "أول تجربة مهنية في تطوير Laravel.",
+                "en": "First professional experience in Laravel development."
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 0,
+        "data": {
+            "body": {
+                "ar": "توجيه المستأجرين عبر subdomain، بوابات وصول على مستوى الـ nginx، واستراتيجية بيئات كاملة عبر dev و staging و production.",
+                "en": "Subdomain-based tenant routing, access gates enforced at the nginx layer, and a complete environment strategy across dev, staging and production."
+            },
+            "title": {
+                "ar": "أنظمة SaaS متعددة المستأجرين",
+                "en": "Multi-tenant SaaS systems"
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 1,
+        "data": {
+            "body": {
+                "ar": "RESTful APIs بتخدم عملاء ويب وموبايل — لوحات تحكم إدارية، تطبيقات Android و iOS، وواجهات Next.js و Flutter.",
+                "en": "RESTful APIs serving both web and mobile clients — admin dashboards, Android and iOS apps, and Next.js and Flutter front ends."
+            },
+            "title": {
+                "ar": "تصميم APIs",
+                "en": "API design"
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 2,
+        "data": {
+            "body": {
+                "ar": "تجهيز سيرفرات AlmaLinux/nginx، إدارة SSL/TLS، Cloudflare، ومراجعة تكلفة السحابة وخفضها فعليًا.",
+                "en": "AlmaLinux/nginx provisioning, SSL/TLS management, Cloudflare, and auditing cloud spend down to a lower bill."
+            },
+            "title": {
+                "ar": "بنية تحتية وسحابة",
+                "en": "Infrastructure & cloud"
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 3,
+        "data": {
+            "body": {
+                "ar": "خطوط نشر قابلة للتكرار عبر GitHub Actions و Jenkins و ArgoCD و Docker — من الـ commit للإنتاج.",
+                "en": "Repeatable deployment pipelines through GitHub Actions, Jenkins, ArgoCD and Docker — commit to production."
+            },
+            "title": {
+                "ar": "CI/CD وأتمتة النشر",
+                "en": "CI/CD & deployment automation"
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 4,
+        "data": {
+            "body": {
+                "ar": "تغطية اختبارات جادة (٦٨٤+ اختبار في PetroApp) ومراقبة أداء الإنتاج عبر Datadog APM.",
+                "en": "Serious test coverage (684+ tests on PetroApp) and production performance monitoring via Datadog APM."
+            },
+            "title": {
+                "ar": "الاختبارات والمراقبة",
+                "en": "Testing & monitoring"
+            }
+        }
+    },
+    {
+        "section": "what_i_build",
+        "position": 5,
+        "data": {
+            "body": {
+                "ar": "هجرات دومين ونقل بيانات بدون توقف، وتوحيد خدمات مدفوعة منفصلة في حلول داخلية واحدة.",
+                "en": "Zero-downtime domain migrations and data moves, and consolidating separate paid services into single in-house solutions."
+            },
+            "title": {
+                "ar": "هجرات وتوحيد الأنظمة",
+                "en": "Migrations & consolidation"
+            }
+        }
+    },
+    {
+        "section": "writing",
+        "position": 0,
+        "data": {
+            "url": "https://egyresmag.com/الثلاثي-البريطاني-الفائز-بجائزة-نوبل/",
+            "date": {
+                "ar": "أكتوبر ٢٠١٦",
+                "en": "October 2016"
+            },
+            "gloss": {
+                "ar": "",
+                "en": "The British trio who won the 2016 Nobel Prize in Physics — what do you know about them?"
+            },
+            "title": {
+                "ar": "الثلاثي البريطاني الفائز بجائزة نوبل في الفيزياء ٢٠١٦ — ماذا تعرف عنهم؟",
+                "en": "الثلاثي البريطاني الفائز بجائزة نوبل في الفيزياء 2016 — ماذا تعرف عنهم؟"
+            },
+            "publisher": "EgyResMag"
+        }
+    },
+    {
+        "section": "writing",
+        "position": 1,
+        "data": {
+            "url": "https://www.arageek.com/10-advice-to-set-your-correct-goals",
+            "date": {
+                "ar": "فبراير ٢٠١٦",
+                "en": "February 2016"
+            },
+            "gloss": {
+                "ar": "",
+                "en": "10 tips for setting your goals properly, without wasting time"
+            },
+            "title": {
+                "ar": "١٠ نصائح لتحديد أهدافك بطريقة صحيحة بدون إضاعة للوقت!",
+                "en": "10 نصائح لتحديد أهدافك بطريقة صحيحة بدون إضاعة للوقت!"
+            },
+            "publisher": "Arageek"
+        }
+    },
+    {
+        "section": "writing",
+        "position": 2,
+        "data": {
+            "url": "https://egyresmag.com/هل-يمكن-السفر-بين-النجوم-بسرعة-عالية-كم/",
+            "date": {
+                "ar": "مايو ٢٠١٦",
+                "en": "May 2016"
+            },
+            "gloss": {
+                "ar": "",
+                "en": "Is interstellar travel at high speed possible, as in science-fiction films?"
+            },
+            "title": {
+                "ar": "هل يمكن السفر بين النجوم بسرعة عالية كما في أفلام الخيال العلمي؟",
+                "en": "هل يمكن السفر بين النجوم بسرعة عالية كما في أفلام الخيال العلمي؟"
+            },
+            "publisher": "EgyResMag"
+        }
+    },
+    {
+        "section": "writing",
+        "position": 3,
+        "data": {
+            "url": "https://egyresmag.com/زراعة-قوقعة-أذن-صناعية-ومحاكاة-حاسة-ال/",
+            "date": {
+                "ar": "مارس ٢٠١٦",
+                "en": "March 2016"
+            },
+            "gloss": {
+                "ar": "",
+                "en": "Cochlear implants and simulating the human sense of hearing"
+            },
+            "title": {
+                "ar": "زراعة قوقعة أذن صناعية ومحاكاة حاسة السمع لدى البشر!",
+                "en": "زراعة قوقعة أذن صناعية ومحاكاة حاسة السمع لدى البشر!"
+            },
+            "publisher": "EgyResMag"
+        }
+    },
+    {
+        "section": "writing",
+        "position": 4,
+        "data": {
+            "url": "https://www.arageek.com/10-things-prevent-you-from-writing",
+            "date": {
+                "ar": "سبتمبر ٢٠١٥",
+                "en": "September 2015"
+            },
+            "gloss": {
+                "ar": "",
+                "en": "10 imaginary obstacles stopping you from starting to blog"
+            },
+            "title": {
+                "ar": "١٠ عوائق وهمية تمنعك من البدء في التدوين الآن!",
+                "en": "10 عوائق وهمية تمنعك من البدء في التدوين الآن!"
+            },
+            "publisher": "Arageek"
+        }
+    }
+]
