@@ -6,6 +6,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\ContentSection;
 use App\Support\Content;
+use App\Support\Settings;
 use App\Support\Thumbnail;
 use App\Support\YouTubeFeed;
 use Illuminate\Contracts\View\View;
@@ -456,6 +457,8 @@ final class SectionEditor extends Component
      */
     private function clean(array $entry): array
     {
+        $entry = self::fillHiddenLocales($entry);
+
         foreach ($this->schema()['fields'] as $key => $field) {
             if (! in_array($field['type'], ['list', 'list.text', 'repeater'], true)) {
                 continue;
@@ -468,6 +471,34 @@ final class SectionEditor extends Component
         }
 
         return $entry;
+    }
+
+    /**
+     * While the site runs in one language the dashboard shows only that
+     * language's inputs. Any other language left empty gets the same text, so
+     * switching multilingual back on never shows a blank half.
+     */
+    private static function fillHiddenLocales(mixed $value): mixed
+    {
+        if (! is_array($value)) {
+            return $value;
+        }
+
+        $locales = Content::locales();
+
+        if ($value !== [] && array_keys($value) === $locales) {
+            $primary = (string) ($value[Settings::primaryLocale()] ?? '');
+
+            foreach ($locales as $locale) {
+                if (trim((string) $value[$locale]) === '' && ! in_array($locale, Settings::activeLocales(), true)) {
+                    $value[$locale] = $primary;
+                }
+            }
+
+            return $value;
+        }
+
+        return array_map(self::fillHiddenLocales(...), $value);
     }
 
     /**
@@ -512,8 +543,12 @@ final class SectionEditor extends Component
                     // — but must still be a string, not an array.
                     $rule = ($field['optional'] ?? false) ? ['nullable', 'string'] : ['required', 'string'];
 
+                    // Only languages the site shows are edited, so only those
+                    // are required; a hidden one is filled in by clean().
                     foreach (Content::locales() as $locale) {
-                        $rules["entries.{$i}.{$key}.{$locale}"] = $rule;
+                        $rules["entries.{$i}.{$key}.{$locale}"] = in_array($locale, Settings::activeLocales(), true)
+                            ? $rule
+                            : ['nullable', 'string'];
                     }
                 }
 

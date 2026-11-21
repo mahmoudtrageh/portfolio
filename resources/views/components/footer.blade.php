@@ -20,7 +20,7 @@
 @endphp
 
 <footer class="border-t" style="border-color: var(--border);">
-    <div class="shell py-10">
+    <div class="shell py-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm">
             <p style="color: var(--text-muted);">
                 © {{ $year }} {{ $identity['name'] }} · {{ __('All rights reserved.') }}

@@ -12,9 +12,10 @@
     --font-sans: 'Inter', 'Tajawal', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji';
     /* Display serif for Latin headings — the one typographic move the page
-       leans on. Bitter has no Arabic, so Tajawal sits behind it in the stack
-       and RTL headings are pushed to bold in the base layer below. */
-    --font-display: 'Bitter', 'Tajawal', Georgia, serif;
+       leans on. Now the same sans as the body: one family keeps the site and
+       the dashboard simple and consistent. RTL headings are pushed to bold
+       in the layer below. */
+    --font-display: 'Inter', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
 }
 
@@ -470,8 +471,8 @@
 
     .font-display {
         font-family: var(--font-display);
-        font-weight: 500;
-        letter-spacing: -0.01em;
+        font-weight: 600;
+        letter-spacing: -0.02em;
     }
 
     /* Bitter is Latin-only. Arabic has no serif/sans split to mirror, so RTL
@@ -508,5 +509,391 @@
             opacity: 1;
             transform: none;
         }
+    }
+}
+
+/*
+| Home, Projects and Contact
+|
+| Deliberately quiet: one sans family, big type on the intro, hairline rules
+| instead of cards, and a label column beside the content on wide screens.
+*/
+@layer components {
+    .home-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 48rem) {
+        .home-grid {
+            grid-template-columns: 14rem minmax(0, 1fr);
+            gap: 3rem;
+        }
+    }
+
+    .home-label {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+
+    [dir='rtl'] .home-label {
+        letter-spacing: 0;
+        font-size: 1rem;
+    }
+
+    /* A project row: name, one-line description, and an arrow that nudges on
+       hover. Stacks under the name on narrow screens. */
+    .home-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 1rem;
+        row-gap: 0.15rem;
+        padding-block: 1rem;
+    }
+
+    .home-row__about {
+        grid-column: 1;
+        color: var(--text-muted);
+        font-size: 0.9375rem;
+    }
+
+    .home-row__arrow {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+        color: var(--text-faint);
+        transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    a.home-row:hover .home-row__arrow {
+        color: var(--text);
+        transform: translate(2px, -2px);
+    }
+
+    @media (min-width: 40rem) {
+        .home-row {
+            grid-template-columns: 12rem minmax(0, 1fr) auto;
+            align-items: baseline;
+        }
+
+        .home-row__about {
+            grid-column: 2;
+        }
+
+        .home-row__arrow {
+            grid-column: 3;
+            grid-row: 1;
+        }
+    }
+}
+
+@layer components {
+    /* The name wordmark that replaces the logo. */
+    .brand {
+        font-family: 'Plus Jakarta Sans', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        transition: opacity 0.15s ease;
+    }
+
+    .brand:hover {
+        opacity: 0.75;
+    }
+
+    .brand__accent {
+        color: var(--accent);
+    }
+
+    [dir='rtl'] .brand {
+        letter-spacing: 0;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        color: var(--text-muted);
+        transition: color 0.15s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+        color: var(--text);
+    }
+
+    .nav-link.is-active {
+        font-weight: 600;
+    }
+
+    /* ── Intro (home) ──
+       Sized to fit one desktop screen: text on the left, a landscape photo on
+       the right, no scrolling. Stacks on smaller screens. */
+    .intro {
+        padding-block: clamp(1.25rem, 4.5vh, 3.5rem);
+    }
+
+    .intro__grid {
+        display: grid;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    @media (min-width: 64rem) {
+        .intro__grid {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
+            gap: 3.5rem;
+        }
+    }
+
+    .intro__title {
+        font-size: clamp(2.5rem, min(6vw, 8.5vh), 4.25rem);
+        line-height: 1.02;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+    }
+
+    @media (min-width: 64rem) {
+        .intro__title > span {
+            white-space: nowrap;
+        }
+    }
+
+    [dir='rtl'] .intro__title {
+        letter-spacing: 0;
+        line-height: 1.2;
+    }
+
+    .intro__hello {
+        display: block;
+        color: var(--accent);
+    }
+
+    .intro__job {
+        margin-top: clamp(0.75rem, 2.5vh, 2rem);
+        font-size: clamp(1.125rem, min(2.2vw, 3.2vh), 1.5rem);
+        line-height: 1.4;
+    }
+
+    .intro-accent {
+        color: var(--accent);
+    }
+
+    .intro__photo {
+        order: -1;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--bg-sunken);
+        display: grid;
+        place-items: center;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-faint);
+    }
+
+    .intro__photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (min-width: 64rem) {
+        .intro__photo {
+            order: 0;
+        }
+    }
+
+    .intro__body {
+        overflow-wrap: anywhere;
+        margin-top: clamp(1rem, 3.5vh, 2.75rem);
+        max-width: 38rem;
+        font-size: 1.0625rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+    }
+
+    .intro__body > * + * {
+        margin-top: clamp(0.75rem, 2.5vh, 1.75rem);
+    }
+
+    .intro__previous > li + li {
+        margin-top: 0.15rem;
+    }
+
+    /* Short desktop windows (e.g. a laptop with browser chrome): tighten the
+       body copy so the whole intro still fits without scrolling. */
+    @media (min-width: 64rem) and (max-height: 45rem) {
+        .intro__body {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .intro__previous > li + li {
+            margin-top: 0;
+        }
+
+        .intro__photo {
+            aspect-ratio: 3 / 2;
+        }
+    }
+
+    /* CV download: an inline text link with a small icon, not a button. */
+    .intro-cv {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--text);
+        font-weight: 500;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+        text-decoration-color: var(--border-strong);
+        transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .intro-cv svg {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+    }
+
+    .intro-cv:hover {
+        color: var(--accent);
+        text-decoration-color: currentColor;
+    }
+
+    .intro-link,
+    .intro-strong {
+        color: var(--text);
+        font-weight: 500;
+    }
+
+    .intro-link {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+        text-decoration-color: var(--border-strong);
+        transition: text-decoration-color 0.15s ease, color 0.15s ease;
+    }
+
+    .intro-link:hover {
+        color: var(--accent);
+        text-decoration-color: currentColor;
+    }
+
+    .intro__posts {
+        margin-top: 5rem;
+        max-width: 48rem;
+    }
+
+    /* ── Inner pages ── */
+    .page {
+        padding-block: clamp(3rem, 7vw, 5rem) clamp(4rem, 8vw, 6rem);
+    }
+
+    .page__head {
+        max-width: 40rem;
+        margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .page__title {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        line-height: 1.05;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+    }
+
+    [dir='rtl'] .page__title {
+        letter-spacing: 0;
+        line-height: 1.3;
+    }
+
+    .page__lead {
+        margin-top: 1rem;
+        font-size: 1.125rem;
+        line-height: 1.7;
+        color: var(--text-muted);
+    }
+}
+
+/*
+| Dashboard
+|
+| Plain rows and hairlines, the same language as the public pages.
+*/
+@layer components {
+    .admin-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 0.9rem;
+        border: 1px solid var(--border-strong);
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text);
+        background: var(--bg-elevated);
+        transition: border-color 0.15s ease;
+    }
+
+    .admin-btn:hover {
+        border-color: var(--text-muted);
+    }
+
+    .admin-notice {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        border-radius: 0.6rem;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.9375rem;
+        font-weight: 500;
+    }
+
+    .admin-group-label {
+        margin-bottom: 0.6rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+    }
+
+    [dir='rtl'] .admin-group-label {
+        letter-spacing: 0;
+        font-size: 0.875rem;
+    }
+
+    .admin-list {
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        background: var(--bg-elevated);
+        overflow: hidden;
+    }
+
+    .admin-list__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        transition: background-color 0.15s ease;
+    }
+
+    .admin-list__row + .admin-list__row {
+        border-top: 1px solid var(--border);
+    }
+
+    .admin-list__row:hover {
+        background: var(--bg);
     }
 }

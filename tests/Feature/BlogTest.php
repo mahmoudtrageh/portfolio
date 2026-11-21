@@ -223,13 +223,12 @@ it('omits the homepage blog section when nothing is published', function (): voi
     $this->get('/en')->assertOk()->assertDontSee('id="blog"', escape: false);
 });
 
-it('resolves in-page anchors against the homepage from the blog', function (): void {
-    // A bare "#work" on /blog would scroll nowhere.
+it('links the navigation to the top-level pages from the blog', function (): void {
     publishedPost();
 
     $this->get('/en/blog')
         ->assertOk()
-        ->assertSee(route('home', ['locale' => 'en']).'#work', escape: false);
+        ->assertSee('href="'.route('projects', ['locale' => 'en']).'"', escape: false);
 });
 
 it('sends the language switcher to the translated post', function (): void {

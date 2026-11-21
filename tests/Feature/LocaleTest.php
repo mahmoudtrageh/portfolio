@@ -12,33 +12,35 @@ it('serves the page in every locale', function (string $locale): void {
     $this->get("/{$locale}")->assertOk();
 })->with(['ar', 'en']);
 
-it('renders every section on the one page', function (string $locale): void {
-    // The site is a single page, so each section anchor has to be present for
-    // the navigation to have anywhere to go.
-    $response = $this->get("/{$locale}")->assertOk();
+it('serves home, projects and contact as separate pages', function (string $locale, string $path): void {
+    $this->get("/{$locale}{$path}")->assertOk();
+})->with(['ar', 'en'])->with(['', '/projects', '/contact']);
 
-    foreach (['top', 'work', 'experience', 'skills', 'about', 'contact'] as $anchor) {
-        $response->assertSee('id="'.$anchor.'"', escape: false);
+it('lists every project on the projects page', function (string $locale): void {
+    $response = $this->get("/{$locale}/projects")->assertOk();
+
+    foreach (['Boxes VDR', 'Linkatik', 'ASP Paris', 'PetroApp', 'Vowalaa', 'MatX', 'DSync Solutions'] as $name) {
+        $response->assertSee($name);
     }
 })->with(['ar', 'en']);
 
-it('renders every project on the page', function (string $locale): void {
-    $response = $this->get("/{$locale}")->assertOk();
+it('shows the email and phone on the contact page', function (): void {
+    $this->get('/en/contact')
+        ->assertOk()
+        ->assertSee('mailto:', escape: false)
+        ->assertSee('tel:', escape: false);
+});
 
-    foreach (config('portfolio.projects') as $project) {
-        $response->assertSee($project['name'][$locale]);
-    }
-})->with(['ar', 'en']);
+it('marks the current page in the navigation', function (): void {
+    $this->get('/en/projects')
+        ->assertOk()
+        ->assertSee('href="'.route('projects', ['locale' => 'en']).'"', escape: false)
+        ->assertSee('aria-current="page"', escape: false);
+});
 
 it('no longer serves the old multi-page URLs', function (string $path): void {
     $this->get($path)->assertNotFound();
-})->with(['/ar/about', '/en/projects', '/ar/projects/boxesvdr', '/en/testimonials']);
-
-it('does not answer GET on the contact endpoint', function (): void {
-    // /{locale}/contact survives as a POST-only target for the form, so a GET
-    // there is method-not-allowed rather than missing.
-    $this->get('/ar/contact')->assertMethodNotAllowed();
-});
+})->with(['/ar/about', '/en/testimonials']);
 
 it('404s on an unsupported locale', function (): void {
     $this->get('/fr')->assertNotFound();

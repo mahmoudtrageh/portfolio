@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\DashboardLocale;
 use App\Http\Middleware\EnsureBlogEnabled;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
@@ -14,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->web(append: [DashboardLocale::class]);
+
         $middleware->alias([
             'locale' => SetLocale::class,
             'blog' => EnsureBlogEnabled::class,

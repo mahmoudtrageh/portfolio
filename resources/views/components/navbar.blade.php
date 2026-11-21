@@ -5,26 +5,18 @@
     $identity = Content::get('identity');
     $alt = Content::alternateLocale();
 
-    // The dark logo falls back to the light one, so a single upload still
-    // works in both themes.
-    $logoLight = Content::image($identity['logo_image'] ?? '');
-    $logoDark = Content::image($identity['logo_image_dark'] ?? '');
+    $locale = app()->getLocale();
+    $home = route('home', ['locale' => $locale]);
 
-    // The site is one page plus the blog, so in-page anchors have to resolve
-    // against the homepage — from /blog a bare "#work" would go nowhere.
-    $home = route('home', ['locale' => app()->getLocale()]);
-    $onHome = request()->routeIs('home');
-    $anchor = fn (string $hash): string => $onHome ? $hash : $home.$hash;
-
+    // Each top-level page is its own route; `active` marks the current one.
     $links = [
-        ['href' => $anchor('#work'), 'label' => __('Work')],
-        ['href' => $anchor('#experience'), 'label' => __('Experience')],
-        ['href' => $anchor('#skills'), 'label' => __('Skills')],
-        ['href' => $anchor('#about'), 'label' => __('About')],
+        ['href' => $home, 'label' => __('Home'), 'active' => request()->routeIs('home')],
+        ['href' => route('projects', ['locale' => $locale]), 'label' => __('Projects'), 'active' => request()->routeIs('projects', 'project')],
+        ['href' => route('contact', ['locale' => $locale]), 'label' => __('Contact'), 'active' => request()->routeIs('contact')],
     ];
 
     if (Content::blogEnabled()) {
-        $links[] = ['href' => route('blog', ['locale' => app()->getLocale()]), 'label' => __('Blog')];
+        $links[] = ['href' => route('blog', ['locale' => $locale]), 'label' => __('Blog'), 'active' => request()->routeIs('blog', 'post')];
     }
 
     // Same page, other language — keeps the visitor in place when switching.
@@ -63,42 +55,22 @@
              style="border-color: var(--border);"
              aria-label="{{ __('Main') }}">
 
-            <a href="{{ $onHome ? '#top' : $home }}"
-               class="font-display text-xl shrink-0 transition-opacity hover:opacity-70"
+            <a href="{{ $home }}"
+               class="brand shrink-0"
                aria-label="{{ $identity['name'] }}">
-                {{-- The uploaded logo replaces the text one when present; the
-                     text stays as the alt so the link is never empty.
-
-                     When a dark-mode logo exists, both are rendered and CSS
-                     picks one. The theme is toggled client-side by a class on
-                     <html>, so choosing in PHP would serve a cached page the
-                     wrong logo and would not update when the visitor switches. --}}
-                @if ($logoLight !== '')
-                    <img src="{{ $logoLight }}"
-                         alt="{{ $identity['logo'] }}"
-                         class="h-8 w-auto max-w-40 object-contain {{ $logoDark !== '' ? 'logo-light' : '' }}"
-                         loading="eager" decoding="async">
-
-                    @if ($logoDark !== '')
-                        <img src="{{ $logoDark }}"
-                             alt="{{ $identity['logo'] }}"
-                             class="h-8 w-auto max-w-40 object-contain logo-dark"
-                             loading="eager" decoding="async">
-                    @endif
-                @else
-                    {{ $identity['logo'] }}
-                @endif
+                {{-- Two-tone wordmark: first name in ink, the rest in the accent. --}}
+                @php [$brandFirst, $brandRest] = array_pad(explode(' ', trim((string) $identity['name']), 2), 2, ''); @endphp
+                <span>{{ $brandFirst }}</span>@if ($brandRest !== '') <span class="brand__accent">{{ $brandRest }}</span>@endif
             </a>
 
-            {{-- Desktop navigation --}}
+            <div class="flex items-center gap-1.5 sm:gap-3">
+            {{-- Desktop navigation, right-aligned beside the controls --}}
             <ul class="hidden md:flex items-center gap-1 text-sm">
                 @foreach ($links as $link)
                     <li>
                         <a href="{{ $link['href'] }}"
-                           class="px-3 py-2 rounded-lg block transition-colors"
-                           style="color: var(--text-muted);"
-                           onmouseover="this.style.color='var(--text)'"
-                           onmouseout="this.style.color='var(--text-muted)'">
+                           class="nav-link {{ $link['active'] ? 'is-active' : '' }}"
+                           @if ($link['active']) aria-current="page" @endif>
                             {{ $link['label'] }}
                         </a>
                     </li>
@@ -122,15 +94,6 @@
                     {{ config('portfolio.locale_names')[$alt] }}
                 </a>
                 @endif
-
-                <a href="{{ $anchor('#contact') }}"
-                   class="hidden sm:inline-flex px-4 py-2 rounded-full text-sm font-semibold transition-colors"
-                   style="background: var(--accent-fill); color: var(--accent-text);"
-                   onmouseover="this.style.background='var(--accent-fill-hover)'"
-                   onmouseout="this.style.background='var(--accent-fill)'">
-                    {{ __("Let's talk") }}
-                </a>
-
                 {{-- Mobile menu trigger --}}
                 <button type="button"
                         x-on:click="open = !open"
@@ -141,14 +104,11 @@
                         :aria-label="open ? '{{ __('Close menu') }}' : '{{ __('Open menu') }}'">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                        <template x-if="!open">
-                            <g><path d="M4 7h16M4 12h16M4 17h16"/></g>
-                        </template>
-                        <template x-if="open">
-                            <g><path d="M6 6l12 12M18 6L6 18"/></g>
-                        </template>
+                        <path x-show="!open" d="M4 7h16M4 12h16M4 17h16"/>
+                        <path x-show="open" x-cloak d="M6 6l12 12M18 6L6 18"/>
                     </svg>
                 </button>
+            </div>
             </div>
         </nav>
     </div>
@@ -161,12 +121,13 @@
          class="md:hidden border-b"
          style="border-color: var(--border); background: var(--bg-elevated);">
         <ul class="shell py-3 flex flex-col">
-            @foreach ([...$links, ['href' => $anchor('#contact'), 'label' => __('Contact')]] as $link)
+            @foreach ($links as $link)
                 <li>
                     <a href="{{ $link['href'] }}"
                        x-on:click="open = false"
                        class="block py-3 border-b last:border-0"
-                       style="border-color: var(--border);">
+                       style="border-color: var(--border); {{ $link['active'] ? 'font-weight: 600;' : 'color: var(--text-muted);' }}"
+                       @if ($link['active']) aria-current="page" @endif>
                         {{ $link['label'] }}
                     </a>
                 </li>

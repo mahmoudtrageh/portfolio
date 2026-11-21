@@ -25,7 +25,8 @@
 
     $siteName = $identity['name'].' — '.$identity['role'];
     $pageTitle = $title ? $title.' · '.$identity['name'] : $siteName;
-    $metaDescription = $description ?: Content::string('hero.summary');
+    $metaDescription = $description
+        ?: (trim((string) ($identity['description'] ?? '')) ?: Content::string('hero.summary'));
     $metaImage = $image ?: asset('images/og-'.$locale.'.png');
     $canonicalUrl = $canonical ?: request()->url();
 

@@ -21,11 +21,9 @@ export default defineConfig({
                     weights: [400, 500, 700],
                     subsets: ['arabic', 'latin'],
                 }),
-                // Display serif for Latin headings. Arabic headings use bold
-                // Tajawal instead (see resources/css/app.css) — Arabic has no
-                // serif/sans distinction to mirror here.
-                bunny('Bitter', {
-                    weights: [500, 600],
+                // The name wordmark in the navbar.
+                bunny('Plus Jakarta Sans', {
+                    weights: [600, 700],
                     subsets: ['latin'],
                 }),
                 // Latin body text, matched to Tajawal's tone.

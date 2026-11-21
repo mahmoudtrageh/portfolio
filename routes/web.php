@@ -66,7 +66,9 @@ Route::prefix('{locale}')
     ->whereIn('locale', config('portfolio.locales'))
     ->middleware('locale')
     ->group(function (): void {
-        Route::get('/', PageController::class)->name('home');
+        Route::get('/', [PageController::class, 'home'])->name('home');
+        Route::get('/projects', [PageController::class, 'projects'])->name('projects');
+        Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
         // Both 404 while the blog is switched off (Identity → Blog).
         Route::middleware('blog')->group(function (): void {

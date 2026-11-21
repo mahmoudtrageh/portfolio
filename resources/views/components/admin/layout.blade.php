@@ -76,8 +76,10 @@
                style="border-color: var(--border); background: var(--bg-elevated);">
 
             <div class="flex items-center justify-between gap-3 p-4 lg:p-5">
-                <a href="{{ route('admin.dashboard') }}" class="font-display text-lg">
-                    {{ __('Dashboard') }}
+                <a href="{{ route('admin.dashboard') }}" class="block leading-tight">
+                    @php [$brandFirst, $brandRest] = array_pad(explode(' ', trim((string) Content::get('identity.name', '')), 2), 2, ''); @endphp
+                    <span class="brand text-base">{{ $brandFirst }} <span class="brand__accent">{{ $brandRest }}</span></span>
+                    <span class="block text-xs mt-0.5" style="color: var(--text-faint);">{{ __('Dashboard') }}</span>
                 </a>
 
                 <button type="button"

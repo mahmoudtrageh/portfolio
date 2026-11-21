@@ -69,10 +69,10 @@ it('keeps the dashboard out of search results', function (): void {
 
 it('expands a list entry when opened', function (): void {
     Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'projects'])
+        ->test(SectionEditor::class, ['section' => 'socials'])
         ->assertSet('open', null)
         ->set('open', 0)
-        ->assertSee('wire:model="entries.0.slug"', escape: false);
+        ->assertSee('wire:model="entries.0.url"', escape: false);
 });
 
 it('opens a singleton straight away, with no list to browse', function (): void {
@@ -107,22 +107,31 @@ it('requires both locales on a translated field', function (): void {
 
 it('adds, reorders and removes list entries', function (): void {
     $component = Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates']);
+        ->test(SectionEditor::class, ['section' => 'freelance_projects']);
 
-    $original = ContentSection::query()->section('certificates')->count();
+    // Two entries to start from, so moving one has somewhere to go.
+    foreach (['First', 'Second'] as $i => $name) {
+        $component->call('addEntry')
+            ->set("entries.{$i}.name.en", $name)
+            ->set("entries.{$i}.name.ar", $name)
+            ->set("entries.{$i}.about.en", 'About')
+            ->set("entries.{$i}.about.ar", 'نبذة');
+    }
+
+    $component->call('save')->assertHasNoErrors();
+
+    $original = ContentSection::query()->section('freelance_projects')->count();
 
     // Add one, and it lands at the end.
     $component->call('addEntry')
-        ->set('entries.'.$original.'.name.en', 'New Certificate')
-        ->set('entries.'.$original.'.name.ar', 'شهادة جديدة')
-        ->set('entries.'.$original.'.issuer.en', 'Issuer')
-        ->set('entries.'.$original.'.issuer.ar', 'جهة')
-        ->set('entries.'.$original.'.date.en', '2026')
-        ->set('entries.'.$original.'.date.ar', '٢٠٢٦')
+        ->set('entries.'.$original.'.name.en', 'New Project')
+        ->set('entries.'.$original.'.name.ar', 'مشروع جديد')
+        ->set('entries.'.$original.'.about.en', 'About')
+        ->set('entries.'.$original.'.about.ar', 'نبذة')
         ->call('save')
         ->assertHasNoErrors();
 
-    expect(ContentSection::query()->section('certificates')->count())->toBe($original + 1);
+    expect(ContentSection::query()->section('freelance_projects')->count())->toBe($original + 1);
 
     // Move it to the top and confirm the stored order changed with it.
     for ($i = $original; $i > 0; $i--) {
@@ -131,27 +140,27 @@ it('adds, reorders and removes list entries', function (): void {
 
     $component->call('save')->assertHasNoErrors();
 
-    $first = ContentSection::query()->section('certificates')->first();
-    expect($first->data['name']['en'])->toBe('New Certificate');
+    $first = ContentSection::query()->section('freelance_projects')->orderBy('position')->first();
+    expect($first->data['name']['en'])->toBe('New Project');
 
     // Remove it again.
     $component->call('removeEntry', 0)->call('save')->assertHasNoErrors();
 
-    expect(ContentSection::query()->section('certificates')->count())->toBe($original);
+    expect(ContentSection::query()->section('freelance_projects')->count())->toBe($original);
 });
 
 it('drops repeatable rows left blank rather than shipping empty bullets', function (): void {
     Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'projects'])
-        ->call('addItem', 0, 'stack')
-        ->call('addItem', 0, 'highlights')
+        ->test(SectionEditor::class, ['section' => 'current_job'])
+        ->set('entries.0.company', 'Company')
+        ->call('addItem', 0, 'products')
+        ->call('addItem', 0, 'products')
         ->call('save')
         ->assertHasNoErrors();
 
-    $project = ContentSection::query()->section('projects')->first();
+    $job = ContentSection::query()->section('current_job')->first();
 
-    expect($project->data['stack'])->not->toContain('')
-        ->and($project->data['highlights'])->each->not->toBe(['ar' => '', 'en' => '']);
+    expect($job->data['products'])->toBe([]);
 });
 
 it('reflects a save immediately, without a stale cached tree', function (): void {
@@ -178,17 +187,17 @@ it('never deletes a singleton section by saving it empty', function (): void {
     // save() replaces the section wholesale. With no entries that means a
     // delete followed by no insert — the About text vanished this way, taking
     // the whole page down with an undefined-key error.
-    $before = Content::get('about');
+    $before = Content::get('identity');
 
-    expect($before['intro'])->not->toBe('');
+    expect($before['name'])->not->toBe('');
 
     Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'about'])
+        ->test(SectionEditor::class, ['section' => 'identity'])
         ->set('entries', [])
         ->call('save');
 
-    expect(ContentSection::query()->section('about')->count())->toBe(1)
-        ->and(Content::get('about')['intro'])->toBe($before['intro']);
+    expect(ContentSection::query()->section('identity')->count())->toBe(1)
+        ->and(Content::get('identity')['name'])->toBe($before['name']);
 
     // And the page still renders.
     $this->get('/en')->assertOk();
@@ -203,7 +212,30 @@ it('saves every section without crashing', function (string $section): void {
         ->call('save')
         ->assertHasNoErrors();
 })->with([
-    'identity', 'hero', 'projects', 'other_projects', 'timeline', 'freelance',
-    'side_projects', 'education', 'certificates', 'skills', 'channel',
-    'writing', 'what_i_build', 'about', 'contact', 'socials',
+    'identity', 'socials', 'current_job', 'previous_jobs', 'job_projects', 'freelance_projects',
 ]);
+
+it('edits the projects page from the dashboard', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'job_projects'])
+        ->call('addEntry')
+        ->set('entries.0.name.en', 'Dashboard Project')
+        ->set('entries.0.name.ar', 'مشروع')
+        ->set('entries.0.about.en', 'Added from the dashboard')
+        ->set('entries.0.about.ar', 'أضيف من لوحة التحكم')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en/projects')->assertOk()->assertSee('Dashboard Project');
+});
+
+it('shows the job title from the dashboard in the browser tab', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'identity'])
+        ->set('entries.0.role.en', 'Software Engineer')
+        ->set('entries.0.role.ar', 'مهندس برمجيات')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertSee('— Software Engineer</title>', escape: false);
+});

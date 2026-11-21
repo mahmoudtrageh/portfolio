@@ -61,7 +61,7 @@
                 '@type' => 'ListItem',
                 'position' => 2,
                 'name' => __('Projects'),
-                'item' => route('home', ['locale' => $locale]).'#work',
+                'item' => route('projects', ['locale' => $locale]),
             ],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $project['name']],
         ],
@@ -82,7 +82,7 @@
         <div class="shell">
             <div class="max-w-3xl mx-auto">
 
-                <a href="{{ route('home', ['locale' => $locale]) }}#work"
+                <a href="{{ route('projects', ['locale' => $locale]) }}"
                    class="inline-flex items-center gap-2 text-sm font-medium mb-8"
                    style="color: var(--accent);">
                     <span aria-hidden="true">{{ $back }}</span>

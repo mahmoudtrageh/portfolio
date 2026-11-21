@@ -4,7 +4,10 @@
 
     $schema = $this->schema();
     $fields = $schema['fields'];
-    $locales = Content::locales();
+    // Only the languages the site shows; with multilingual off that is one
+    // input per field instead of an Arabic/English pair.
+    $locales = App\Support\Settings::activeLocales();
+    $pairGrid = count($locales) > 1 ? 'grid sm:grid-cols-2 gap-3' : 'grid gap-3';
     $single = $this->isSingle();
     $titleField = $schema['title'] ?? null;
 
@@ -305,11 +308,11 @@
                                          change is never made in one language alone. --}}
                                     <p class="block text-sm font-medium mb-2">{{ $fieldLabel }}</p>
 
-                                    <div class="grid sm:grid-cols-2 gap-3">
+                                    <div class="{{ $pairGrid }}">
                                         @foreach ($locales as $locale)
                                             <div>
                                                 <label for="f-{{ $i }}-{{ $key }}-{{ $locale }}"
-                                                       class="block text-xs mb-1"
+                                                       class="{{ count($locales) > 1 ? 'block text-xs mb-1' : 'sr-only' }}"
                                                        style="color: var(--text-faint);">
                                                     {{ config('portfolio.locale_names')[$locale] }}
                                                 </label>
@@ -402,10 +405,10 @@
                                                             aria-label="{{ __('Remove') }}">×</button>
                                                 </div>
 
-                                                <div class="grid sm:grid-cols-2 gap-3">
+                                                <div class="{{ $pairGrid }}">
                                                     @foreach ($locales as $locale)
                                                         <div>
-                                                            <span class="block text-xs mb-1"
+                                                            <span class="{{ count($locales) > 1 ? 'block text-xs mb-1' : 'sr-only' }}"
                                                                   style="color: var(--text-faint);">
                                                                 {{ config('portfolio.locale_names')[$locale] }}
                                                             </span>
@@ -462,7 +465,7 @@
                                                                        class="{{ $inputClass }}"
                                                                        style="{{ $inputStyle }}">
                                                             @else
-                                                                <div class="grid sm:grid-cols-2 gap-2">
+                                                                <div class="{{ count($locales) > 1 ? 'grid sm:grid-cols-2 gap-2' : 'grid gap-2' }}">
                                                                     @foreach ($locales as $locale)
                                                                         <input type="text"
                                                                                wire:model="entries.{{ $i }}.{{ $key }}.{{ $item }}.{{ $subKey }}.{{ $locale }}"

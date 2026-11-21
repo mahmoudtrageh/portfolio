@@ -18,12 +18,19 @@ final class SitemapController extends Controller
         $caseStudies = Settings::caseStudiesEnabled();
 
         foreach (Settings::activeLocales() as $locale) {
-            // The site itself is one page per locale; anchors are not entries.
             $urls[] = [
                 'loc' => route('home', ['locale' => $locale]),
                 'changefreq' => 'monthly',
                 'priority' => '1.0',
             ];
+
+            foreach (['projects', 'contact'] as $page) {
+                $urls[] = [
+                    'loc' => route($page, ['locale' => $locale]),
+                    'changefreq' => 'monthly',
+                    'priority' => '0.9',
+                ];
+            }
 
             if ($blog) {
                 $urls[] = [

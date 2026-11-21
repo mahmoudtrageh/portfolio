@@ -20,12 +20,13 @@ beforeEach(function (): void {
 | Favicon
 */
 
-it('falls back to the bundled icon when none is uploaded', function (): void {
+it('falls back to the photo crop when none is uploaded', function (): void {
     expect(Content::get('identity')['favicon'])->toBe('');
 
     $this->get('/en')
         ->assertOk()
-        ->assertSee('favicon.ico', escape: false);
+        ->assertSee('favicon-photo.png', escape: false)
+        ->assertSee('apple-touch-icon-photo.png', escape: false);
 });
 
 it('uses an uploaded favicon, with the right MIME type', function (): void {
