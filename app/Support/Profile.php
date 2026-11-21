@@ -48,7 +48,15 @@ final class Profile
      */
     public static function previous(): array
     {
-        $rows = self::rows('previous_jobs', ['company', 'role', 'url'], 'company');
+        $rows = [];
+
+        foreach (Content::list('previous_jobs') as $entry) {
+            $company = self::field($entry, 'company');
+
+            if ($company !== '') {
+                $rows[] = ['role' => self::field($entry, 'role'), 'company' => $company, 'url' => self::field($entry, 'url')];
+            }
+        }
 
         return $rows !== [] ? $rows : self::defaultPrevious();
     }
@@ -60,13 +68,13 @@ final class Profile
     {
         $current = self::current();
 
-        $jobs = self::rows('job_projects', ['name', 'about', 'url'], 'name');
-        $freelance = self::rows('freelance_projects', ['name', 'about', 'url'], 'name');
+        $jobs = self::projects('job_projects');
+        $freelance = self::projects('freelance_projects');
 
         return array_values(array_filter([
             [
-                'title' => __('At :company', ['company' => $current['short_name']]),
-                'lead' => __('What I work on today at :company.', ['company' => $current['company']]),
+                'title' => self::t('At :company', ['company' => $current['short_name']]),
+                'lead' => self::t('What I work on today at :company.', ['company' => $current['company']]),
                 'items' => array_map(fn (array $p): array => [
                     'name' => $p['name'],
                     'url' => $p['url'],
@@ -74,13 +82,13 @@ final class Profile
                 ], $current['products']),
             ],
             [
-                'title' => __('At previous jobs'),
-                'lead' => __('Products I built and maintained as part of engineering teams.'),
+                'title' => self::t('At previous jobs'),
+                'lead' => self::t('Products I built and maintained as part of engineering teams.'),
                 'items' => $jobs !== [] ? $jobs : self::defaultJobProjects(),
             ],
             [
-                'title' => __('As a freelancer'),
-                'lead' => __('Seven years of freelance full-stack work, alongside my full-time roles.'),
+                'title' => self::t('As a freelancer'),
+                'lead' => self::t('Seven years of freelance full-stack work, alongside my full-time roles.'),
                 'items' => $freelance !== [] ? $freelance : self::defaultFreelanceProjects(),
             ],
         ], fn (array $group): bool => $group['items'] !== []));
@@ -100,11 +108,11 @@ final class Profile
         $phone = trim((string) ($identity['phone'] ?? ''));
 
         if ($email !== '') {
-            $rows[] = ['label' => __('Email'), 'value' => $email, 'href' => 'mailto:'.$email, 'external' => false];
+            $rows[] = ['label' => self::t('Email'), 'value' => $email, 'href' => 'mailto:'.$email, 'external' => false];
         }
 
         if ($phone !== '') {
-            $rows[] = ['label' => __('Phone'), 'value' => $phone, 'href' => 'tel:'.str_replace(' ', '', $phone), 'external' => false];
+            $rows[] = ['label' => self::t('Phone'), 'value' => $phone, 'href' => 'tel:'.str_replace(' ', '', $phone), 'external' => false];
         }
 
         foreach (Content::list('socials') as $social) {
@@ -126,28 +134,48 @@ final class Profile
     }
 
     /**
-     * A list section, localised and trimmed, without rows missing $required.
+     * A project list section, localised and trimmed, without nameless rows.
      *
-     * @param  list<string>  $fields
-     * @return list<array<string, string>>
+     * @return list<array{name: string, url: string, about: string}>
      */
-    private static function rows(string $section, array $fields, string $required): array
+    private static function projects(string $section): array
     {
         $rows = [];
 
         foreach (Content::list($section) as $entry) {
-            $row = [];
+            $name = self::field($entry, 'name');
 
-            foreach ($fields as $field) {
-                $row[$field] = trim((string) ($entry[$field] ?? ''));
-            }
-
-            if ($row[$required] !== '') {
-                $rows[] = $row;
+            if ($name !== '') {
+                $rows[] = ['name' => $name, 'url' => self::field($entry, 'url'), 'about' => self::field($entry, 'about')];
             }
         }
 
         return $rows;
+    }
+
+    /**
+     * One already-localised value from a stored entry, as a trimmed string.
+     *
+     * @param  array<string, mixed>  $entry
+     */
+    private static function field(array $entry, string $key): string
+    {
+        $value = $entry[$key] ?? '';
+
+        return is_scalar($value) ? trim((string) $value) : '';
+    }
+
+    /**
+     * __() is typed array|string (a key can name a whole group); every key
+     * used here is a sentence, so narrow it to the string it always is.
+     *
+     * @param  array<string, string>  $replace
+     */
+    private static function t(string $key, array $replace = []): string
+    {
+        $value = __($key, $replace);
+
+        return is_string($value) ? $value : $key;
     }
 
     private static function capitalise(string $text): string
