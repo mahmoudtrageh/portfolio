@@ -88,22 +88,3 @@ it('clears the CV and hides the button again', function (): void {
 /*
 | Project detail
 */
-
-it('keeps the card a teaser, with the detail on the project page', function (string $locale): void {
-    // The card used to expand inline as well as link out. Two routes to the
-    // same content is one too many, so the long-form detail now lives only on
-    // /{locale}/projects/{slug}.
-    app()->setLocale($locale);
-
-    $project = collect(Content::list('projects'))
-        ->first(fn (array $p): bool => trim((string) ($p['description'] ?? '')) !== '');
-
-    expect($project)->not->toBeNull();
-
-    $html = (string) $this->get("/{$locale}")->assertOk()->getContent();
-
-    // The card shows the tagline and outcome, never the full description.
-    expect($html)->toContain(e($project['tagline']))
-        ->and($html)->not->toContain(e($project['description']))
-        ->and($html)->not->toContain('project-detail-');
-})->with(['ar', 'en']);

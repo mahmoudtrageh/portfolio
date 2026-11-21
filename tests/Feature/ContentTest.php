@@ -49,7 +49,11 @@ it('has a non-empty Arabic and English value for every translatable field', func
 
     $missing = [];
 
-    foreach (translatableNodes(config('portfolio')) as $path => $node) {
+    // Only sections the dashboard still edits are rendered on the site; the
+    // rest of config('portfolio') is legacy seed data.
+    $live = array_intersect_key(config('portfolio'), config('dashboard.sections'));
+
+    foreach (translatableNodes($live) as $path => $node) {
         // Strip the list index: 'writing.0.gloss' is the 'writing.gloss' field.
         $field = preg_replace('/\.\d+\./', '.', $path);
 

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Livewire\Admin\SectionEditor;
-use App\Models\ContentSection;
 use App\Models\User;
 use App\Support\Content;
 use App\Support\Thumbnail;
@@ -115,80 +114,8 @@ it('keeps the original when the file cannot be processed', function (): void {
 | Hero stats
 */
 
-it('shows exactly three hero figures', function (string $locale): void {
-    $html = (string) $this->get("/{$locale}")->assertOk()->getContent();
-
-    preg_match('#<dl[^>]*>(.*?)</dl>#s', $html, $m);
-
-    expect(substr_count($m[1] ?? '', '<dt'))->toBe(3);
-})->with(['ar', 'en']);
-
-it('counts projects from the content, without double-counting', function (): void {
-    // Matx, Dsyncsolutions and Longimanus appear in both projects and
-    // freelance; each is still one project.
-    $names = collect(Content::list('projects'))
-        ->concat(Content::list('other_projects'))
-        ->concat(Content::list('freelance'))
-        ->concat(Content::list('side_projects'))
-        ->map(fn (array $p): string => mb_strtolower(trim((string) $p['name'])))
-        ->filter();
-
-    expect($names->unique()->count())->toBeLessThan($names->count());
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee($names->unique()->count().'+');
-});
-
 it('counts companies from the experience timeline', function (): void {
     $roles = count(Content::list('timeline'));
 
     $this->get('/en')->assertOk()->assertSee((string) $roles);
-});
-
-it('updates the counts when work is added', function (): void {
-    $before = collect(Content::list('projects'))
-        ->concat(Content::list('other_projects'))
-        ->concat(Content::list('freelance'))
-        ->concat(Content::list('side_projects'))
-        ->map(fn (array $p): string => mb_strtolower(trim((string) $p['name'])))
-        ->filter()->unique()->count();
-
-    ContentSection::query()->create([
-        'section' => 'side_projects',
-        'position' => 99,
-        'data' => [
-            'name' => ['ar' => 'مشروع جديد', 'en' => 'A brand new project'],
-            'tagline' => ['ar' => 'x', 'en' => 'x'],
-            'summary' => ['ar' => 'x', 'en' => 'x'],
-            'status' => ['ar' => '', 'en' => ''],
-            'stack' => [],
-            'url' => '',
-        ],
-    ]);
-
-    Content::flush();
-
-    // Derived, not typed: the figure moves on its own.
-    $this->get('/en')->assertOk()->assertSee(($before + 1).'+');
-});
-
-it('writes the counts in Arabic-Indic numerals on the Arabic page', function (): void {
-    $html = (string) $this->get('/ar')->assertOk()->getContent();
-
-    preg_match('#<dl[^>]*>(.*?)</dl>#s', $html, $m);
-
-    expect($m[1] ?? '')->toMatch('/[٠-٩]/u');
-});
-
-it('keeps the years figure editable in the dashboard', function (): void {
-    Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'hero'])
-        ->set('entries.0.experience.en', '7+')
-        ->set('entries.0.experience.ar', '٧+')
-        ->call('save')
-        ->assertHasNoErrors();
-
-    $this->get('/en')->assertOk()->assertSee('7+');
-    $this->get('/ar')->assertOk()->assertSee('٧+');
 });

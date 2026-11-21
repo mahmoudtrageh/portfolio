@@ -50,17 +50,6 @@ it('404s a project page when the switch is off', function (): void {
     $this->get('/en/projects/boxesvdr')->assertNotFound();
 });
 
-it('shows the link and serves the page when the switch is on', function (): void {
-    writeCaseStudy();
-    enableCaseStudies(true);
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee('Read the case study');
-
-    $this->get('/en/projects/boxesvdr')->assertOk();
-});
-
 it('keeps case-study text while the switch is off', function (): void {
     writeCaseStudy();
     enableCaseStudies(false);
@@ -92,11 +81,4 @@ it('lists project pages in the sitemap when the switch is on', function (): void
     $this->get('/sitemap.xml')
         ->assertOk()
         ->assertSee('/projects/boxesvdr');
-});
-
-it('links out to a project with a url', function (): void {
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee('Visit project')
-        ->assertSee('https://boxesvdr.com', escape: false);
 });

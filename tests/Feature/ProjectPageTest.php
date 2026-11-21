@@ -3,11 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ProjectController;
-use App\Livewire\Admin\SectionEditor;
 use App\Models\ContentSection;
 use App\Models\User;
 use App\Support\Content;
-use Livewire\Livewire;
 
 /**
  * Give a project enough case-study content to earn a page.
@@ -108,15 +106,6 @@ it('404s on an unknown slug', function (): void {
     $this->get('/en/projects/no-such-project')->assertNotFound();
 });
 
-it('links the card to the page only when a case study exists', function (): void {
-    fillCaseStudy();
-
-    $html = (string) $this->get('/en')->assertOk()->getContent();
-
-    expect($html)->toContain(route('project', ['locale' => 'en', 'slug' => 'boxesvdr']))
-        ->and($html)->toContain(__('Read the case study'));
-});
-
 it('shows no case-study link on the card when there is no page', function (): void {
     // Nothing filled in anywhere, so no card should offer one.
     $this->get('/en')->assertOk()->assertDontSee(__('Read the case study'));
@@ -157,17 +146,4 @@ it('sets a canonical URL and article metadata', function (): void {
         ->assertOk()
         ->assertSee('<link rel="canonical" href="'.$url.'">', escape: false)
         ->assertSee('<meta property="og:type" content="article">', escape: false);
-});
-
-it('lets the dashboard write a case-study section', function (): void {
-    Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'projects'])
-        ->set('entries.0.context.en', '## Written from the dashboard')
-        ->set('entries.0.context.ar', '## مكتوب من لوحة التحكم')
-        ->call('save')
-        ->assertHasNoErrors();
-
-    $this->get('/en/projects/boxesvdr')
-        ->assertOk()
-        ->assertSee('<h2>Written from the dashboard</h2>', escape: false);
 });

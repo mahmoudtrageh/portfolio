@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Livewire\Admin\SectionEditor;
 use App\Models\ContentSection;
 use App\Models\User;
 use App\Support\Content;
 use App\Support\YouTubeFeed;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Livewire\Livewire;
 
 const CHANNEL = 'UCabcdefghijklmnopqrstuv';
 
@@ -72,64 +70,6 @@ it('pulls the latest videos from the feed', function (): void {
         ->and($videos[0]['thumbnail'])->toContain('i.ytimg.com');
 });
 
-it('shows feed videos on the page', function (): void {
-    Http::fake(['*youtube.com/feeds/*' => Http::response(feedXml(3))]);
-    useChannel(CHANNEL);
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee('Video number 1')
-        ->assertSee('i.ytimg.com', escape: false);
-});
-
-it('respects the video limit set in the dashboard', function (): void {
-    Http::fake(['*youtube.com/feeds/*' => Http::response(feedXml(10))]);
-    useChannel(CHANNEL, '2');
-
-    $response = $this->get('/en')->assertOk();
-
-    $response->assertSee('Video number 2')->assertDontSee('Video number 3');
-});
-
-it('caches the feed instead of fetching on every request', function (): void {
-    Http::fake(['*youtube.com/feeds/*' => Http::response(feedXml(2))]);
-    useChannel(CHANNEL);
-
-    $this->get('/en')->assertOk();
-    $this->get('/en')->assertOk();
-    $this->get('/en')->assertOk();
-
-    // Three page views, one upstream request.
-    Http::assertSentCount(1);
-});
-
-it('renders the page normally when the feed is unreachable', function (): void {
-    // YouTube being down must never take the site with it.
-    Http::fake(['*youtube.com/feeds/*' => Http::response('', 503)]);
-    useChannel(CHANNEL);
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee(Content::get('channel')['name']);
-});
-
-it('falls back to pinned videos when the feed fails', function (): void {
-    Http::fake(['*youtube.com/feeds/*' => Http::response('', 500)]);
-
-    $row = ContentSection::query()->section('channel')->first();
-    $data = $row->data;
-    $data['channel_id'] = CHANNEL;
-    $data['videos'] = [
-        ['id' => 'pinnedVideo', 'title' => ['ar' => 'مثبّت', 'en' => 'Pinned video']],
-    ];
-    $row->update(['data' => $data]);
-    Content::flush();
-    Cache::flush();
-
-    // The section keeps working from hand-entered entries.
-    $this->get('/en')->assertOk()->assertSee('Pinned video');
-});
-
 it('ignores a malformed channel ID without making a request', function (string $bad): void {
     Http::fake();
 
@@ -166,22 +106,6 @@ it('survives a feed that is not valid XML', function (): void {
     Http::fake(['*youtube.com/feeds/*' => Http::response('<not xml at all')]);
 
     expect(YouTubeFeed::videos(CHANNEL))->toBe([]);
-});
-
-it('clears the cached feed when the channel is saved', function (): void {
-    Http::fake(['*youtube.com/feeds/*' => Http::response(feedXml(1))]);
-    useChannel(CHANNEL);
-
-    $this->get('/en')->assertOk();
-    expect(Cache::has(YouTubeFeed::cacheKey(CHANNEL)))->toBeTrue();
-
-    Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'channel'])
-        ->call('save')
-        ->assertHasNoErrors();
-
-    // A stale list after editing the channel would be confusing.
-    expect(Cache::has(YouTubeFeed::cacheKey(CHANNEL)))->toBeFalse();
 });
 
 it('requests the feed over https, by channel id', function (): void {

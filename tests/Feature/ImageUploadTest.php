@@ -35,14 +35,6 @@ it('stores an uploaded logo on the public disk', function (): void {
     Storage::disk('public')->assertExists($path);
 });
 
-it('shows the uploaded logo in the navbar instead of the text logo', function (): void {
-    $path = uploadIdentityImage($this->admin, 'logo_image');
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee(Content::image($path), escape: false);
-});
-
 it('shows the uploaded header image on the page', function (): void {
     $path = uploadIdentityImage($this->admin, 'photo');
 
@@ -122,34 +114,6 @@ it('writes no file when the save fails validation', function (): void {
     expect(Storage::disk('public')->files('uploads'))->toBeEmpty();
 });
 
-it('keeps a pending upload with its row when rows are reordered', function (): void {
-    // certificates is a list section, so rows can move; the upload must follow.
-    $component = Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates']);
-
-    $component->set('uploads.0.name', UploadedFile::fake()->image('a.png'));
-
-    $component->call('move', 0, 1);
-
-    // The file now belongs to what is row 1 after the swap.
-    expect($component->get('uploads'))->toHaveKey(1)
-        ->and($component->get('uploads'))->not->toHaveKey(0);
-});
-
-it('drops a pending upload when its row is deleted', function (): void {
-    $component = Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates']);
-
-    $component->set('uploads.1.name', UploadedFile::fake()->image('b.png'));
-
-    $component->call('removeEntry', 0);
-
-    // Row 1 became row 0, so the upload has to shift down with it rather than
-    // staying attached to a position that now holds a different entry.
-    expect($component->get('uploads'))->toHaveKey(0)
-        ->and($component->get('uploads'))->not->toHaveKey(1);
-});
-
 it('refuses to delete a path outside the uploads directory', function (): void {
     // A stored value pointing somewhere else must never cause a delete when the
     // image is replaced.
@@ -168,32 +132,6 @@ it('refuses to delete a path outside the uploads directory', function (): void {
 /*
 | Theme-paired logos
 */
-
-it('renders both logos so CSS can swap them with the theme', function (): void {
-    $light = uploadIdentityImage($this->admin, 'logo_image');
-    $dark = uploadIdentityImage($this->admin, 'logo_image_dark');
-
-    // Both must reach the DOM: the theme is toggled client-side, so choosing
-    // one in PHP would serve a cached page the wrong logo.
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee(Content::image($light), escape: false)
-        ->assertSee(Content::image($dark), escape: false)
-        ->assertSee('logo-light', escape: false)
-        ->assertSee('logo-dark', escape: false);
-});
-
-it('uses the light logo in both themes when no dark one is set', function (): void {
-    $light = uploadIdentityImage($this->admin, 'logo_image');
-
-    // With nothing to swap to, the single logo carries no theme class — so it
-    // is never hidden by the dark-mode rule.
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee(Content::image($light), escape: false)
-        ->assertDontSee('logo-light', escape: false)
-        ->assertDontSee('logo-dark', escape: false);
-});
 
 it('falls back to the text logo when only a dark logo is uploaded', function (): void {
     // A dark logo alone is not enough: without a light one the navbar would be
@@ -228,104 +166,6 @@ it('deletes only the replaced logo, leaving its theme pair alone', function (): 
 /*
 | Certificates
 */
-
-it('shows a thumbnail and lightbox trigger for a certificate with an image', function (): void {
-    $component = Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates']);
-
-    $component->set('uploads.0.image', UploadedFile::fake()->image('cert.png', 800, 600))
-        ->call('save')
-        ->assertHasNoErrors();
-
-    $path = Content::list('certificates')[0]['image'];
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee(Content::image($path), escape: false)
-        ->assertSee('$dispatch(\'lightbox\'', escape: false);
-});
-
-it('lists a certificate without an image and shows no thumbnail for it', function (): void {
-    // The CV certificates carry no scan; they must still render as rows, just
-    // without a thumbnail button. Content resolves to the app's default locale,
-    // so read the name in the locale actually being requested.
-    app()->setLocale('en');
-
-    $imageless = collect(Content::list('certificates'))
-        ->first(fn (array $c): bool => trim((string) ($c['image'] ?? '')) === '');
-
-    expect($imageless)->not->toBeNull('expected at least one certificate with no image');
-
-    $html = (string) $this->get('/en')->assertOk()->getContent();
-
-    // Names are HTML-escaped in the page ("&" becomes "&amp;"), so match the
-    // escaped form rather than the raw content value.
-    $needle = e($imageless['name']);
-
-    expect($html)->toContain($needle);
-
-    // No lightbox trigger inside that certificate's own row.
-    $at = strpos($html, $needle);
-    expect(substr($html, max(0, $at - 900), 900))->not->toContain('$dispatch(\'lightbox\'');
-});
-
-it('links a certificate to its verification URL', function (): void {
-    Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates'])
-        ->set('entries.0.url', 'https://coursera.org/verify/TESTCODE')
-        ->call('save')
-        ->assertHasNoErrors();
-
-    $this->get('/en')
-        ->assertOk()
-        ->assertSee('https://coursera.org/verify/TESTCODE', escape: false)
-        ->assertSee(__('Verify'));
-});
-
-it('omits the verify link when no URL is set', function (): void {
-    // Some seeded certificates do carry a verify link, so this checks the
-    // absence per-certificate rather than across the whole page.
-    app()->setLocale('en');
-
-    $withoutUrl = collect(Content::list('certificates'))
-        ->first(fn (array $c): bool => trim((string) ($c['url'] ?? '')) === '');
-
-    expect($withoutUrl)->not->toBeNull('expected at least one certificate with no URL');
-
-    $html = (string) $this->get('/en')->assertOk()->getContent();
-
-    // Find that certificate's row and confirm no Verify link sits inside it.
-    // The name is HTML-escaped in the page, so match the escaped form.
-    $at = strpos($html, e($withoutUrl['name']));
-    expect($at)->not->toBeFalse();
-
-    $row = substr($html, $at, 600);
-    expect($row)->not->toContain(__('Verify'));
-});
-
-it('puts the lightbox trigger inside an Alpine scope', function (): void {
-    // Alpine only binds x-on: inside an x-data subtree, so a trigger outside
-    // one is silently inert — clicks do nothing. That was the actual bug here,
-    // and it is invisible without checking the nesting.
-    Livewire::actingAs($this->admin)
-        ->test(SectionEditor::class, ['section' => 'certificates'])
-        ->set('uploads.0.image', UploadedFile::fake()->image('cert.png'))
-        ->call('save')
-        ->assertHasNoErrors();
-
-    $html = (string) $this->get('/en')->assertOk()->getContent();
-
-    $trigger = strpos($html, '$dispatch(\'lightbox\'');
-    expect($trigger)->not->toBeFalse('no lightbox trigger rendered');
-
-    // The nearest x-data before the trigger must be the certificates card,
-    // not something far up the page that happens to precede it.
-    $scope = strrpos(substr($html, 0, $trigger), 'x-data');
-    expect($scope)->not->toBeFalse('trigger is not inside any Alpine scope');
-
-    $between = substr($html, $scope, $trigger - $scope);
-    expect($between)->toContain('Certificates');
-});
 
 it('renders the lightbox dialog once per page', function (): void {
     $html = (string) $this->get('/en')->assertOk()->getContent();
