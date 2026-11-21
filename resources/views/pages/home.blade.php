@@ -3,6 +3,8 @@
 
     $identity = Content::get('identity');
     $photo = $identity['photo'] ?? '';
+    // Real dimensions, so the browser reserves the photo's true shape.
+    $photoSize = $photo !== '' ? @getimagesize(storage_path('app/public/'.$photo)) : false;
     $firstName = strtok((string) $identity['name'], ' ');
     $locale = app()->getLocale();
 
@@ -63,7 +65,8 @@
             <div class="intro__photo fade-up">
                 @if ($photo)
                     <img src="{{ Content::image($photo) }}" alt="{{ $identity['name'] }}"
-                         width="640" height="480" loading="eager" decoding="async">
+                         @if ($photoSize) width="{{ $photoSize[0] }}" height="{{ $photoSize[1] }}" @endif
+                         loading="eager" decoding="async">
                 @else
                     <span aria-hidden="true">{{ mb_substr((string) $identity['name'], 0, 1) }}</span>
                 @endif
