@@ -86,7 +86,7 @@
         <div class="shell">
             <div class="max-w-2xl mx-auto">
 
-                <a href="{{ route('blog', ['locale' => $locale]) }}"
+                <a href="{{ route('blog', ['locale' => $locale]) }}" wire:navigate
                    class="inline-flex items-center gap-2 text-sm font-medium mb-8"
                    style="color: var(--accent);">
                     <span aria-hidden="true">{{ $back }}</span>
@@ -128,7 +128,7 @@
                          style="border-color: var(--border);"
                          aria-label="{{ __('More posts') }}">
                         @if ($older)
-                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $older->slug()]) }}"
+                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $older->slug()]) }}" wire:navigate
                                class="card p-4">
                                 <span class="block text-xs" style="color: var(--text-faint);">
                                     {{ __('Older post') }}
@@ -138,7 +138,7 @@
                         @endif
 
                         @if ($newer)
-                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $newer->slug()]) }}"
+                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $newer->slug()]) }}" wire:navigate
                                class="card p-4 {{ $older ? '' : 'sm:col-start-2' }} sm:text-end">
                                 <span class="block text-xs" style="color: var(--text-faint);">
                                     {{ __('Newer post') }}

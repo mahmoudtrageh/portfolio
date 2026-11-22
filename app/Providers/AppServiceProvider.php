@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        // wire:navigate swaps pages without reloading assets; tracking them
+        // makes a fresh deploy (new hashed filenames) trigger a full reload.
+        Vite::useScriptTagAttributes(['data-navigate-track' => 'reload']);
+        Vite::useStyleTagAttributes(['data-navigate-track' => 'reload']);
     }
 
     /**

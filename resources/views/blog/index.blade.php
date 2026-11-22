@@ -41,7 +41,7 @@
                 <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     @foreach ($posts as $post)
                         <li data-reveal>
-                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $post->slug()]) }}"
+                            <a href="{{ route('post', ['locale' => $locale, 'slug' => $post->slug()]) }}" wire:navigate
                                class="card overflow-hidden h-full flex flex-col transition-colors">
                                 @if ($post->cover)
                                     <img src="{{ Content::image($post->cover) }}"

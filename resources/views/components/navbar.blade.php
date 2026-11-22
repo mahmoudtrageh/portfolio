@@ -55,7 +55,7 @@
              style="border-color: var(--border);"
              aria-label="{{ __('Main') }}">
 
-            <a href="{{ $home }}"
+            <a href="{{ $home }}" wire:navigate
                class="brand shrink-0"
                aria-label="{{ $identity['name'] }}">
                 {{-- Two-tone wordmark: first name in ink, the rest in the accent. --}}
@@ -68,7 +68,7 @@
             <ul class="hidden md:flex items-center gap-1 text-sm">
                 @foreach ($links as $link)
                     <li>
-                        <a href="{{ $link['href'] }}"
+                        <a href="{{ $link['href'] }}" wire:navigate
                            class="nav-link {{ $link['active'] ? 'is-active' : '' }}"
                            @if ($link['active']) aria-current="page" @endif>
                             {{ $link['label'] }}
@@ -123,7 +123,7 @@
         <ul class="shell py-3 flex flex-col">
             @foreach ($links as $link)
                 <li>
-                    <a href="{{ $link['href'] }}"
+                    <a href="{{ $link['href'] }}" wire:navigate
                        x-on:click="open = false"
                        class="block py-3 border-b last:border-0"
                        style="border-color: var(--border); {{ $link['active'] ? 'font-weight: 600;' : 'color: var(--text-muted);' }}"

@@ -25,7 +25,7 @@
                 {{ __("The page you're looking for doesn't exist.") }}
             </p>
 
-            <a href="{{ route('home') }}"
+            <a href="{{ route('home') }}" wire:navigate
                class="mt-8 inline-flex px-6 py-3 rounded-full font-semibold"
                style="background: var(--accent-fill); color: var(--accent-text);">
                 {{ __('Back home') }}

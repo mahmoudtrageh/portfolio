@@ -82,7 +82,7 @@
         <div class="shell">
             <div class="max-w-3xl mx-auto">
 
-                <a href="{{ route('projects', ['locale' => $locale]) }}"
+                <a href="{{ route('projects', ['locale' => $locale]) }}" wire:navigate
                    class="inline-flex items-center gap-2 text-sm font-medium mb-8"
                    style="color: var(--accent);">
                     <span aria-hidden="true">{{ $back }}</span>
@@ -185,7 +185,7 @@
                          style="border-color: var(--border);"
                          aria-label="{{ __('More projects') }}">
                         @if ($previous)
-                            <a href="{{ route('project', ['locale' => $locale, 'slug' => $previous['slug']]) }}"
+                            <a href="{{ route('project', ['locale' => $locale, 'slug' => $previous['slug']]) }}" wire:navigate
                                class="card p-4">
                                 <span class="block text-xs" style="color: var(--text-faint);">
                                     {{ __('Previous project') }}
@@ -195,7 +195,7 @@
                         @endif
 
                         @if ($next)
-                            <a href="{{ route('project', ['locale' => $locale, 'slug' => $next['slug']]) }}"
+                            <a href="{{ route('project', ['locale' => $locale, 'slug' => $next['slug']]) }}" wire:navigate
                                class="card p-4 {{ $previous ? '' : 'sm:col-start-2' }} sm:text-end">
                                 <span class="block text-xs" style="color: var(--text-faint);">
                                     {{ __('Next project') }}

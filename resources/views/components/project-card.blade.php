@@ -53,7 +53,7 @@
 
     <h3 class="mt-2.5 font-display text-xl">
         @if ($pageUrl)
-            <a href="{{ $pageUrl }}" class="hover:opacity-70 transition-opacity">
+            <a href="{{ $pageUrl }}" wire:navigate class="hover:opacity-70 transition-opacity">
                 {{ $project['name'] }}
             </a>
         @else
@@ -91,7 +91,7 @@
     @if ($pageUrl || $visitUrl !== '')
         <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
             @if ($pageUrl)
-                <a href="{{ $pageUrl }}"
+                <a href="{{ $pageUrl }}" wire:navigate
                    class="inline-flex items-center gap-1.5 text-sm font-semibold"
                    style="color: var(--accent);">
                     {{ __('Read the case study') }}

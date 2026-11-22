@@ -152,5 +152,8 @@
     <x-footer />
 
     <x-lightbox />
+
+    {{-- Config for the Livewire bundled into app.js (see resources/js/app.js). --}}
+    @livewireScriptConfig
 </body>
 </html>

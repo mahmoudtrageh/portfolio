@@ -1,11 +1,12 @@
-import Alpine from 'alpinejs';
+/*
+ | Livewire ships its own Alpine; starting a second copy would break both.
+ | Livewire powers wire:navigate: internal links swap the page in place
+ | instead of a full reload, so moving between pages feels instant.
+ */
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 import collapse from '@alpinejs/collapse';
 
 Alpine.plugin(collapse);
-
-window.Alpine = Alpine;
-
-Alpine.start();
 
 /*
  | Reveal-on-scroll
@@ -16,7 +17,12 @@ Alpine.start();
  */
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+// Runs on first load and again after every wire:navigate page swap.
+document.addEventListener('livewire:navigated', () => {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        return;
+    }
+
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
@@ -30,4 +36,7 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     );
 
     document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
-}
+});
+
+// Last, so the listeners above catch the first page's livewire:navigated.
+Livewire.start();
