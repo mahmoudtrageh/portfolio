@@ -34,23 +34,23 @@ it('redirects the other language to the published one when multilingual is off',
     setSetting('multilingual', false);
     setSetting('primary_locale', 'en');
 
-    $this->get('/ar')->assertRedirect('/en');
-    $this->get('/ar/projects/boxesvdr')->assertRedirect('/en/projects/boxesvdr');
+    $this->get('/ar')->assertRedirect('/');
+    $this->get('/ar/projects/boxesvdr')->assertRedirect('/projects/boxesvdr');
 });
 
 it('keeps serving the published language when multilingual is off', function (): void {
     setSetting('multilingual', false);
     setSetting('primary_locale', 'ar');
 
-    $this->get('/ar')->assertOk();
-    $this->get('/en')->assertRedirect('/ar');
+    $this->get('/')->assertOk()->assertSee('lang="ar"', escape: false);
+    $this->get('/en')->assertRedirect('/');
 });
 
 it('hides the language switcher when multilingual is off', function (): void {
     setSetting('multilingual', false);
     setSetting('primary_locale', 'en');
 
-    $this->get('/en')
+    $this->get('/')
         ->assertOk()
         ->assertDontSee('title="'.__('Switch language').'"', escape: false);
 });
@@ -59,11 +59,12 @@ it('drops the other language from hreflang and the sitemap when off', function (
     setSetting('multilingual', false);
     setSetting('primary_locale', 'en');
 
-    $this->get('/en')->assertOk()->assertDontSee('hreflang="ar"', escape: false);
+    $this->get('/')->assertOk()->assertDontSee('hreflang="ar"', escape: false);
 
     $this->get('/sitemap.xml')
         ->assertOk()
-        ->assertSee('/en', escape: false)
+        ->assertSee('/projects</loc>', escape: false)
+        ->assertDontSee('/en/', escape: false)
         ->assertDontSee('<loc>'.route('home', ['locale' => 'ar']).'</loc>', escape: false);
 });
 
@@ -128,9 +129,9 @@ it('saves the switches from the dashboard', function (): void {
         ->call('save')
         ->assertHasNoErrors();
 
-    $this->get('/ar/blog')->assertNotFound();
-    $this->get('/en')->assertRedirect('/ar');
-    $this->get('/ar')->assertOk()->assertSee('class="dark"', escape: false);
+    $this->get('/blog')->assertNotFound();
+    $this->get('/en')->assertRedirect('/');
+    $this->get('/')->assertOk()->assertSee('class="dark"', escape: false);
 });
 
 it('refuses a locale the site is not built in', function (): void {

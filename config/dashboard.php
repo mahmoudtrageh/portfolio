@@ -33,6 +33,20 @@ declare(strict_types=1);
 |
 */
 
+// Remote / On-site, shared by the current job and every previous job.
+$workMode = [
+    'type' => 'select',
+    'label' => ['ar' => 'طريقة العمل', 'en' => 'Work mode'],
+    'options' => [
+        'remote' => ['ar' => 'عن بُعد', 'en' => 'Remote'],
+        'onsite' => ['ar' => 'من المقر', 'en' => 'On-site'],
+    ],
+    'hint' => [
+        'ar' => 'اختياري. يظهر بخط صغير بجانب الوظيفة.',
+        'en' => 'Optional. Shown in small text beside the job.',
+    ],
+];
+
 return [
 
     /*
@@ -174,6 +188,7 @@ return [
                     ],
                 ],
                 'url' => ['type' => 'plain', 'label' => ['ar' => 'رابط الشركة', 'en' => 'Company website']],
+                'work_mode' => $workMode,
                 'products' => [
                     'type' => 'repeater',
                     'label' => ['ar' => 'المنتجات', 'en' => 'Products'],
@@ -197,18 +212,7 @@ return [
             'fields' => [
                 'company' => ['type' => 'plain', 'label' => ['ar' => 'الشركة', 'en' => 'Company']],
                 'role' => ['type' => 'text', 'label' => ['ar' => 'المسمى', 'en' => 'Role']],
-                'work_mode' => [
-                    'type' => 'select',
-                    'label' => ['ar' => 'طريقة العمل', 'en' => 'Work mode'],
-                    'options' => [
-                        'remote' => ['ar' => 'عن بُعد', 'en' => 'Remote'],
-                        'onsite' => ['ar' => 'من المقر', 'en' => 'On-site'],
-                    ],
-                    'hint' => [
-                        'ar' => 'اختياري. يظهر بخط صغير بجانب الوظيفة.',
-                        'en' => 'Optional. Shown in small text beside the job.',
-                    ],
-                ],
+                'work_mode' => $workMode,
                 'url' => [
                     'type' => 'plain',
                     'label' => ['ar' => 'رابط الشركة', 'en' => 'Company website'],

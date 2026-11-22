@@ -28,7 +28,8 @@
     $metaDescription = $description
         ?: (trim((string) ($identity['description'] ?? '')) ?: Content::string('hero.summary'));
     $metaImage = $image ?: asset('images/og-'.$locale.'.png');
-    $canonicalUrl = $canonical ?: request()->url();
+    // Through the URL generator, so a one-language site's canonical has no /en.
+    $canonicalUrl = $canonical ?: url()->current();
 
     $localePattern = '#/('.implode('|', config('portfolio.locales')).')(/|$)#';
 

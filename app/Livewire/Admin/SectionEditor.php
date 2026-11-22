@@ -401,7 +401,7 @@ final class SectionEditor extends Component
         $rules = $this->rules();
 
         if ($rules !== []) {
-            $this->validate($rules, [], $this->validationAttributes());
+            $this->validate($rules, [], $this->attributeNames());
         }
 
         // Files land on disk only after the text fields validate, so a failed
@@ -577,11 +577,13 @@ final class SectionEditor extends Component
 
     /**
      * Readable names for the validation messages, so an error reads
-     * "Name (EN) is required" rather than quoting the array path.
+     * "Name (EN) is required" rather than quoting the array path. Not named
+     * validationAttributes(): Livewire calls that itself when this list is
+     * empty, and cannot reach a private method.
      *
      * @return array<string, string>
      */
-    private function validationAttributes(): array
+    private function attributeNames(): array
     {
         $attributes = [];
 

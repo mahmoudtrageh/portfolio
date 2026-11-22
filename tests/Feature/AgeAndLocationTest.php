@@ -71,3 +71,14 @@ it('rejects an unknown work mode', function (): void {
         ->call('save')
         ->assertHasErrors('entries.0.work_mode');
 });
+
+it('shows the work mode beside the current job', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'current_job'])
+        ->set('entries.0.company', 'Boxes')
+        ->set('entries.0.work_mode', 'remote')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()->assertSee('<span class="intro__mode">(Remote)</span>', escape: false);
+});

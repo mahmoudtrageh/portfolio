@@ -39,6 +39,9 @@
                         'role' => '<span class="intro-accent">'.e($locale === 'en' ? mb_strtolower((string) $identity['role']) : (string) $identity['role']).'</span>',
                         'company' => $link($current['url'], $current['company']),
                     ]) !!}
+                    @if ($current['work_mode'] !== '')
+                        <span class="intro__mode">({{ $current['work_mode'] }})</span>
+                    @endif
                 </p>
 
                 <div class="intro__body">

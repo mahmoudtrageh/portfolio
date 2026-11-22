@@ -3,6 +3,7 @@
 use App\Http\Middleware\DashboardLocale;
 use App\Http\Middleware\EnsureBlogEnabled;
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\UnprefixedLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [DashboardLocale::class]);
+
+        // Before routing: with one language published, URLs drop the /en prefix.
+        $middleware->prepend(UnprefixedLocale::class);
 
         $middleware->alias([
             'locale' => SetLocale::class,

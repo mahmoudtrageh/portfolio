@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
 final class Profile
 {
     /**
-     * @return array{company: string, short_name: string, url: string, products: list<array{name: string, url: string, about: string}>}
+     * @return array{company: string, short_name: string, url: string, work_mode: string, products: list<array{name: string, url: string, about: string}>}
      */
     public static function current(): array
     {
@@ -41,6 +41,7 @@ final class Profile
             'company' => trim((string) $stored['company']),
             'short_name' => trim((string) ($stored['short_name'] ?? '')) ?: trim((string) $stored['company']),
             'url' => trim((string) ($stored['url'] ?? '')),
+            'work_mode' => self::workMode(trim((string) ($stored['work_mode'] ?? ''))),
             'products' => $products,
         ];
     }
@@ -142,7 +143,7 @@ final class Profile
 
     /**
      * The label for a stored work mode ('remote', 'onsite'), localised; empty
-     * when unset or unknown.
+     * when unset or unknown. Current and previous jobs share one option list.
      */
     private static function workMode(string $value): string
     {
@@ -300,12 +301,12 @@ final class Profile
     }
 
     /**
-     * @return array{company: string, short_name: string, url: string, products: list<array{name: string, url: string, about: string}>}
+     * @return array{company: string, short_name: string, url: string, work_mode: string, products: list<array{name: string, url: string, about: string}>}
      */
     private static function defaultCurrent(): array
     {
-        /** @var array{company: string, short_name: string, url: string, products: list<array{name: string, url: string, about: string}>} $current */
-        $current = Content::localise(self::seedCurrent());
+        /** @var array{company: string, short_name: string, url: string, work_mode: string, products: list<array{name: string, url: string, about: string}>} $current */
+        $current = Content::localise(self::seedCurrent() + ['work_mode' => '']);
 
         return $current;
     }
