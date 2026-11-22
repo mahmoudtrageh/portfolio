@@ -286,12 +286,12 @@
                                         </div>
                                     </div>
 
-                                @elseif ($field['type'] === 'plain')
+                                @elseif (in_array($field['type'], ['plain', 'date'], true))
                                     <label for="f-{{ $i }}-{{ $key }}"
                                            class="block text-sm font-medium mb-2">
                                         {{ $fieldLabel }}
                                     </label>
-                                    <input type="text" id="f-{{ $i }}-{{ $key }}"
+                                    <input type="{{ $field['type'] === 'date' ? 'date' : 'text' }}" id="f-{{ $i }}-{{ $key }}"
                                            wire:model="entries.{{ $i }}.{{ $key }}"
                                            dir="ltr"
                                            class="{{ $inputClass }}" style="{{ $inputStyle }}">

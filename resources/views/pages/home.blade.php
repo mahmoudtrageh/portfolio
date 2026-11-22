@@ -1,5 +1,6 @@
 @php
     use App\Support\Content;
+    use App\Support\Profile;
 
     $identity = Content::get('identity');
     $photo = $identity['photo'] ?? '';
@@ -7,6 +8,10 @@
     $photoSize = $photo !== '' ? @getimagesize(storage_path('app/public/'.$photo)) : false;
     $firstName = strtok((string) $identity['name'], ' ');
     $locale = app()->getLocale();
+
+    // Both optional (dashboard → Profile); the caption hides when both are empty.
+    $age = Profile::age();
+    $location = Profile::location();
 
     // Managed in the dashboard (Profile → CV). An uploaded file is a stored
     // path; a legacy value may be a full URL. With nothing set, the link hides.
@@ -63,13 +68,36 @@
             </div>
 
             <div class="intro__photo fade-up">
-                @if ($photo)
-                    <img src="{{ Content::image($photo) }}" alt="{{ $identity['name'] }}"
-                         @if ($photoSize) width="{{ $photoSize[0] }}" height="{{ $photoSize[1] }}" @endif
-                         loading="eager" decoding="async">
-                @else
-                    <span aria-hidden="true">{{ mb_substr((string) $identity['name'], 0, 1) }}</span>
-                @endif
+                <figure class="intro__figure">
+                    @if ($photo)
+                        <img src="{{ Content::image($photo) }}" alt="{{ $identity['name'] }}"
+                             @if ($photoSize) width="{{ $photoSize[0] }}" height="{{ $photoSize[1] }}" @endif
+                             loading="eager" decoding="async">
+                    @else
+                        <span aria-hidden="true">{{ mb_substr((string) $identity['name'], 0, 1) }}</span>
+                    @endif
+
+                    @if ($location !== '' || $age !== null)
+                        <figcaption class="intro__caption">
+                            @if ($location !== '')
+                                <span class="intro__caption-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/>
+                                        <circle cx="12" cy="9.5" r="2.5"/>
+                                    </svg>
+                                    {{ $location }}
+                                </span>
+                            @endif
+                            @if ($location !== '' && $age !== null)
+                                <span class="intro__caption-dot" aria-hidden="true">·</span>
+                            @endif
+                            @if ($age !== null)
+                                <span class="intro__caption-item">{{ __(':age years old', ['age' => $age]) }}</span>
+                            @endif
+                        </figcaption>
+                    @endif
+                </figure>
             </div>
         </div>
 

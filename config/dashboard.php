@@ -16,6 +16,7 @@ declare(strict_types=1);
 |   textarea    multi-line, translated
 |   markdown    multi-line, translated, rendered as Markdown when displayed
 |   plain       single-line, NOT translated (URLs, slugs, icon names)
+|   date        a calendar date, NOT translated, stored as YYYY-MM-DD
 |   list        repeatable plain strings (a tech stack)
 |   list.text   repeatable translated strings (bullet points)
 |   repeater    repeatable group of sub-fields
@@ -92,6 +93,23 @@ return [
                     'hint' => [
                         'ar' => 'تظهر بجانب المقدمة في الصفحة الرئيسية. يُفضّل صورة عرضية.',
                         'en' => 'Shown beside the intro on the home page. A landscape photo works best.',
+                    ],
+                ],
+                'birthdate' => [
+                    'type' => 'date',
+                    'label' => ['ar' => 'تاريخ الميلاد', 'en' => 'Birthdate'],
+                    'hint' => [
+                        'ar' => 'اختياري. يُستخدم لحساب عمرك وإظهاره على صورتك في الصفحة الرئيسية. التاريخ نفسه لا يُعرض.',
+                        'en' => 'Optional. Used to work out your age, shown on your photo on the home page. The date itself is never shown.',
+                    ],
+                ],
+                'location' => [
+                    'type' => 'text',
+                    'optional' => true,
+                    'label' => ['ar' => 'الموقع', 'en' => 'Location'],
+                    'hint' => [
+                        'ar' => 'اختياري. مثل: القاهرة، مصر. يظهر على صورتك في الصفحة الرئيسية.',
+                        'en' => 'Optional. For example: Cairo, Egypt. Shown on your photo on the home page.',
                     ],
                 ],
                 'favicon' => [

@@ -1,4 +1,5 @@
 {
+    ":age years old": ":age عامًا",
     ":count min read": "قراءة :count دقائق",
     ":count unread|:count unread": "{1} رسالة غير مقروءة|[2,10] :count رسائل غير مقروءة|[11,*] :count رسالة غير مقروءة",
     ":rating out of 5": ":rating من ٥",

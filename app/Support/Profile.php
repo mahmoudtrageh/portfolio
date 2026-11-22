@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Support;
 
+use Illuminate\Support\Carbon;
+
 /**
  * The content behind the Home, Projects and Contact pages.
  *
@@ -131,6 +133,37 @@ final class Profile
         }
 
         return $rows;
+    }
+
+    /**
+     * Age in whole years from the dashboard birthdate, or null while it is
+     * unset or unreadable.
+     */
+    public static function age(): ?int
+    {
+        $birthdate = trim((string) Content::get('identity.birthdate', ''));
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate) !== 1) {
+            return null;
+        }
+
+        try {
+            $age = (int) Carbon::parse($birthdate)->diffInYears(Carbon::today());
+        } catch (\Throwable) {
+            return null;
+        }
+
+        return $age > 0 ? $age : null;
+    }
+
+    /**
+     * Location from the dashboard, already localised; empty when unset.
+     */
+    public static function location(): string
+    {
+        $location = Content::get('identity.location', '');
+
+        return is_string($location) ? trim($location) : '';
     }
 
     /**

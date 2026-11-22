@@ -690,14 +690,64 @@
         justify-content: center;
     }
 
-    .intro__photo img,
-    .intro__photo > span {
+    /* Hugs the photo so the caption sits on the image, not the column. */
+    .intro__figure {
+        position: relative;
+        display: inline-block;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .intro__figure:has(> span) {
+        width: 100%;
+    }
+
+    /* Location and age: a quiet caption on the photo's top edge. */
+    .intro__caption {
+        position: absolute;
+        inset-inline: 0;
+        top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem 0.6rem;
+        padding: 0.85rem 1rem 2.25rem;
+        border-radius: 1rem 1rem 0 0;
+        background: linear-gradient(to bottom, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0));
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+        pointer-events: none;
+    }
+
+    .intro__caption-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .intro__caption svg {
+        width: 0.95rem;
+        height: 0.95rem;
+        flex-shrink: 0;
+    }
+
+    .intro__caption-dot {
+        opacity: 0.7;
+    }
+
+    .intro__figure > img,
+    .intro__figure > span {
         border-radius: 1rem;
         border: 1px solid var(--border);
         background: var(--bg-sunken);
     }
 
     .intro__photo img {
+        display: block;
         width: auto;
         height: auto;
         max-width: 100%;
@@ -705,7 +755,7 @@
     }
 
     /* No photo uploaded: a lettered placeholder. */
-    .intro__photo > span {
+    .intro__figure > span {
         width: 100%;
         aspect-ratio: 4 / 3;
         display: grid;
