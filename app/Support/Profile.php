@@ -70,6 +70,27 @@ final class Profile
     }
 
     /**
+     * The technologies listed on the home page, trimmed and without blanks.
+     * Falls back to the built-in list only while the section was never saved,
+     * so emptying it in the dashboard hides the line.
+     *
+     * @return list<string>
+     */
+    public static function techStack(): array
+    {
+        $stored = Content::get('tech_stack', []);
+
+        if (! is_array($stored) || ! array_key_exists('items', $stored)) {
+            return self::seedTechStack();
+        }
+
+        return array_values(array_filter(
+            array_map(fn (mixed $item): string => is_scalar($item) ? trim((string) $item) : '', (array) $stored['items']),
+            fn (string $item): bool => $item !== '',
+        ));
+    }
+
+    /**
      * @return list<array{title: string, lead: string, items: list<array{name: string, url: string, about: string}>}>
      */
     public static function projectGroups(): array
@@ -273,6 +294,14 @@ final class Profile
             ['company' => 'Algoriza', 'role' => ['ar' => 'مطوّر Backend', 'en' => 'Backend Developer'], 'url' => 'https://www.algoriza.com'],
             ['company' => 'SpectraApps', 'role' => ['ar' => 'متدرّب PHP Laravel', 'en' => 'PHP Laravel Intern'], 'url' => ''],
         ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function seedTechStack(): array
+    {
+        return ['PHP', 'Laravel', 'Livewire', 'MySQL', 'PostgreSQL', 'Redis', 'Docker', 'Nginx', 'AWS', 'GitHub Actions'];
     }
 
     /**

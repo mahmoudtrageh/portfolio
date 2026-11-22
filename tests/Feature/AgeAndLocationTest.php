@@ -82,3 +82,27 @@ it('shows the work mode beside the current job', function (): void {
 
     $this->get('/en')->assertOk()->assertSee('<span class="intro__mode">(Remote)</span>', escape: false);
 });
+
+it('shows the tech stack as tags after the jobs, edited from the dashboard', function (): void {
+    $this->get('/en')->assertOk()->assertSee('<li class="intro__tag">Laravel</li>', escape: false);
+
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'tech_stack'])
+        ->set('entries.0.items', ['Go', '', 'Kubernetes'])
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()
+        ->assertSeeInOrder(['<li class="intro__tag">Go</li>', '<li class="intro__tag">Kubernetes</li>'], escape: false)
+        ->assertDontSee('<li class="intro__tag">Laravel</li>', escape: false);
+});
+
+it('hides the tech tags once the list is emptied', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'tech_stack'])
+        ->set('entries.0.items', [])
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()->assertDontSee('<ul class="intro__tags"', escape: false);
+});

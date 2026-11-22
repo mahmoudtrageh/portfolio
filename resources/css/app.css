@@ -789,6 +789,25 @@
         margin-top: 0.15rem;
     }
 
+    /* Tech stack: small outlined tags, wrapping between them. */
+    .intro__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .intro__tag {
+        padding: 0.2rem 0.65rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg-sunken);
+        color: var(--text);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
+
     /* Remote / On-site: a small, quiet note after the job line. */
     .intro__mode {
         margin-inline-start: 0.2rem;

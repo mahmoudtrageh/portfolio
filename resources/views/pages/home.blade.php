@@ -12,6 +12,7 @@
     // Both optional (dashboard → Profile); the caption hides when both are empty.
     $age = Profile::age();
     $location = Profile::location();
+    $techStack = Profile::techStack();
 
     // Managed in the dashboard (Profile → CV). An uploaded file is a stored
     // path; a legacy value may be a full URL. With nothing set, the link hides.
@@ -62,6 +63,14 @@
                             </li>
                         @endforeach
                     </ul>
+
+                    @if ($techStack !== [])
+                        <ul class="intro__tags" aria-label="{{ __('Tech stack') }}">
+                            @foreach ($techStack as $tech)
+                                <li class="intro__tag">{{ $tech }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 
                     @if ($cv !== '')
                         <a href="{{ $cv }}" target="_blank" rel="noopener" class="intro-cv">

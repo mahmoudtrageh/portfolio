@@ -29,7 +29,7 @@ final class Content
      *
      * @var list<string>
      */
-    public const SINGLETONS = ['identity', 'hero', 'about', 'contact', 'channel', 'settings', 'current_job'];
+    public const SINGLETONS = ['identity', 'hero', 'about', 'contact', 'channel', 'settings', 'current_job', 'tech_stack'];
 
     /**
      * The whole content tree, straight from storage and still bilingual.

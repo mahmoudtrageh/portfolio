@@ -66,7 +66,7 @@ return [
         ],
         'home' => [
             'label' => ['ar' => 'الصفحة الرئيسية', 'en' => 'Home page'],
-            'sections' => ['current_job', 'previous_jobs'],
+            'sections' => ['current_job', 'previous_jobs', 'tech_stack'],
         ],
         'projects' => [
             'label' => ['ar' => 'صفحة المشاريع', 'en' => 'Projects page'],
@@ -217,6 +217,25 @@ return [
                     'type' => 'plain',
                     'label' => ['ar' => 'رابط الشركة', 'en' => 'Company website'],
                     'hint' => ['ar' => 'اختياري.', 'en' => 'Optional.'],
+                ],
+            ],
+        ],
+
+        'tech_stack' => [
+            'label' => ['ar' => 'التقنيات', 'en' => 'Tech stack'],
+            'description' => [
+                'ar' => 'وسوم التقنيات بعد الوظائف في الصفحة الرئيسية، بالترتيب.',
+                'en' => 'The tech tags after your jobs on the home page, in order.',
+            ],
+            'type' => 'single',
+            'fields' => [
+                'items' => [
+                    'type' => 'list',
+                    'label' => ['ar' => 'التقنيات', 'en' => 'Technologies'],
+                    'hint' => [
+                        'ar' => 'تقنية واحدة في كل خانة، مثل: Laravel. تختفي الوسوم لو كانت القائمة فارغة.',
+                        'en' => 'One per box, e.g. Laravel. The tags hide while the list is empty.',
+                    ],
                 ],
             ],
         ],
