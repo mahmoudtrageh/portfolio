@@ -46,7 +46,7 @@ final class Profile
     }
 
     /**
-     * @return list<array{role: string, company: string, url: string}>
+     * @return list<array{role: string, company: string, url: string, work_mode: string}>
      */
     public static function previous(): array
     {
@@ -56,7 +56,12 @@ final class Profile
             $company = self::field($entry, 'company');
 
             if ($company !== '') {
-                $rows[] = ['role' => self::field($entry, 'role'), 'company' => $company, 'url' => self::field($entry, 'url')];
+                $rows[] = [
+                    'role' => self::field($entry, 'role'),
+                    'company' => $company,
+                    'url' => self::field($entry, 'url'),
+                    'work_mode' => self::workMode(self::field($entry, 'work_mode')),
+                ];
             }
         }
 
@@ -133,6 +138,18 @@ final class Profile
         }
 
         return $rows;
+    }
+
+    /**
+     * The label for a stored work mode ('remote', 'onsite'), localised; empty
+     * when unset or unknown.
+     */
+    private static function workMode(string $value): string
+    {
+        $label = $value !== '' ? config("dashboard.sections.previous_jobs.fields.work_mode.options.{$value}") : null;
+        $label = is_array($label) ? Content::localise($label) : '';
+
+        return is_string($label) ? $label : '';
     }
 
     /**
@@ -294,14 +311,14 @@ final class Profile
     }
 
     /**
-     * @return list<array{role: string, company: string, url: string}>
+     * @return list<array{role: string, company: string, url: string, work_mode: string}>
      */
     private static function defaultPrevious(): array
     {
         /** @var list<array{role: string, company: string, url: string}> $rows */
         $rows = Content::localise(self::seedPrevious());
 
-        return $rows;
+        return array_map(fn (array $row): array => $row + ['work_mode' => ''], $rows);
     }
 
     /**

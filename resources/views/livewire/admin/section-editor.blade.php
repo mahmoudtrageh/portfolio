@@ -286,6 +286,27 @@
                                         </div>
                                     </div>
 
+                                @elseif ($field['type'] === 'select')
+                                    <label for="f-{{ $i }}-{{ $key }}"
+                                           class="block text-sm font-medium mb-2">
+                                        {{ $fieldLabel }}
+                                    </label>
+                                    <select id="f-{{ $i }}-{{ $key }}"
+                                            wire:model="entries.{{ $i }}.{{ $key }}"
+                                            class="{{ $inputClass }}" style="{{ $inputStyle }}">
+                                        <option value="">{{ __('Not shown') }}</option>
+                                        @foreach ($field['options'] as $value => $optionLabel)
+                                            <option value="{{ $value }}">{{ Content::localise($optionLabel) }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @if (! empty($field['hint']))
+                                        <p class="mt-1.5 text-xs leading-relaxed"
+                                           style="color: var(--text-faint);">
+                                            {{ Content::localise($field['hint']) }}
+                                        </p>
+                                    @endif
+
                                 @elseif (in_array($field['type'], ['plain', 'date'], true))
                                     <label for="f-{{ $i }}-{{ $key }}"
                                            class="block text-sm font-medium mb-2">

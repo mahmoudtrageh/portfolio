@@ -51,7 +51,12 @@
 
                     <ul class="intro__previous">
                         @foreach ($previous as $job)
-                            <li>{!! __('Previously :role at :company.', ['role' => e($job['role']), 'company' => $link($job['url'], $job['company'])]) !!}</li>
+                            <li>
+                                {!! __('Previously :role at :company.', ['role' => e($job['role']), 'company' => $link($job['url'], $job['company'])]) !!}
+                                @if ($job['work_mode'] !== '')
+                                    <span class="intro__mode">({{ $job['work_mode'] }})</span>
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
 

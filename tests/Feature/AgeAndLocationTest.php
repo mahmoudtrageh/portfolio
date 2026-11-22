@@ -46,3 +46,28 @@ it('rejects a birthdate that is not a past date', function (string $value): void
         ->call('save')
         ->assertHasErrors('entries.0.birthdate');
 })->with(['next year' => '2099-01-01', 'garbage' => 'not a date']);
+
+it('shows the work mode in small text beside a previous job', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'previous_jobs'])
+        ->set('entries', [
+            ['company' => 'Tazamun', 'role' => ['ar' => 'مهندس', 'en' => 'Engineer'], 'url' => '', 'work_mode' => 'remote'],
+            ['company' => 'Algoriza', 'role' => ['ar' => 'مطوّر', 'en' => 'Developer'], 'url' => '', 'work_mode' => 'onsite'],
+        ])
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()
+        ->assertSee('<span class="intro__mode">(Remote)</span>', escape: false)
+        ->assertSee('<span class="intro__mode">(On-site)</span>', escape: false);
+
+    $this->get('/ar')->assertOk()->assertSee('(عن بُعد)')->assertSee('(من المقر)');
+});
+
+it('rejects an unknown work mode', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'previous_jobs'])
+        ->set('entries.0.work_mode', 'moon')
+        ->call('save')
+        ->assertHasErrors('entries.0.work_mode');
+});

@@ -17,6 +17,7 @@ declare(strict_types=1);
 |   markdown    multi-line, translated, rendered as Markdown when displayed
 |   plain       single-line, NOT translated (URLs, slugs, icon names)
 |   date        a calendar date, NOT translated, stored as YYYY-MM-DD
+|   select      one of 'options' (value => translated label), or empty
 |   list        repeatable plain strings (a tech stack)
 |   list.text   repeatable translated strings (bullet points)
 |   repeater    repeatable group of sub-fields
@@ -196,6 +197,18 @@ return [
             'fields' => [
                 'company' => ['type' => 'plain', 'label' => ['ar' => 'الشركة', 'en' => 'Company']],
                 'role' => ['type' => 'text', 'label' => ['ar' => 'المسمى', 'en' => 'Role']],
+                'work_mode' => [
+                    'type' => 'select',
+                    'label' => ['ar' => 'طريقة العمل', 'en' => 'Work mode'],
+                    'options' => [
+                        'remote' => ['ar' => 'عن بُعد', 'en' => 'Remote'],
+                        'onsite' => ['ar' => 'من المقر', 'en' => 'On-site'],
+                    ],
+                    'hint' => [
+                        'ar' => 'اختياري. يظهر بخط صغير بجانب الوظيفة.',
+                        'en' => 'Optional. Shown in small text beside the job.',
+                    ],
+                ],
                 'url' => [
                     'type' => 'plain',
                     'label' => ['ar' => 'رابط الشركة', 'en' => 'Company website'],

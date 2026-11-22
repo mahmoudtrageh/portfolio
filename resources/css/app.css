@@ -789,6 +789,14 @@
         margin-top: 0.15rem;
     }
 
+    /* Remote / On-site: a small, quiet note after the job line. */
+    .intro__mode {
+        margin-inline-start: 0.2rem;
+        font-size: 0.75rem;
+        color: var(--text-faint);
+        white-space: nowrap;
+    }
+
     /* Short desktop windows (e.g. a laptop with browser chrome): tighten the
        body copy so the whole intro still fits without scrolling. */
     @media (min-width: 64rem) and (max-height: 45rem) {
