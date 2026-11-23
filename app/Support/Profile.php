@@ -47,6 +47,10 @@ final class Profile
     }
 
     /**
+     * Previous jobs, newest first: by end month, then start month (YYYY-MM,
+     * set in the dashboard). Jobs with no dates keep their dashboard order,
+     * after the dated ones. The dates only sort; they are not displayed.
+     *
      * @return list<array{role: string, company: string, url: string, work_mode: string}>
      */
     public static function previous(): array
@@ -62,11 +66,27 @@ final class Profile
                     'company' => $company,
                     'url' => self::field($entry, 'url'),
                     'work_mode' => self::workMode(self::field($entry, 'work_mode')),
+                    'start' => self::field($entry, 'start'),
+                    'end' => self::field($entry, 'end'),
                 ];
             }
         }
 
-        return $rows !== [] ? $rows : self::defaultPrevious();
+        if ($rows === []) {
+            $rows = self::defaultPrevious();
+        }
+
+        // YYYY-MM strings compare correctly as text. usort is stable, so equal
+        // keys (e.g. no dates at all) keep their dashboard order.
+        $key = fn (array $row): array => [$row['end'] ?: $row['start'], $row['start']];
+        usort($rows, fn (array $a, array $b): int => $key($b) <=> $key($a));
+
+        return array_map(fn (array $row): array => [
+            'role' => $row['role'],
+            'company' => $row['company'],
+            'url' => $row['url'],
+            'work_mode' => $row['work_mode'],
+        ], $rows);
     }
 
     /**
@@ -289,10 +309,10 @@ final class Profile
     public static function seedPrevious(): array
     {
         return [
-            ['company' => 'Tazamun', 'role' => ['ar' => 'مهندس Backend', 'en' => 'Backend Engineer'], 'url' => ''],
-            ['company' => 'MAWAHEB LLC', 'role' => ['ar' => 'مطوّر Backend', 'en' => 'Backend Developer'], 'url' => ''],
-            ['company' => 'Algoriza', 'role' => ['ar' => 'مطوّر Backend', 'en' => 'Backend Developer'], 'url' => 'https://www.algoriza.com'],
-            ['company' => 'SpectraApps', 'role' => ['ar' => 'متدرّب PHP Laravel', 'en' => 'PHP Laravel Intern'], 'url' => ''],
+            ['company' => 'Tazamun', 'role' => ['ar' => 'مهندس Backend', 'en' => 'Backend Engineer'], 'url' => '', 'start' => '2023-09', 'end' => '2025-05'],
+            ['company' => 'MAWAHEB LLC', 'role' => ['ar' => 'مطوّر Backend', 'en' => 'Backend Developer'], 'url' => '', 'start' => '2023-03', 'end' => '2023-09'],
+            ['company' => 'Algoriza', 'role' => ['ar' => 'مطوّر Backend', 'en' => 'Backend Developer'], 'url' => 'https://www.algoriza.com', 'start' => '2020-08', 'end' => '2023-03'],
+            ['company' => 'SpectraApps', 'role' => ['ar' => 'متدرّب PHP Laravel', 'en' => 'PHP Laravel Intern'], 'url' => '', 'start' => '2018-12', 'end' => '2019-04'],
         ];
     }
 
@@ -341,11 +361,11 @@ final class Profile
     }
 
     /**
-     * @return list<array{role: string, company: string, url: string, work_mode: string}>
+     * @return list<array{role: string, company: string, url: string, work_mode: string, start: string, end: string}>
      */
     private static function defaultPrevious(): array
     {
-        /** @var list<array{role: string, company: string, url: string}> $rows */
+        /** @var list<array{role: string, company: string, url: string, start: string, end: string}> $rows */
         $rows = Content::localise(self::seedPrevious());
 
         return array_map(fn (array $row): array => $row + ['work_mode' => ''], $rows);

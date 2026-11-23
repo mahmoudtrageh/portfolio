@@ -789,6 +789,12 @@
         margin-top: 0.15rem;
     }
 
+    /* The alumni line sits apart from the jobs: a short rule above it. */
+    .intro__alumni {
+        padding-top: clamp(0.75rem, 2vh, 1.25rem);
+        border-top: 1px solid var(--border);
+    }
+
     /* Tech stack: small outlined tags, wrapping between them. */
     .intro__tags {
         display: flex;

@@ -150,7 +150,7 @@ final class SectionEditor extends Component
             $entry[$key] = match ($field['type']) {
                 'text', 'textarea', 'markdown' => $pair,
                 // One document, served in every language.
-                'plain', 'date', 'select', 'image', 'file' => '',
+                'plain', 'date', 'month', 'select', 'image', 'file' => '',
                 'bool' => false,
                 'list', 'list.text', 'repeater' => [],
                 default => '',
@@ -554,6 +554,10 @@ final class SectionEditor extends Component
 
                 if ($field['type'] === 'select') {
                     $rules["entries.{$i}.{$key}"] = ['nullable', 'in:'.implode(',', array_keys($field['options'] ?? []))];
+                }
+
+                if ($field['type'] === 'month') {
+                    $rules["entries.{$i}.{$key}"] = ['nullable', 'date_format:Y-m'];
                 }
 
                 if ($field['type'] === 'date') {

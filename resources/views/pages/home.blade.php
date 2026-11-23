@@ -64,6 +64,17 @@
                         @endforeach
                     </ul>
 
+                    {{-- Programme alumni line, set apart from the jobs above. The
+                         name links to the certificate scan, opened in the shared
+                         lightbox. --}}
+                    @php($m2gate = file_exists(storage_path('app/public/uploads/cert-m2gate.png')) ? Content::image('uploads/cert-m2gate.png') : '')
+                    <p class="intro__alumni">
+                        {!! __('Alumnus of :programme, an entrepreneurship programme by the William Davidson Institute at the University of Michigan.', [
+                            'programme' => $m2gate === ''
+                                ? '<span class="intro-strong">M²GATE</span>'
+                                : '<a href="'.e($m2gate).'" class="intro-link" x-data x-on:click.prevent="$dispatch(\'lightbox\', { src: \''.e($m2gate).'\', caption: \'M²GATE\' })">M²GATE</a>',
+                        ]) !!}                    </p>
+
                     @if ($techStack !== [])
                         <ul class="intro__tags" aria-label="{{ __('Tech stack') }}">
                             @foreach ($techStack as $tech)
