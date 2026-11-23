@@ -12,15 +12,20 @@ beforeEach(function (): void {
     $this->admin = User::factory()->create();
 });
 
-it('hides the photo caption while birthdate and location are empty', function (): void {
+it('leaves only the project count on the photo while birthdate, location and career start are empty', function (): void {
     Livewire::actingAs($this->admin)
         ->test(SectionEditor::class, ['section' => 'identity'])
         ->set('entries.0.birthdate', '')
         ->set('entries.0.location', ['ar' => '', 'en' => ''])
+        ->set('entries.0.career_start', '')
         ->call('save')
         ->assertHasNoErrors();
 
-    $this->get('/en')->assertOk()->assertDontSee('<figcaption class="intro__caption"', escape: false);
+    $this->get('/en')->assertOk()
+        ->assertSee('<figcaption class="intro__caption"', escape: false)
+        ->assertSee(Profile::projectCount().' projects')
+        ->assertDontSee('years old')
+        ->assertDontSee('yrs experience');
 });
 
 it('saves birthdate and location and shows them on the home photo', function (): void {
@@ -60,7 +65,7 @@ it('works out years of experience from the career start and shows them on the ho
     expect(Profile::experience())->toBe(6);
 
     $this->get('/en')->assertOk()
-        ->assertSeeInOrder(['29 years old', '6 years of experience'])
+        ->assertSeeInOrder(['29 years old', '6 yrs experience'])
         ->assertDontSee('2020-08-01');
     $this->get('/ar')->assertOk()->assertSee('خبرة 6 سنوات');
 });
@@ -78,7 +83,7 @@ it('shows experience alone on the photo when nothing else is set', function (): 
 
     $this->get('/en')->assertOk()
         ->assertSee('<figcaption class="intro__caption">', escape: false)
-        ->assertSee('6 years of experience');
+        ->assertSee('6 yrs experience');
 });
 
 it('rejects a career start that is not a past date', function (): void {

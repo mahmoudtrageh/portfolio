@@ -1742,5 +1742,65 @@
             },
             "publisher": "Arageek"
         }
+    },
+    {
+        "section": "side_projects",
+        "position": 0,
+        "data": {
+            "name": {
+                "ar": "وظيفة",
+                "en": "Waazefa"
+            },
+            "url": "https://waazefa.com/",
+            "about": {
+                "ar": "منصة وظائف تقنية في مصر",
+                "en": "A tech job board for Egypt"
+            }
+        }
+    },
+    {
+        "section": "side_projects",
+        "position": 1,
+        "data": {
+            "name": {
+                "ar": "قطفة",
+                "en": "Qotfa"
+            },
+            "url": "https://qotfa.com/",
+            "about": {
+                "ar": "نظام جاهز لشركات التوصيل",
+                "en": "A ready-made system for delivery companies"
+            }
+        }
+    },
+    {
+        "section": "side_projects",
+        "position": 2,
+        "data": {
+            "name": {
+                "ar": "كوميز",
+                "en": "Koomiz"
+            },
+            "url": "https://koomiz.binaasoft.com/",
+            "about": {
+                "ar": "نقاط بيع ومخزون وتقارير للمتاجر",
+                "en": "Point of sale, inventory and reports for shops"
+            }
+        }
+    },
+    {
+        "section": "side_projects",
+        "position": 3,
+        "data": {
+            "name": {
+                "ar": "سستم إدارة",
+                "en": "BinaaSoft Shop"
+            },
+            "url": "https://shop.binaasoft.com/",
+            "about": {
+                "ar": "برنامج لمحلات الموبايل ومراكز الصيانة",
+                "en": "Desktop software for phone shops and repair centres"
+            }
+        }
     }
 ]

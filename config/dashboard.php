@@ -74,7 +74,7 @@ return [
         ],
         'projects' => [
             'label' => ['ar' => 'صفحة المشاريع', 'en' => 'Projects page'],
-            'sections' => ['job_projects', 'freelance_projects'],
+            'sections' => ['job_projects', 'freelance_projects', 'side_projects'],
         ],
     ],
 
@@ -284,6 +284,25 @@ return [
             'description' => [
                 'ar' => 'مشاريع نفّذتها كعمل حر.',
                 'en' => 'Projects you delivered as a freelancer.',
+            ],
+            'type' => 'list',
+            'title' => 'name',
+            'fields' => [
+                'name' => ['type' => 'text', 'label' => ['ar' => 'الاسم', 'en' => 'Name']],
+                'about' => ['type' => 'text', 'label' => ['ar' => 'وصف قصير', 'en' => 'Short description']],
+                'url' => [
+                    'type' => 'plain',
+                    'label' => ['ar' => 'الرابط', 'en' => 'URL'],
+                    'hint' => ['ar' => 'اختياري.', 'en' => 'Optional.'],
+                ],
+            ],
+        ],
+
+        'side_projects' => [
+            'label' => ['ar' => 'مشاريع جانبية', 'en' => 'Side projects'],
+            'description' => [
+                'ar' => 'منتجات بنيتها بنفسك. تظهر كمجموعة «مشاريع جانبية» في صفحة المشاريع، بالترتيب.',
+                'en' => 'Products you built on your own. Shown as the "Side projects" group on the Projects page, in order.',
             ],
             'type' => 'list',
             'title' => 'name',

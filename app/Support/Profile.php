@@ -48,8 +48,10 @@ final class Profile
 
     /**
      * Previous jobs, newest first: by end month, then start month (YYYY-MM,
-     * set in the dashboard). Jobs with no dates keep their dashboard order,
-     * after the dated ones. Only the start year is displayed.
+     * set in the dashboard). Jobs with no dates count as the most recent, so
+     * they stay on top in their dashboard order and dated jobs settle below:
+     * dating only the oldest job puts it at the bottom. Only the start year
+     * is displayed.
      *
      * @return list<array{role: string, company: string, url: string, work_mode: string, year: string}>
      */
@@ -76,9 +78,10 @@ final class Profile
             $rows = self::defaultPrevious();
         }
 
-        // YYYY-MM strings compare correctly as text. usort is stable, so equal
-        // keys (e.g. no dates at all) keep their dashboard order.
-        $key = fn (array $row): array => [$row['end'] ?: $row['start'], $row['start']];
+        // YYYY-MM strings compare correctly as text; an undated job sorts as
+        // '9999' (newest). usort is stable, so equal keys (e.g. several undated
+        // jobs) keep their dashboard order.
+        $key = fn (array $row): array => [$row['end'] ?: $row['start'] ?: '9999', $row['start'] ?: '9999'];
         usort($rows, fn (array $a, array $b): int => $key($b) <=> $key($a));
 
         return array_map(fn (array $row): array => [
@@ -131,6 +134,8 @@ final class Profile
 
         $jobs = self::projects('job_projects');
         $freelance = self::projects('freelance_projects');
+        // No built-in fallback: emptying the list in the dashboard hides the group.
+        $side = self::projects('side_projects');
 
         return array_values(array_filter([
             [
@@ -151,6 +156,11 @@ final class Profile
                 'title' => self::t('As a freelancer'),
                 'lead' => self::t('Seven years of freelance full-stack work, alongside my full-time roles.'),
                 'items' => $freelance !== [] ? $freelance : self::defaultFreelanceProjects(),
+            ],
+            [
+                'title' => self::t('Side projects'),
+                'lead' => self::t('Products I built and run on my own.'),
+                'items' => $side,
             ],
         ], fn (array $group): bool => $group['items'] !== []));
     }
@@ -222,6 +232,46 @@ final class Profile
     public static function experience(): ?int
     {
         return self::yearsSince('identity.career_start');
+    }
+
+    /**
+     * How many projects the Projects page lists, across every group.
+     */
+    public static function projectCount(): int
+    {
+        return array_sum(array_map(fn (array $group): int => count($group['items']), self::projectGroups()));
+    }
+
+    /**
+     * "14 projects" / "١٤ مشروعًا", with the Arabic noun form the count needs;
+     * empty for none.
+     */
+    public static function projectCountLabel(): string
+    {
+        return self::countLabel(self::projectCount());
+    }
+
+    /**
+     * The project-count wording for a given number, in the active locale.
+     */
+    public static function countLabel(int $count): string
+    {
+        if ($count === 0) {
+            return '';
+        }
+
+        if (app()->getLocale() !== 'ar') {
+            return $count === 1 ? self::t('1 project') : self::t(':count projects', ['count' => (string) $count]);
+        }
+
+        $digits = strtr((string) $count, ['0' => '٠', '1' => '١', '2' => '٢', '3' => '٣', '4' => '٤', '5' => '٥', '6' => '٦', '7' => '٧', '8' => '٨', '9' => '٩']);
+
+        return match (true) {
+            $count === 1 => 'مشروع واحد',
+            $count === 2 => 'مشروعان',
+            $count % 100 >= 3 && $count % 100 <= 10 => $digits.' مشاريع',
+            default => $digits.' مشروعًا',
+        };
     }
 
     /**
@@ -376,6 +426,21 @@ final class Profile
             ['name' => ['ar' => 'MatX', 'en' => 'MatX'], 'url' => 'https://matxapp.com', 'about' => ['ar' => 'سوق للأثاث ومواد التصميم', 'en' => 'A marketplace for furniture and design materials']],
             ['name' => ['ar' => 'DSync Solutions', 'en' => 'DSync Solutions'], 'url' => 'https://www.dsyncsolutions.com/en/', 'about' => ['ar' => 'منصة لتتبّع الأصول', 'en' => 'An asset tracking platform']],
             ['name' => ['ar' => 'عمرة بدل', 'en' => 'Umrah Badl'], 'url' => 'https://play.google.com/store/apps/details?id=com.umrahbadl.umrahbadl', 'about' => ['ar' => 'يربط من يريد أداء العمرة عن قريب له بمتطوعين', 'en' => 'Connects people who want Umrah performed for a relative with volunteers']],
+        ];
+    }
+
+    /**
+     * Seeded into the dashboard by SideProjectsSeeder.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function seedSideProjects(): array
+    {
+        return [
+            ['name' => ['ar' => 'وظيفة', 'en' => 'Waazefa'], 'url' => 'https://waazefa.com/', 'about' => ['ar' => 'منصة وظائف تقنية في مصر', 'en' => 'A tech job board for Egypt']],
+            ['name' => ['ar' => 'قطفة', 'en' => 'Qotfa'], 'url' => 'https://qotfa.com/', 'about' => ['ar' => 'نظام جاهز لشركات التوصيل', 'en' => 'A ready-made system for delivery companies']],
+            ['name' => ['ar' => 'كوميز', 'en' => 'Koomiz'], 'url' => 'https://koomiz.binaasoft.com/', 'about' => ['ar' => 'نقاط بيع ومخزون وتقارير للمتاجر', 'en' => 'Point of sale, inventory and reports for shops']],
+            ['name' => ['ar' => 'سستم إدارة', 'en' => 'BinaaSoft Shop'], 'url' => 'https://shop.binaasoft.com/', 'about' => ['ar' => 'برنامج لمحلات الموبايل ومراكز الصيانة', 'en' => 'Desktop software for phone shops and repair centres']],
         ];
     }
 

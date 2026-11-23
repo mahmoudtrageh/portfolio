@@ -4,10 +4,10 @@
     <section class="shell page page--fit">
         <header class="page__head fade-up">
             <h1 class="page__title">{{ __('Projects') }}</h1>
-            <p class="page__lead">{{ __('A selection of the products I have built at work and as a freelancer.') }}</p>
+            <p class="page__lead">{{ __('A selection of the products I have built at work, as a freelancer and on my own.') }}</p>
         </header>
 
-        <div class="projects fade-up">
+        <div class="projects fade-up" style="--groups: {{ count($groups) }};">
             @foreach ($groups as $group)
                 <section class="projects__group">
                     <div>

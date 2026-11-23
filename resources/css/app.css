@@ -950,6 +950,7 @@
     }
 
     .page--fit .page__head {
+        max-width: 48rem;
         margin-bottom: clamp(1.5rem, 5vh, 3.5rem);
     }
 
@@ -969,8 +970,9 @@
 
     @media (min-width: 64rem) {
         .projects {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            column-gap: clamp(2rem, 3.5vw, 3.5rem);
+            /* One column per group; --groups is set by the view. */
+            grid-template-columns: repeat(var(--groups, 3), minmax(0, 1fr));
+            column-gap: clamp(1.75rem, 3vw, 3.5rem);
             row-gap: 0;
         }
 
@@ -1068,6 +1070,10 @@
 
         .projects__row {
             padding-block: clamp(0.45rem, 1.1vh, 0.7rem);
+        }
+
+        .projects__lead {
+            line-height: 1.45;
         }
     }
 }

@@ -13,6 +13,8 @@
     $age = Profile::age();
     $experience = Profile::experience();
     $location = Profile::location();
+    // Every project on the Projects page; follows the dashboard lists.
+    $projects = Profile::projectCountLabel();
     $techStack = Profile::techStack();
 
     // Managed in the dashboard (Profile → CV). An uploaded file is a stored
@@ -102,7 +104,7 @@
                         <span aria-hidden="true">{{ mb_substr((string) $identity['name'], 0, 1) }}</span>
                     @endif
 
-                    @if ($location !== '' || $age !== null || $experience !== null)
+                    @if ($location !== '' || $age !== null || $experience !== null || $projects !== '')
                         <figcaption class="intro__caption">
                             @if ($location !== '')
                                 <span class="intro__caption-item">
@@ -120,16 +122,25 @@
                             @if ($age !== null)
                                 <span class="intro__caption-item">{{ __(':age years old', ['age' => $age]) }}</span>
                             @endif
-                            {{-- Its own line: too long to share one with the
-                                 location and age on a narrow photo. --}}
-                            @if ($experience !== null)
+                            {{-- Work facts on a line of their own: too long to
+                                 share one with the location and age on a
+                                 narrow photo. --}}
+                            @if ($experience !== null || $projects !== '')
                                 <span class="intro__caption-item intro__caption-line">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                         <rect x="3" y="7" width="18" height="13" rx="2"/>
                                         <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/>
                                     </svg>
-                                    {{ __(':years years of experience', ['years' => $experience]) }}
+                                    @if ($experience !== null)
+                                        {{ __(':years yrs experience', ['years' => $experience]) }}
+                                    @endif
+                                    @if ($experience !== null && $projects !== '')
+                                        <span class="intro__caption-dot" aria-hidden="true">·</span>
+                                    @endif
+                                    @if ($projects !== '')
+                                        {{ $projects }}
+                                    @endif
                                 </span>
                             @endif
                         </figcaption>
