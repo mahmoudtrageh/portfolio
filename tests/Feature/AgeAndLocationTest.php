@@ -47,6 +47,48 @@ it('rejects a birthdate that is not a past date', function (string $value): void
         ->assertHasErrors('entries.0.birthdate');
 })->with(['next year' => '2099-01-01', 'garbage' => 'not a date']);
 
+it('works out years of experience from the career start and shows them on the home photo', function (): void {
+    Carbon::setTestNow('2026-11-22');
+
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'identity'])
+        ->set('entries.0.birthdate', '1996-12-01')
+        ->set('entries.0.career_start', '2020-08-01')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    expect(Profile::experience())->toBe(6);
+
+    $this->get('/en')->assertOk()
+        ->assertSeeInOrder(['29 years old', '6 years of experience'])
+        ->assertDontSee('2020-08-01');
+    $this->get('/ar')->assertOk()->assertSee('خبرة 6 سنوات');
+});
+
+it('shows experience alone on the photo when nothing else is set', function (): void {
+    Carbon::setTestNow('2026-11-22');
+
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'identity'])
+        ->set('entries.0.birthdate', '')
+        ->set('entries.0.location', ['ar' => '', 'en' => ''])
+        ->set('entries.0.career_start', '2020-08-01')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()
+        ->assertSee('<figcaption class="intro__caption">', escape: false)
+        ->assertSee('6 years of experience');
+});
+
+it('rejects a career start that is not a past date', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'identity'])
+        ->set('entries.0.career_start', '2099-01-01')
+        ->call('save')
+        ->assertHasErrors('entries.0.career_start');
+});
+
 it('shows the work mode in small text beside a previous job', function (): void {
     Livewire::actingAs($this->admin)
         ->test(SectionEditor::class, ['section' => 'previous_jobs'])

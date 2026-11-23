@@ -200,19 +200,37 @@ final class Profile
      */
     public static function age(): ?int
     {
-        $birthdate = trim((string) Content::get('identity.birthdate', ''));
+        return self::yearsSince('identity.birthdate');
+    }
 
-        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate) !== 1) {
+    /**
+     * Years of experience, in whole years, from the dashboard's software
+     * career start date; null while it is unset, unreadable or under a year.
+     */
+    public static function experience(): ?int
+    {
+        return self::yearsSince('identity.career_start');
+    }
+
+    /**
+     * Whole years from a stored Y-m-d date until today, or null when the date
+     * is unset, unreadable, or less than a year ago.
+     */
+    private static function yearsSince(string $key): ?int
+    {
+        $date = trim((string) Content::get($key, ''));
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1) {
             return null;
         }
 
         try {
-            $age = (int) Carbon::parse($birthdate)->diffInYears(Carbon::today());
+            $years = (int) Carbon::parse($date)->diffInYears(Carbon::today());
         } catch (\Throwable) {
             return null;
         }
 
-        return $age > 0 ? $age : null;
+        return $years > 0 ? $years : null;
     }
 
     /**

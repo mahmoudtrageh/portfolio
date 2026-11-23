@@ -743,6 +743,12 @@
         opacity: 0.7;
     }
 
+    /* Years of experience: centred on a line of its own under location/age. */
+    .intro__caption-line {
+        flex-basis: 100%;
+        justify-content: center;
+    }
+
     .intro__figure > img,
     .intro__figure > span {
         border-radius: 1rem;

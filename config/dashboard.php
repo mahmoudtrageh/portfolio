@@ -126,6 +126,14 @@ return [
                         'en' => 'Optional. Used to work out your age, shown on your photo on the home page. The date itself is never shown.',
                     ],
                 ],
+                'career_start' => [
+                    'type' => 'date',
+                    'label' => ['ar' => 'بداية مسيرتك في البرمجة', 'en' => 'Software career start'],
+                    'hint' => [
+                        'ar' => 'اختياري. يُستخدم لحساب سنوات خبرتك وإظهارها على صورتك في الصفحة الرئيسية. التاريخ نفسه لا يُعرض.',
+                        'en' => 'Optional. Used to work out your years of experience, shown on your photo on the home page. The date itself is never shown.',
+                    ],
+                ],
                 'location' => [
                     'type' => 'text',
                     'optional' => true,

@@ -9,8 +9,9 @@
     $firstName = strtok((string) $identity['name'], ' ');
     $locale = app()->getLocale();
 
-    // Both optional (dashboard → Profile); the caption hides when both are empty.
+    // All optional (dashboard → Profile); the caption hides when all are empty.
     $age = Profile::age();
+    $experience = Profile::experience();
     $location = Profile::location();
     $techStack = Profile::techStack();
 
@@ -96,7 +97,7 @@
                         <span aria-hidden="true">{{ mb_substr((string) $identity['name'], 0, 1) }}</span>
                     @endif
 
-                    @if ($location !== '' || $age !== null)
+                    @if ($location !== '' || $age !== null || $experience !== null)
                         <figcaption class="intro__caption">
                             @if ($location !== '')
                                 <span class="intro__caption-item">
@@ -113,6 +114,18 @@
                             @endif
                             @if ($age !== null)
                                 <span class="intro__caption-item">{{ __(':age years old', ['age' => $age]) }}</span>
+                            @endif
+                            {{-- Its own line: too long to share one with the
+                                 location and age on a narrow photo. --}}
+                            @if ($experience !== null)
+                                <span class="intro__caption-item intro__caption-line">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="3" y="7" width="18" height="13" rx="2"/>
+                                        <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/>
+                                    </svg>
+                                    {{ __(':years years of experience', ['years' => $experience]) }}
+                                </span>
                             @endif
                         </figcaption>
                     @endif
