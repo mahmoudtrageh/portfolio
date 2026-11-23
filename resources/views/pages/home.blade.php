@@ -61,6 +61,9 @@
                                 @if ($job['work_mode'] !== '')
                                     <span class="intro__mode">({{ $job['work_mode'] }})</span>
                                 @endif
+                                @if ($job['year'] !== '')
+                                    <span class="intro__mode">· {{ $job['year'] }}</span>
+                                @endif
                             </li>
                         @endforeach
                     </ul>
@@ -74,7 +77,9 @@
                             'programme' => $m2gate === ''
                                 ? '<span class="intro-strong">M²GATE</span>'
                                 : '<a href="'.e($m2gate).'" class="intro-link" x-data x-on:click.prevent="$dispatch(\'lightbox\', { src: \''.e($m2gate).'\', caption: \'M²GATE\' })">M²GATE</a>',
-                        ]) !!}                    </p>
+                        ]) !!}
+                        <span class="intro__mode">· {{ Profile::year('2018') }}</span>
+                    </p>
 
                     @if ($techStack !== [])
                         <ul class="intro__tags" aria-label="{{ __('Tech stack') }}">

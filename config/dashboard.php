@@ -47,13 +47,9 @@ $workMode = [
     ],
 ];
 
-// Start/end of a previous job, as a month (YYYY-MM). Only used to sort the
-// jobs on the home page; never displayed.
-$month = fn (array $label): array => [
-    'type' => 'month',
-    'label' => $label,
-    'hint' => ['ar' => 'اختياري. يُستخدم لترتيب الوظائف فقط ولا يظهر في الموقع.', 'en' => 'Optional. Only used to sort the jobs; not shown on the site.'],
-];
+// Start/end of a previous job, as a month (YYYY-MM). Sorts the jobs on the
+// home page; the start year is also shown beside the job.
+$month = fn (array $label, array $hint): array => ['type' => 'month', 'label' => $label, 'hint' => $hint];
 
 return [
 
@@ -229,8 +225,14 @@ return [
                 'company' => ['type' => 'plain', 'label' => ['ar' => 'الشركة', 'en' => 'Company']],
                 'role' => ['type' => 'text', 'label' => ['ar' => 'المسمى', 'en' => 'Role']],
                 'work_mode' => $workMode,
-                'start' => $month(['ar' => 'تاريخ البدء', 'en' => 'Start date']),
-                'end' => $month(['ar' => 'تاريخ الانتهاء', 'en' => 'End date']),
+                'start' => $month(
+                    ['ar' => 'تاريخ البدء', 'en' => 'Start date'],
+                    ['ar' => 'اختياري. سنة البدء تظهر بجانب الوظيفة، والتاريخ يُستخدم في الترتيب.', 'en' => 'Optional. The year is shown beside the job; the date sorts the list.'],
+                ),
+                'end' => $month(
+                    ['ar' => 'تاريخ الانتهاء', 'en' => 'End date'],
+                    ['ar' => 'اختياري. يُستخدم لترتيب الوظائف فقط ولا يظهر في الموقع.', 'en' => 'Optional. Only used to sort the jobs; not shown on the site.'],
+                ),
                 'url' => [
                     'type' => 'plain',
                     'label' => ['ar' => 'رابط الشركة', 'en' => 'Company website'],

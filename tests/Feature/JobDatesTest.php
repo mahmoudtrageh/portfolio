@@ -10,7 +10,7 @@ beforeEach(function (): void {
     $this->admin = User::factory()->create();
 });
 
-it('sorts previous jobs newest first without showing the dates', function (): void {
+it('sorts previous jobs newest first and shows only the start year', function (): void {
     Livewire::actingAs($this->admin)
         ->test(SectionEditor::class, ['section' => 'previous_jobs'])
         ->set('entries', [
@@ -22,13 +22,15 @@ it('sorts previous jobs newest first without showing the dates', function (): vo
         ->assertHasNoErrors();
 
     $this->get('/en')->assertOk()
-        ->assertSeeInOrder(['Newer', 'Older', 'Undated', 'Alumnus of'])
+        ->assertSeeInOrder(['Newer', '· 2023', 'Older', '· 2020', 'Undated', 'Alumnus of'])
         ->assertDontSee('2023-09')
-        ->assertDontSee('Sep 2023');
+        ->assertDontSee('2025');
+
+    $this->get('/ar')->assertOk()->assertSee('· ٢٠٢٣');
 });
 
-it('keeps the M2GATE line after the jobs, set apart', function (): void {
-    $this->get('/en')->assertOk()->assertSeeInOrder(['intro__previous', 'class="intro__alumni"', 'M²GATE'], escape: false);
+it('keeps the M2GATE line after the jobs, set apart, with its year', function (): void {
+    $this->get('/en')->assertOk()->assertSeeInOrder(['intro__previous', 'class="intro__alumni"', 'M²GATE', '· 2018'], escape: false);
 });
 
 it('rejects a job date that is not a month', function (): void {

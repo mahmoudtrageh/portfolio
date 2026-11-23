@@ -49,9 +49,9 @@ final class Profile
     /**
      * Previous jobs, newest first: by end month, then start month (YYYY-MM,
      * set in the dashboard). Jobs with no dates keep their dashboard order,
-     * after the dated ones. The dates only sort; they are not displayed.
+     * after the dated ones. Only the start year is displayed.
      *
-     * @return list<array{role: string, company: string, url: string, work_mode: string}>
+     * @return list<array{role: string, company: string, url: string, work_mode: string, year: string}>
      */
     public static function previous(): array
     {
@@ -86,7 +86,19 @@ final class Profile
             'company' => $row['company'],
             'url' => $row['url'],
             'work_mode' => $row['work_mode'],
+            'year' => preg_match('/^\d{4}/', $row['start'], $m) === 1 ? self::year($m[0]) : '',
         ], $rows);
+    }
+
+    /**
+     * A four-digit year for display, in Arabic-Indic digits on the Arabic
+     * site (matching the certificate dates).
+     */
+    public static function year(string $year): string
+    {
+        return app()->getLocale() === 'ar'
+            ? strtr($year, ['0' => '٠', '1' => '١', '2' => '٢', '3' => '٣', '4' => '٤', '5' => '٥', '6' => '٦', '7' => '٧', '8' => '٨', '9' => '٩'])
+            : $year;
     }
 
     /**
