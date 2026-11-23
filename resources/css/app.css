@@ -644,7 +644,9 @@
 
     @media (min-width: 64rem) {
         .intro__grid {
-            grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
+            /* The photo column hugs the photo (up to 30rem), so the text gets
+               the width a narrower photo leaves and wraps onto fewer lines. */
+            grid-template-columns: minmax(0, 1fr) fit-content(30rem);
             gap: 3.5rem;
         }
     }
@@ -687,7 +689,9 @@
     .intro__photo {
         order: -1;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
     }
 
     /* Hugs the photo so the caption sits on the image, not the column. */
@@ -768,7 +772,7 @@
     @media (min-width: 64rem) {
         .intro__photo {
             order: 0;
-            justify-content: flex-end;
+            align-items: flex-end;
         }
     }
 
@@ -824,7 +828,11 @@
 
     /* Short desktop windows (e.g. a laptop with browser chrome): tighten the
        body copy so the whole intro still fits without scrolling. */
-    @media (min-width: 64rem) and (max-height: 45rem) {
+    @media (min-width: 64rem) and (max-height: 50rem) {
+        .intro {
+            padding-block: clamp(1rem, 3vh, 2rem);
+        }
+
         .intro__body {
             font-size: 1rem;
             line-height: 1.6;
@@ -832,6 +840,18 @@
 
         .intro__previous > li + li {
             margin-top: 0;
+        }
+
+        .intro__title {
+            font-size: clamp(2.5rem, min(6vw, 7.5vh), 4.25rem);
+        }
+
+        .intro__body > * + * {
+            margin-top: clamp(0.6rem, 1.6vh, 1rem);
+        }
+
+        .intro__alumni {
+            padding-top: 0.6rem;
         }
 
         .intro__photo img {

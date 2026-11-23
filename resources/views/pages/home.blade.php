@@ -83,15 +83,6 @@
                         </ul>
                     @endif
 
-                    @if ($cv !== '')
-                        <a href="{{ $cv }}" target="_blank" rel="noopener" class="intro-cv">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
-                            </svg>
-                            {{ __('Download my CV') }}
-                        </a>
-                    @endif
                 </div>
             </div>
 
@@ -126,6 +117,18 @@
                         </figcaption>
                     @endif
                 </figure>
+
+                {{-- Under the photo rather than at the end of the text, which is
+                     the taller column; keeps the intro within one screen. --}}
+                @if ($cv !== '')
+                    <a href="{{ $cv }}" target="_blank" rel="noopener" class="intro-cv">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+                        </svg>
+                        {{ __('Download my CV') }}
+                    </a>
+                @endif
             </div>
         </div>
 
