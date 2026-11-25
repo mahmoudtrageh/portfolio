@@ -17,5 +17,11 @@ final class DatabaseSeeder extends Seeder
         $this->call(is_file(SiteContentSeeder::directory().'/content.json')
             ? SiteContentSeeder::class
             : ContentSeeder::class);
+
+        // Each only adds what is missing, so they are safe after either one.
+        $this->call([
+            SideProjectsSeeder::class,
+            ProjectsSeeder::class,
+        ]);
     }
 }
