@@ -36,3 +36,25 @@ it('runs from the database seeder', function (): void {
 
     expect($names)->toContain('Longimanus Liveaboard', 'Larabuilder');
 });
+
+it('never replaces existing content when the database seeder runs', function (): void {
+    $row = ContentSection::query()->create([
+        'section' => 'job_projects',
+        'position' => 99,
+        'data' => ['name' => ['ar' => 'معدّل', 'en' => 'Edited in production'], 'about' => ['ar' => '', 'en' => ''], 'url' => ''],
+    ]);
+    $count = ContentSection::query()->count();
+
+    $this->seed(DatabaseSeeder::class);
+
+    expect(ContentSection::query()->find($row->id)?->data['name']['en'])->toBe('Edited in production')
+        ->and(ContentSection::query()->count())->toBeGreaterThanOrEqual($count);
+});
+
+it('loads the full content into an empty database', function (): void {
+    ContentSection::query()->delete();
+
+    $this->seed(DatabaseSeeder::class);
+
+    expect(ContentSection::query()->section('identity')->exists())->toBeTrue();
+});

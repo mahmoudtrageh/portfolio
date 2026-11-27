@@ -106,8 +106,8 @@ final class Profile
 
     /**
      * The technologies listed on the home page, trimmed and without blanks.
-     * Falls back to the built-in list only while the section was never saved,
-     * so emptying it in the dashboard hides the line.
+     * No built-in fallback: until the list is set in the dashboard (or after
+     * it is emptied there) it is empty and the line is hidden.
      *
      * @return list<string>
      */
@@ -115,8 +115,8 @@ final class Profile
     {
         $stored = Content::get('tech_stack', []);
 
-        if (! is_array($stored) || ! array_key_exists('items', $stored)) {
-            return self::seedTechStack();
+        if (! is_array($stored) || ! is_array($stored['items'] ?? null)) {
+            return [];
         }
 
         return array_values(array_filter(

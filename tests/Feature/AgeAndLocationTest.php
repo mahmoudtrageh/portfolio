@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Livewire\Admin\SectionEditor;
+use App\Models\ContentSection;
 use App\Models\User;
+use App\Support\Content;
 use App\Support\Profile;
 use Illuminate\Support\Carbon;
 use Livewire\Livewire;
@@ -131,6 +133,12 @@ it('shows the work mode beside the current job', function (): void {
 });
 
 it('shows the tech stack as tags after the jobs, edited from the dashboard', function (): void {
+    Livewire::actingAs($this->admin)
+        ->test(SectionEditor::class, ['section' => 'tech_stack'])
+        ->set('entries.0.items', ['Laravel'])
+        ->call('save')
+        ->assertHasNoErrors();
+
     $this->get('/en')->assertOk()->assertSee('<li class="intro__tag">Laravel</li>', escape: false);
 
     Livewire::actingAs($this->admin)
@@ -150,6 +158,15 @@ it('hides the tech tags once the list is emptied', function (): void {
         ->set('entries.0.items', [])
         ->call('save')
         ->assertHasNoErrors();
+
+    $this->get('/en')->assertOk()->assertDontSee('<ul class="intro__tags"', escape: false);
+});
+
+it('shows no tech tags while the tech stack was never set', function (): void {
+    ContentSection::query()->section('tech_stack')->delete();
+    Content::flush();
+
+    expect(Profile::techStack())->toBe([]);
 
     $this->get('/en')->assertOk()->assertDontSee('<ul class="intro__tags"', escape: false);
 });
